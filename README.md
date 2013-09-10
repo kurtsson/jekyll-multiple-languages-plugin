@@ -1,5 +1,6 @@
-#Jekyll Assets Multiple Languages
-===
+Jekyll Assets Multiple Languages
+================================
+
 Jekyll Assets Multiple Languages is an internationalization plugin for [Jekyll](https://github.com/mojombo/jekyll) and [Jekyll Assets](https://github.com/ixti/jekyll-assets). It compiles your Jekyll site for one and more languages with a similar approach as Rails.
 
 ##Installation
@@ -28,8 +29,11 @@ To update:
 ##Usage
 ###Configuration
 Add the i18n configuration to your _config.yml:
-	
-	languages: ["sv", "en", "de", "fr"]
+
+```yaml	
+languages: ["sv", "en", "de", "fr"]
+```
+
 The first language in the array will be the default language, English, German and French will be added in to separate subfolders.
 
 ###i18n
@@ -45,36 +49,48 @@ Create this folder structure in your Jekyll project as an example:
     - /_i18/fr/pagename/blockname.md
 
 To add a string to your site use 
-	
-	{% t key ‰}
-	or 
-	{% translate key ‰}
+
+```liquid	
+{% t key ‰}
+or 
+{% translate key ‰}
+```
 	
 Liquid tag. This will pick the correct string from the `language.yml` file during compilation.
 
 The language.yml files are written in YAML syntax which caters for a simple grouping of strings.
 
-	global:
-  		swedish: Svenska
-		english: English
-	pages:
-		home: Home
-  		work: Work
+```yaml
+global:
+	swedish: Svenska
+	english: English
+pages:
+	home: Home
+	work: Work
+```
+	
   To access the english key, use this tag:
-  	
-  	{% t global.english ‰} 
-  	or 
-  	{% translate global.english ‰}
+
+```liquid  	
+{% t global.english ‰} 
+or 
+{% translate global.english ‰}
+```
   	
 The plugin also supports using different markdown files for different languages using the 
-	
-	{% tf pagename/blockname.md ‰} 
-	or 
-	{% translate_file pagename/blockname.md ‰}
+
+```liquid	
+{% tf pagename/blockname.md ‰} 
+or 
+{% translate_file pagename/blockname.md ‰}
+```
 
 This plugin have exactly the same support and syntax as the built in
-	
-	{% include file ‰}
+
+```liquid	
+{% include file ‰}
+```
+
 tag, so plugins that extends its functionality should be picked up by this plugin as well.
   
 ###i18n in templates
@@ -82,42 +98,53 @@ Sometimes it is convenient to add keys even in template files. This works in the
 
 A perfect example is this:
 
-	<html>
-		<head>
-			<title>{% t page.title %}</title>
-		</head>
-	</html>
+```html
+<html>
+	<head>
+		<title>{% t page.title %}</title>
+	</head>
+</html>
+```
 	
 So how can I add different translated titles to all pages? Don't worry, it's easy. The Multiple Languages plugin supports Liguid variables as well as strings so define a page variable in your page definition
 
-	--- 
-	layout: default
-	title: titles.home
-	--- 
+```yaml
+--- 
+layout: default
+title: titles.home
+--- 
+```	
 	
 and `<title>{% t page.title %}</title>` will pick up the `titles.home` key from `language.yml`
-	
-	titles:
-		home: "Home"
+
+```yaml	
+titles:
+	home: "Home"
+```
 		
 ##Linking between languages
 This plugin gives you the variables
 	
-	{{ page.lang }}
+```liquid
+{{ page.lang }}
 	
-	and
+and
 	
-	{{ site.baseurl_root }}
+{{ site.baseurl_root }}
+```
+	
 to play with in your template files.
 
 This allows you to create solutions like this:
 
-	{% if site.lang == "sv" %}
-		{% capture link1 %}{{ site.baseurl_root }}en{{ page.url}}{% endcapture %}
-		<a href="{{ link1 }}" >{% t global.english %}</a>
-	{% else if site.lang == "en" %}
-		{% capture link2 %}{{ site.baseurl_root }}{{ page.url | remove_first: '/'  }}{% endcapture %}
-		<a href="{{ link2 }}" >{% t global.swedish %}</a>
-	{% endif %}
+```liquid
+{% if site.lang == "sv" %}
+	{% capture link1 %}{{ site.baseurl_root }}en{{ page.url}}{% endcapture %}
+	<a href="{{ link1 }}" >{% t global.english %}</a>
+{% else if site.lang == "en" %}
+	{% capture link2 %}{{ site.baseurl_root }}{{ page.url | remove_first: '/'  }}{% endcapture %}
+	<a href="{{ link2 }}" >{% t global.swedish %}</a>
+{% endif %}
+```
 	
 This code will add an `"English"` link in the Swedish pages and the other way around in the English pages.
