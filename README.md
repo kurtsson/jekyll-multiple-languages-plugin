@@ -1,7 +1,7 @@
 Jekyll Assets Multiple Languages
 ================================
 
-Jekyll Assets Multiple Languages is an internationalization plugin for [Jekyll](https://github.com/mojombo/jekyll) and [Jekyll Assets](https://github.com/ixti/jekyll-assets). It compiles your Jekyll site for one and more languages with a similar approach as Rails.
+Jekyll Multiple Languages is an internationalization plugin for [Jekyll](https://github.com/mojombo/jekyll). It compiles your Jekyll site for one and more languages with a similar approach as Rails.
 
 ##Installation
 Copy or link `multiple-languages-plugin.rb` into your `_plugins` folder
@@ -12,17 +12,17 @@ manage your plugins by utilizing git submodules.
 
 To install this plugin as a git submodule:
 
-    git submodule add git://github.com/screeninteraction/jekyll-assets-multiple-languages.git _plugins/jekyll-assets-multiple-languages
+    git submodule add git://github.com/screeninteraction/jekyll-multiple-languages.git _plugins/jekyll-multiple-languages
 
 To update:
 
-    cd _plugins/jekyll-assets-multiple-languages
+    cd _plugins/jekyll-multiple-languages
     git pull origin master
     
 ###Features
 * Supports multiple languages with the same code base.
-* Supports all template languages that your Jekyll Assets pipeline supports.
-* Use [Liquid tags](https://github.com/Shopify/liquid) in your HTML for string handling.
+* Supports all template languages that your Liquid pipeline supports.
+* Uses [Liquid tags](https://github.com/Shopify/liquid) in your HTML for string handling.
 * Compiles languages into separate subfolders.
 * Even works with the -watch flag turned on.
 
@@ -48,7 +48,7 @@ Create this folder structure in your Jekyll project as an example:
     - /_i18/de/pagename/blockname.md
     - /_i18/fr/pagename/blockname.md
 
-To add a string to your site use 
+To add a string to your site use one of these
 
 ```liquid	
 {% t key ‰}
@@ -56,7 +56,7 @@ or
 {% translate key ‰}
 ```
 	
-Liquid tag. This will pick the correct string from the `language.yml` file during compilation.
+Liquid tags. This will pick the correct string from the `language.yml` file during compilation.
 
 The language.yml files are written in YAML syntax which caters for a simple grouping of strings.
 
