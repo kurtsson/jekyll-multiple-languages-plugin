@@ -1,4 +1,4 @@
-Jekyll Assets Multiple Languages
+Jekyll Multiple Languages Plugin
 ================================
 
 Jekyll Multiple Languages is an internationalization plugin for [Jekyll](https://github.com/mojombo/jekyll). It compiles your Jekyll site for one and more languages with a similar approach as Rails.
@@ -12,11 +12,11 @@ manage your plugins by utilizing git submodules.
 
 To install this plugin as a git submodule:
 
-    git submodule add git://github.com/screeninteraction/jekyll-multiple-languages.git _plugins/jekyll-multiple-languages
+    git submodule add git://github.com/screeninteraction/jekyll-multiple-languages-plugin.git _plugins/multiple-languages
 
 To update:
 
-    cd _plugins/jekyll-multiple-languages
+    cd _plugins/multiple-languages
     git pull origin master
     
 ###Features
