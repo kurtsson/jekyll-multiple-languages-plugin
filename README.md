@@ -1,10 +1,11 @@
-Jekyll Multiple Languages Plugin
-================================
+# Multiple Languages in Jekyll
 
-Jekyll Multiple Languages is an internationalization plugin for [Jekyll](https://github.com/mojombo/jekyll). It compiles your Jekyll site for one and more languages with a similar approach as Rails.
+Jekyll Multiple Languages is an internationalization plugin for [Jekyll](https://github.com/mojombo/jekyll). It compiles your Jekyll site for one or more languages with a similar approach as Rails does. The different sites will be stored in sub folders with the same name as the language it contains.
+
+The plugin is developed as an utility at [Screen Interaction](http://www.screeninteraction.com)
 
 ##Installation
-Copy or link `multiple-languages-plugin.rb` into your `_plugins` folder
+Copy or link the file `multiple-languages-plugin.rb` into your `_plugins` folder
 for your Jekyll project.
 
 If your Jekyll project is in a git repository, you can easily
@@ -22,9 +23,9 @@ To update:
 ###Features
 * Supports multiple languages with the same code base.
 * Supports all template languages that your Liquid pipeline supports.
-* Uses [Liquid tags](https://github.com/Shopify/liquid) in your HTML for string handling.
-* Compiles languages into separate subfolders.
-* Even works with the -watch flag turned on.
+* Uses [Liquid tags](https://github.com/Shopify/liquid) in your HTML for including translated strings.
+* Compiles the site multiple times for all supported languages into separate subfolders.
+* The plugin even works with the -watch flag turned on and will rebuild all languages automatically.
 
 ##Usage
 ###Configuration
