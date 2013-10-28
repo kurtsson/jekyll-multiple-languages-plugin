@@ -40,14 +40,14 @@ The first language in the array will be the default language, English, German an
 ###i18n
 Create this folder structure in your Jekyll project as an example:
 
-    - /_i18/sv.yml
-    - /_i18/en.yml
-    - /_i18/de.yml
-    - /_i18/fr.yml
-    - /_i18/sv/pagename/blockname.md
-    - /_i18/en/pagename/blockname.md
-    - /_i18/de/pagename/blockname.md
-    - /_i18/fr/pagename/blockname.md
+    - /_i18n/sv.yml
+    - /_i18n/en.yml
+    - /_i18n/de.yml
+    - /_i18n/fr.yml
+    - /_i18n/sv/pagename/blockname.md
+    - /_i18n/en/pagename/blockname.md
+    - /_i18n/de/pagename/blockname.md
+    - /_i18n/fr/pagename/blockname.md
 
 To add a string to your site use one of these
 
