@@ -5,7 +5,7 @@ Jekyll Multiple Languages is an internationalization plugin for [Jekyll](https:/
 The plugin is developed as an utility at [Screen Interaction](http://www.screeninteraction.com)
 
 ##Installation
-### Gem
+### Gem [![Gem Version](https://badge.fury.io/rb/multiple-languages-plugin.png)](http://badge.fury.io/rb/multiple-languages-plugin)
 This plugin is available as a Rubygem, https://rubygems.org/gems/multiple-languages-plugin. Install it with:
 ``` bash
 gem install multiple-languages-plugin
