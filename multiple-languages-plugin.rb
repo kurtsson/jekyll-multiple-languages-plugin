@@ -35,27 +35,32 @@ module Jekyll
 
   class LocalizeInclude < Jekyll::Tags::IncludeTag
     def render(context)
+      if "#{context[@file]}" != "" #Check for page variable
+        file = "#{context[@file]}"
+      else
+        file = @file
+      end
+
       includes_dir = File.join(context.registers[:site].source, '_i18n/' + context.registers[:site].config['lang'])
 
       if File.symlink?(includes_dir)
         return "Includes directory '#{includes_dir}' cannot be a symlink"
       end
-
-      if @file !~ /^[a-zA-Z0-9_\/\.-]+$/ || @file =~ /\.\// || @file =~ /\/\./
-        return "Include file '#{@file}' contains invalid characters or sequences"
+      if file !~ /^[a-zA-Z0-9_\/\.-]+$/ || file =~ /\.\// || file =~ /\/\./
+        return "Include file '#{file}' contains invalid characters or sequences"
       end
 
       Dir.chdir(includes_dir) do
         choices = Dir['**/*'].reject { |x| File.symlink?(x) }
-        if choices.include?(@file)
-          source = File.read(@file)
+        if choices.include?(file)
+          source = File.read(file)
           partial = Liquid::Template.parse(source)
 
           context.stack do
             context['include'] = parse_params(context) if @params
             contents = partial.render(context)
             site = context.registers[:site]
-            ext = File.extname(@file)
+            ext = File.extname(file)
 
             converter = site.converters.find { |c| c.matches(ext) }
             contents = converter.convert(contents) unless converter.nil?
@@ -63,7 +68,7 @@ module Jekyll
             contents
           end
         else
-          "Included file '#{@file}' not found in #{includes_dir} directory"
+          "Included file '#{file}' not found in #{includes_dir} directory"
         end
       end
     end
@@ -78,11 +83,13 @@ module Jekyll
 
     def render(context)
       if "#{context[@key]}" != "" #Check for page variable
-        @key = "#{context[@key]}"
+        key = "#{context[@key]}"
+      else
+        key = @key
       end
       lang = context.registers[:site].config['lang']
       candidate = YAML.load_file(context.registers[:site].source + "/_i18n/#{lang}.yml")
-      path = @key.split(/\./) if @key.is_a?(String)
+      path = key.split(/\./) if key.is_a?(String)
       while !path.empty?
         key = path.shift
         if candidate[key]
@@ -92,8 +99,8 @@ module Jekyll
         end
       end
       if candidate == ""
-        puts "Missing i18n key: " + lang + ":" + @key
-        "*" + lang + ":" + @key + "*"
+        puts "Missing i18n key: " + lang + ":" + key
+        "*" + lang + ":" + key + "*"
       else
         candidate
       end
