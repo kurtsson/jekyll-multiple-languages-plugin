@@ -60,9 +60,9 @@ Create this folder structure in your Jekyll project as an example:
 To add a string to your site use one of these
 
 ```liquid	
-{% t key ‰}
+{% t key %}
 or 
-{% translate key ‰}
+{% translate key %}
 ```
 	
 Liquid tags. This will pick the correct string from the `language.yml` file during compilation.
@@ -81,23 +81,23 @@ pages:
   To access the english key, use this tag:
 
 ```liquid  	
-{% t global.english ‰} 
+{% t global.english %} 
 or 
-{% translate global.english ‰}
+{% translate global.english %}
 ```
   	
 The plugin also supports using different markdown files for different languages using the 
 
 ```liquid	
-{% tf pagename/blockname.md ‰} 
+{% tf pagename/blockname.md %} 
 or 
-{% translate_file pagename/blockname.md ‰}
+{% translate_file pagename/blockname.md %}
 ```
 
 This plugin have exactly the same support and syntax as the built in
 
 ```liquid	
-{% include file ‰}
+{% include file %}
 ```
 
 tag, so plugins that extends its functionality should be picked up by this plugin as well.
