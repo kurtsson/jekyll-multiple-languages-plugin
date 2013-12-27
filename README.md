@@ -5,16 +5,6 @@ Jekyll Multiple Languages is an internationalization plugin for [Jekyll](https:/
 The plugin is developed as an utility at [Screen Interaction](http://www.screeninteraction.com)
 
 ##Installation
-### Gem [![Gem Version](https://badge.fury.io/rb/multiple-languages-plugin.png)](http://badge.fury.io/rb/multiple-languages-plugin)
-This plugin is available as a Rubygem, https://rubygems.org/gems/multiple-languages-plugin. Install it with:
-``` bash
-gem install multiple-languages-plugin
-```
-
-### Copy file
-Copy or link the file `multiple-languages-plugin.rb` into your `_plugins` folder
-for your Jekyll project.
-
 ### Submodule
 If your Jekyll project is in a git repository, you can easily
 manage your plugins by utilizing git submodules.
@@ -27,6 +17,21 @@ To update:
 
     cd _plugins/multiple-languages
     git pull origin master
+
+
+### Copy file
+Copy or link the file `multiple-languages-plugin.rb` into your `_plugins` folder
+for your Jekyll project.
+
+
+### ~~Gem [![Gem Version](https://badge.fury.io/rb/multiple-languages-plugin.png)](http://badge.fury.io/rb/multiple-languages-plugin)~~
+
+*Gem installation is currently broken, will look in to this but not high prio right now.*
+
+~~This plugin is available as a Rubygem, https://rubygems.org/gems/multiple-languages-plugin. Install it with:~~
+``` bash
+#gem install multiple-languages-plugin
+```
     
 ###Features
 * Supports multiple languages with the same code base.
@@ -131,7 +136,7 @@ titles:
 	home: "Home"
 ```
 		
-##Linking between languages
+##Link between languages
 This plugin gives you the variables
 	
 ```liquid
@@ -146,14 +151,22 @@ to play with in your template files.
 
 This allows you to create solutions like this:
 
-```liquid
+
+``` liquid
 {% if site.lang == "sv" %}
-	{% capture link1 %}{{ site.baseurl_root }}en{{ page.url}}{% endcapture %}
-	<a href="{{ link1 }}" >{% t global.english %}</a>
-{% else if site.lang == "en" %}
-	{% capture link2 %}{{ site.baseurl_root }}{{ page.url | remove_first: '/'  }}{% endcapture %}
-	<a href="{{ link2 }}" >{% t global.swedish %}</a>
-{% endif %}
+    {% capture link1 %}{{ site.baseurl_root }}/en{{ page.url}}{% endcapture %}
+    <a href="{{ link1 }}" >{% t global.english %}</a>
+  {% else if site.lang == "en" %}
+    {% capture link2 %}{{ site.baseurl_root }}{{ page.url  }}{% endcapture %}
+    <a href="{{ link2 }}" >{% t global.swedish %}</a>
+  {% endif %}
 ```
-	
-This code will add an `"English"` link in the Swedish pages and the other way around in the English pages.
+
+This snippet will create a link that will toggle between Swedish and English. A more detailed description of the variables used follows:
+
+| Name | Value | Example |
+| ---: | :--- | :--- |
+| site.lang | The language used in the current compilation stage | ``` en ``` |
+| site.baseurl | Points to the root of the site including the current language | ``` http://foo.bar/en ``` |
+| site.baseurl_root | Points to the root of the page without the language path | ``` http://foo.bar ``` |
+| page.url | The current page's relative URL to the baseurl | ``` /a/sub/folder/page/ ```|
