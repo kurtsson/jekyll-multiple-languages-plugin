@@ -4,11 +4,14 @@ module Jekyll
   class Site
     alias :process_org :process
     def process
+      if !self.config['baseurl']
+        self.config['baseurl'] = ""
+      end
       #Variables
-      self.config['baseurl_root'] = self.config['baseurl']
-      dest_org = self.dest
-      baseurl_org = self.baseurl
+      config['baseurl_root'] = self.config['baseurl']
+      baseurl_org = self.config['baseurl']
       languages = self.config['languages']
+      dest_org = self.dest
 
       #Loop
       self.config['lang'] = languages.first
@@ -19,15 +22,13 @@ module Jekyll
 
         # Build site for language lang
         self.dest = self.dest + "/" + lang
-        self.baseurl = self.baseurl + "/" + lang
-        self.config['baseurl'] = self.baseurl
+        self.config['baseurl'] = self.config['baseurl'] + "/" + lang
         self.config['lang'] = lang
         puts "Building site for language: \"#{self.config['lang']}\" to: " + self.dest
         process_org
 
         #Reset variables for next language
         self.dest = dest_org
-        self.baseurl = baseurl_org
         self.config['baseurl'] = baseurl_org
       end
       puts 'Build complete'
@@ -47,47 +48,6 @@ module Jekyll
         end
       else
         read_posts_org(dir)
-      end
-    end
-  end
-
-  class LocalizeInclude < Jekyll::Tags::IncludeTag
-    def render(context)
-      if "#{context[@file]}" != "" #Check for page variable
-        file = "#{context[@file]}"
-      else
-        file = @file
-      end
-
-      includes_dir = File.join(context.registers[:site].source, '_i18n/' + context.registers[:site].config['lang'])
-
-      if File.symlink?(includes_dir)
-        return "Includes directory '#{includes_dir}' cannot be a symlink"
-      end
-      if file !~ /^[a-zA-Z0-9_\/\.-]+$/ || file =~ /\.\// || file =~ /\/\./
-        return "Include file '#{file}' contains invalid characters or sequences"
-      end
-
-      Dir.chdir(includes_dir) do
-        choices = Dir['**/*'].reject { |x| File.symlink?(x) }
-        if choices.include?(file)
-          source = File.read(file)
-          partial = Liquid::Template.parse(source)
-
-          context.stack do
-            context['include'] = parse_params(context) if @params
-            contents = partial.render(context)
-            site = context.registers[:site]
-            ext = File.extname(file)
-
-            converter = site.converters.find { |c| c.matches(ext) }
-            contents = converter.convert(contents) unless converter.nil?
-
-            contents
-          end
-        else
-          "Included file '#{file}' not found in #{includes_dir} directory"
-        end
       end
     end
   end
@@ -124,9 +84,52 @@ module Jekyll
       end
     end
   end
+
+  module Tags
+    class LocalizeInclude < IncludeTag
+      def render(context)
+        if "#{context[@file]}" != "" #Check for page variable
+          file = "#{context[@file]}"
+        else
+          file = @file
+        end
+
+        includes_dir = File.join(context.registers[:site].source, '_i18n/' + context.registers[:site].config['lang'])
+
+        if File.symlink?(includes_dir)
+          return "Includes directory '#{includes_dir}' cannot be a symlink"
+        end
+        if file !~ /^[a-zA-Z0-9_\/\.-]+$/ || file =~ /\.\// || file =~ /\/\./
+          return "Include file '#{file}' contains invalid characters or sequences"
+        end
+
+        Dir.chdir(includes_dir) do
+          choices = Dir['**/*'].reject { |x| File.symlink?(x) }
+          if choices.include?(file)
+            source = File.read(file)
+            partial = Liquid::Template.parse(source)
+
+            context.stack do
+              context['include'] = parse_params(context) if @params
+              contents = partial.render(context)
+              site = context.registers[:site]
+              ext = File.extname(file)
+
+              converter = site.converters.find { |c| c.matches(ext) }
+              contents = converter.convert(contents) unless converter.nil?
+
+              contents
+            end
+          else
+            "Included file '#{file}' not found in #{includes_dir} directory"
+          end
+        end
+      end
+    end
+  end
 end
 
 Liquid::Template.register_tag('t', Jekyll::LocalizeTag)
-Liquid::Template.register_tag('tf', Jekyll::LocalizeInclude)
 Liquid::Template.register_tag('translate', Jekyll::LocalizeTag)
-Liquid::Template.register_tag('translate_file', Jekyll::LocalizeInclude)
+Liquid::Template.register_tag('tf', Jekyll::Tags::LocalizeInclude)
+Liquid::Template.register_tag('translate_file', Jekyll::Tags::LocalizeInclude)

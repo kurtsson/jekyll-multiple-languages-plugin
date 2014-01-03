@@ -1,27 +1,10 @@
 # Multiple Languages in Jekyll
 
-Jekyll Multiple Languages is an internationalization plugin for [Jekyll](https://github.com/mojombo/jekyll). It compiles your Jekyll site for one or more languages with a similar approach as Rails does. The different sites will be stored in sub folders with the same name as the language it contains.
+Jekyll Multiple Languages is an internationalization plugin for [Jekyll](https://github.com/mojombo/jekyll). It compiles your Jekyll site for one or more languages with a similar approach as Rails does. The different sites will be stored in sub folders with the same name as the language it contains. Version 1.2.1 and later also supports Octopress.
 
 The plugin is developed as an utility at [Screen Interaction](http://www.screeninteraction.com)
 
 ##Installation
-### Submodule
-If your Jekyll project is in a git repository, you can easily
-manage your plugins by utilizing git submodules.
-
-To install this plugin as a git submodule:
-
-    git submodule add git://github.com/screeninteraction/jekyll-multiple-languages-plugin.git _plugins/multiple-languages
-
-To update:
-
-    cd _plugins/multiple-languages
-    git pull origin master
-
-
-### Copy file
-Copy or link the file `lib/jekyll/multiple/languages/plugin.rb` into your `_plugins` folder for your Jekyll project.
-
 
 ### Gem [![Gem Version](https://badge.fury.io/rb/jekyll-multiple-languages-plugin.png)](http://badge.fury.io/rb/jekyll-multiple-languages-plugin)
 
@@ -43,8 +26,26 @@ To activate the plugin add this line in to a *.rb file in the _plugins directory
     
     require 'jekyll/multiple/languages/plugin'
 
+
+### Submodule
+If your Jekyll project is in a git repository, you can easily
+manage your plugins by utilizing git submodules.
+
+To install this plugin as a git submodule:
+
+    git submodule add git://github.com/screeninteraction/jekyll-multiple-languages-plugin.git _plugins/multiple-languages
+
+To update:
+
+    cd _plugins/multiple-languages
+    git pull origin master
+
+
+### Copy file
+Copy or link the file `lib/jekyll/multiple/languages/plugin.rb` into your `_plugins` folder for your Jekyll project.
+
     
-###Features
+##Features
 * Supports multiple languages with the same code base.
 * Supports all template languages that your Liquid pipeline supports.
 * Uses [Liquid tags](https://github.com/Shopify/liquid) in your HTML for including translated strings.
@@ -53,7 +54,8 @@ To activate the plugin add this line in to a *.rb file in the _plugins directory
 * Contains an example web site thanks to [@davrandom](https://github.com/davrandom/)
 * Supports translated keys in YAML format
 * Supports translated template files
-* _NEW!_ Supports writing translated posts
+* *NEW!* Supports writing translated posts
+* *NEW!* Supports Octopress
 
 ##Usage
 ###Configuration
