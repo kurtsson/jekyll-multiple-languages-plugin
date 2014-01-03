@@ -1,7 +1,8 @@
+require "jekyll/multiple/languages/plugin/version"
+
 module Jekyll
   class Site
     alias :process_org :process
-
     def process
       #Variables
       self.config['baseurl_root'] = self.config['baseurl']
@@ -30,6 +31,23 @@ module Jekyll
         self.config['baseurl'] = baseurl_org
       end
       puts 'Build complete'
+    end
+    
+    alias :read_posts_org :read_posts
+    def read_posts(dir)
+      if dir == ''
+        posts = read_things("_i18n/#{self.config['lang']}","_posts", Post)
+        posts.each do |post|
+          post.categories = []
+          if post.date != ''
+            if post.published && (self.future || post.date <= self.time)
+              aggregate_post_info(post)
+            end
+          end
+        end
+      else
+        read_posts_org(dir)
+      end
     end
   end
 

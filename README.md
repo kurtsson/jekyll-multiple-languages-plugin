@@ -24,14 +24,22 @@ Copy or link the file `multiple-languages-plugin.rb` into your `_plugins` folder
 for your Jekyll project.
 
 
-### ~~Gem [![Gem Version](https://badge.fury.io/rb/multiple-languages-plugin.png)](http://badge.fury.io/rb/multiple-languages-plugin)~~
+### Gem [![Gem Version](https://badge.fury.io/rb/multiple-languages-plugin.png)](http://badge.fury.io/rb/multiple-languages-plugin)
 
-*Gem installation is currently broken, will look in to this but not high prio right now.*
+This plugin is available as a Rubygem, https://rubygems.org/gems/multiple-languages-plugin.
 
-~~This plugin is available as a Rubygem, https://rubygems.org/gems/multiple-languages-plugin. Install it with:~~
-``` bash
-#gem install multiple-languages-plugin
-```
+Add this line to your application's Gemfile:
+
+    gem 'jekyll-multiple-languages-plugin'
+
+And then execute:
+
+    $ bundle
+
+Or install it yourself as:
+
+    $ gem install jekyll-multiple-languages-plugin
+
     
 ###Features
 * Supports multiple languages with the same code base.
@@ -170,3 +178,11 @@ This snippet will create a link that will toggle between Swedish and English. A 
 | site.baseurl | Points to the root of the site including the current language | ``` http://foo.bar/en ``` |
 | site.baseurl_root | Points to the root of the page without the language path | ``` http://foo.bar ``` |
 | page.url | The current page's relative URL to the baseurl | ``` /a/sub/folder/page/ ```|
+
+## Contributing
+
+1. Fork it
+2. Create your feature branch (`git checkout -b my-new-feature`)
+3. Commit your changes (`git commit -am 'Add some feature'`)
+4. Push to the branch (`git push origin my-new-feature`)
+5. Create new Pull Request
