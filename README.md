@@ -20,13 +20,12 @@ To update:
 
 
 ### Copy file
-Copy or link the file `multiple-languages-plugin.rb` into your `_plugins` folder
-for your Jekyll project.
+Copy or link the file `lib/jekyll/multiple/languages/plugin.rb` into your `_plugins` folder for your Jekyll project.
 
 
-### Gem [![Gem Version](https://badge.fury.io/rb/multiple-languages-plugin.png)](http://badge.fury.io/rb/multiple-languages-plugin)
+### Gem [![Gem Version](https://badge.fury.io/rb/jekyll-multiple-languages-plugin.png)](http://badge.fury.io/rb/jekyll-multiple-languages-plugin)
 
-This plugin is available as a Rubygem, https://rubygems.org/gems/multiple-languages-plugin.
+This plugin is available as a Rubygem, https://rubygems.org/gems/jekyll-multiple-languages-plugin.
 
 Add this line to your application's Gemfile:
 
@@ -40,6 +39,10 @@ Or install it yourself as:
 
     $ gem install jekyll-multiple-languages-plugin
 
+To activate the plugin add this line in to a *.rb file in the _plugins directory:
+    
+    require 'jekyll/multiple/languages/plugin'
+
     
 ###Features
 * Supports multiple languages with the same code base.
@@ -47,6 +50,10 @@ Or install it yourself as:
 * Uses [Liquid tags](https://github.com/Shopify/liquid) in your HTML for including translated strings.
 * Compiles the site multiple times for all supported languages into separate subfolders.
 * The plugin even works with the -watch flag turned on and will rebuild all languages automatically.
+* Contains an example web site thanks to [@davrandom](https://github.com/davrandom/)
+* Supports translated keys in YAML format
+* Supports translated template files
+* _NEW!_ Supports writing translated posts
 
 ##Usage
 ###Configuration
