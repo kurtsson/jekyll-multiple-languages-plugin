@@ -1,8 +1,10 @@
 global:
-    italian: Italiano
-    english: English
-    spanish: Español
-    tagline: Español
-#pages:
- #   home: Home
-  #  work: Work
+  italian: Italiano
+  english: English
+  spanish: Español
+  tagline: Español
+  about: Sobre
+  twitter: Twitter
+  github: GitHub
+pages:
+  example: Ejemplo

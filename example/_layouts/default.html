@@ -23,9 +23,6 @@
     <div class="site">
       <div class="sidebar" id="sidebar">
         <div class="header">
-                <a class="link-it" href="{{ site.baseurl_root }}/">it</a>
-                <a class="link-en" href="{{ site.baseurl_root }}/en">en</a>
-                <a class="link-es" href="{{ site.baseurl_root }}/es">es</a>
 
           <h1 class="title"><a href="/"><img id="logo" src="/images/logo.png"></a></h1>
           <span class="tagline">{% t global.tagline %}</span>
@@ -43,11 +40,16 @@
         </div>
         <div class="footer">
           <span id="footer-links">
-            <a href="" class="footer-link">About</a> <span class="separator">&bull;</span>
-            <a href="" class="footer-link">Twitter</a> <span class="separator">&bull;</span>
-            <a href="" class="footer-link">GitHub</a>
+            <a href="" class="footer-link">{% t global.about %}</a> <span class="separator">&bull;</span>
+            <a href="" class="footer-link">{% t global.twitter %}</a> <span class="separator">&bull;</span>
+            <a href="" class="footer-link">{% t global.github %}</a>
           </span>
         </div>
+        {% tf footer.md %}
+        <br />
+        <a class="link-it" href="{{ site.baseurl_root }}/">it</a>
+        <a class="link-en" href="{{ site.baseurl_root }}/en">en</a>
+        <a class="link-es" href="{{ site.baseurl_root }}/es">es</a>
       </div>
 
         {{ content }}
