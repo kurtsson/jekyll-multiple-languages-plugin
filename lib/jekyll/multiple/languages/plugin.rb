@@ -22,7 +22,7 @@ module Jekyll
 
         # Build site for language lang
         self.dest = self.dest + "/" + lang
-        self.config['baseurl'] = self.config['baseurl'] + "/" + lang
+        self.config['baseurl'] = self.config['baseurl'] + lang + "/"
         self.config['lang'] = lang
         puts "Building site for language: \"#{self.config['lang']}\" to: " + self.dest
         process_org
