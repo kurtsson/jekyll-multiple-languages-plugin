@@ -37,15 +37,7 @@ module Jekyll
     alias :read_posts_org :read_posts
     def read_posts(dir)
       if dir == ''
-        posts = read_things("_i18n/#{self.config['lang']}","_posts", Post)
-        posts.each do |post|
-          post.categories = []
-          if post.date != ''
-            if post.published && (self.future || post.date <= self.time)
-              aggregate_post_info(post)
-            end
-          end
-        end
+        read_posts("_i18n/#{self.config['lang']}/")
       else
         read_posts_org(dir)
       end
