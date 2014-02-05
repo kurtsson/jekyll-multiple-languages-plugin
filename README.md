@@ -12,19 +12,19 @@ This plugin is available as a Rubygem, https://rubygems.org/gems/jekyll-multiple
 
 Add this line to your application's Gemfile:
 
-  gem 'jekyll-multiple-languages-plugin'
+```
+gem 'jekyll-multiple-languages-plugin'
+```
 
-And then execute:
+And then execute: `$ bundle`
 
-  $ bundle
-
-Or install it yourself as:
-
-  $ gem install jekyll-multiple-languages-plugin
+Or install it yourself as: `$ gem install jekyll-multiple-languages-plugin`
 
 To activate the plugin add this line in to a *.rb file in the _plugins directory:
     
-  require 'jekyll/multiple/languages/plugin'
+```ruby
+require 'jekyll/multiple/languages/plugin'
+```
 
 
 ### Submodule
@@ -33,12 +33,16 @@ manage your plugins by utilizing git submodules.
 
 To install this plugin as a git submodule:
 
-  git submodule add git://github.com/screeninteraction/jekyll-multiple-languages-plugin.git _plugins/multiple-languages
+```sh
+$ git submodule add git://github.com/screeninteraction/jekyll-multiple-languages-plugin.git _plugins/multiple-languages
+```
 
 To update:
 
-  cd _plugins/multiple-languages
-  git pull origin master
+```sh
+$ cd _plugins/multiple-languages
+$ git pull origin master
+```
 
 
 ### Copy file
