@@ -12,19 +12,19 @@ This plugin is available as a Rubygem, https://rubygems.org/gems/jekyll-multiple
 
 Add this line to your application's Gemfile:
 
-    gem 'jekyll-multiple-languages-plugin'
+  gem 'jekyll-multiple-languages-plugin'
 
 And then execute:
 
-    $ bundle
+  $ bundle
 
 Or install it yourself as:
 
-    $ gem install jekyll-multiple-languages-plugin
+  $ gem install jekyll-multiple-languages-plugin
 
 To activate the plugin add this line in to a *.rb file in the _plugins directory:
     
-    require 'jekyll/multiple/languages/plugin'
+  require 'jekyll/multiple/languages/plugin'
 
 
 ### Submodule
@@ -33,12 +33,12 @@ manage your plugins by utilizing git submodules.
 
 To install this plugin as a git submodule:
 
-    git submodule add git://github.com/screeninteraction/jekyll-multiple-languages-plugin.git _plugins/multiple-languages
+  git submodule add git://github.com/screeninteraction/jekyll-multiple-languages-plugin.git _plugins/multiple-languages
 
 To update:
 
-    cd _plugins/multiple-languages
-    git pull origin master
+  cd _plugins/multiple-languages
+  git pull origin master
 
 
 ### Copy file
@@ -54,8 +54,24 @@ Copy or link the file `lib/jekyll/multiple/languages/plugin.rb` into your `_plug
 * Contains an example web site thanks to [@davrandom](https://github.com/davrandom/)
 * Supports translated keys in YAML format
 * Supports translated template files
-* *NEW!* Supports writing translated posts
-* *NEW!* Supports Octopress
+
+##Changelog
+* 1.2.2
+  * Supports translated posts in Octopress
+* 1.2.1
+  * Supports writing translated posts in Jekyll
+  * Supports Octopress
+* 1.2.0
+  * Renamed the project to jekyll-multiple-languages-plugin
+* 1.1.2
+  * Support for both variables and strings in ```translate_file```
+* 1.1.1
+  * Fixed documentation
+* 1.1.0
+  * Pull request that removed dirty forward slash from URLs
+* 1.0.0
+  * First release
+
 
 ##Usage
 ###Configuration
@@ -70,14 +86,14 @@ The first language in the array will be the default language, English, German an
 ###i18n
 Create this folder structure in your Jekyll project as an example:
 
-    - /_i18n/sv.yml
-    - /_i18n/en.yml
-    - /_i18n/de.yml
-    - /_i18n/fr.yml
-    - /_i18n/sv/pagename/blockname.md
-    - /_i18n/en/pagename/blockname.md
-    - /_i18n/de/pagename/blockname.md
-    - /_i18n/fr/pagename/blockname.md
+  - /_i18n/sv.yml
+  - /_i18n/en.yml
+  - /_i18n/de.yml
+  - /_i18n/fr.yml
+  - /_i18n/sv/pagename/blockname.md
+  - /_i18n/en/pagename/blockname.md
+  - /_i18n/de/pagename/blockname.md
+  - /_i18n/fr/pagename/blockname.md
 
 To add a string to your site use one of these
 
