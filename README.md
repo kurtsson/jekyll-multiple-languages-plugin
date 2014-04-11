@@ -23,7 +23,7 @@ Or install it yourself as:
   $ gem install jekyll-multiple-languages-plugin
 
 To activate the plugin add this line in to a *.rb file in the _plugins directory:
-    
+
   require 'jekyll/multiple/languages/plugin'
 
 
@@ -44,7 +44,7 @@ To update:
 ### Copy file
 Copy or link the file `lib/jekyll/multiple/languages/plugin.rb` into your `_plugins` folder for your Jekyll project.
 
-    
+
 ##Features
 * Supports multiple languages with the same code base.
 * Supports all template languages that your Liquid pipeline supports.
@@ -56,6 +56,8 @@ Copy or link the file `lib/jekyll/multiple/languages/plugin.rb` into your `_plug
 * Supports translated template files
 
 ##Changelog
+  1.2.3
+    Much, much, much faster compilation when lots of translated strings.
 * 1.2.2
   * Supports translated posts in Octopress
 * 1.2.1
@@ -77,7 +79,7 @@ Copy or link the file `lib/jekyll/multiple/languages/plugin.rb` into your `_plug
 ###Configuration
 Add the i18n configuration to your _config.yml:
 
-```yaml	
+```yaml
 languages: ["sv", "en", "de", "fr"]
 ```
 
@@ -97,12 +99,12 @@ Create this folder structure in your Jekyll project as an example:
 
 To add a string to your site use one of these
 
-```liquid	
+```liquid
 {% t key %}
-or 
+or
 {% translate key %}
 ```
-	
+
 Liquid tags. This will pick the correct string from the `language.yml` file during compilation.
 
 The language.yml files are written in YAML syntax which caters for a simple grouping of strings.
@@ -115,31 +117,31 @@ pages:
 	home: Home
 	work: Work
 ```
-	
+
   To access the english key, use this tag:
 
-```liquid  	
-{% t global.english %} 
-or 
+```liquid
+{% t global.english %}
+or
 {% translate global.english %}
 ```
-  	
-The plugin also supports using different markdown files for different languages using the 
 
-```liquid	
-{% tf pagename/blockname.md %} 
-or 
+The plugin also supports using different markdown files for different languages using the
+
+```liquid
+{% tf pagename/blockname.md %}
+or
 {% translate_file pagename/blockname.md %}
 ```
 
 This plugin have exactly the same support and syntax as the built in
 
-```liquid	
+```liquid
 {% include file %}
 ```
 
 tag, so plugins that extends its functionality should be picked up by this plugin as well.
-  
+
 ###i18n in templates
 Sometimes it is convenient to add keys even in template files. This works in the exact same way as in ordinary files, however sometimes it can be useful to include different string in different pages even if they use the same template.
 
@@ -152,34 +154,34 @@ A perfect example is this:
 	</head>
 </html>
 ```
-	
+
 So how can I add different translated titles to all pages? Don't worry, it's easy. The Multiple Languages plugin supports Liguid variables as well as strings so define a page variable in your page definition
 
 ```yaml
---- 
+---
 layout: default
 title: titles.home
---- 
-```	
-	
+---
+```
+
 and `<title>{% t page.title %}</title>` will pick up the `titles.home` key from `language.yml`
 
-```yaml	
+```yaml
 titles:
 	home: "Home"
 ```
-		
+
 ##Link between languages
 This plugin gives you the variables
-	
+
 ```liquid
 {{ page.lang }}
-	
+
 and
-	
+
 {{ site.baseurl_root }}
 ```
-	
+
 to play with in your template files.
 
 This allows you to create solutions like this:
