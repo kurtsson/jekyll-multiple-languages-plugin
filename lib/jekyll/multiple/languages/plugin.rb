@@ -1,6 +1,13 @@
 require "jekyll/multiple/languages/plugin/version"
 
 module Jekyll
+  @parsedlangs = {}
+  def self.langs
+    @parsedlangs
+  end
+  def self.setlangs(l)
+    @parsedlangs = l
+  end
   class Site
     alias :process_org :process
     def process
@@ -31,7 +38,7 @@ module Jekyll
         self.dest = dest_org
         self.config['baseurl'] = baseurl_org
       end
-      @@langs = {}
+      Jekyll.setlangs({})
       puts 'Build complete'
     end
 
@@ -50,7 +57,6 @@ module Jekyll
     def initialize(tag_name, key, tokens)
       super
       @key = key.strip
-      @@langs ||= {}
     end
 
     def render(context)
@@ -60,11 +66,11 @@ module Jekyll
         key = @key
       end
       lang = context.registers[:site].config['lang']
-      unless @@langs.has_key?(lang)
+      unless Jekyll.langs.has_key?(lang)
         puts "Loading translation from file #{context.registers[:site].source}/_i18n/#{lang}.yml"
-        @@langs[lang] = YAML.load_file("#{context.registers[:site].source}/_i18n/#{lang}.yml")
+        Jekyll.langs[lang] = YAML.load_file("#{context.registers[:site].source}/_i18n/#{lang}.yml")
       end
-      translation = @@langs[lang].access(key) if key.is_a?(String)
+      translation = Jekyll.langs[lang].access(key) if key.is_a?(String)
       if translation.empty?
         puts "Missing i18n key: #{lang}:#{key}"
         "*#{lang}:#{key}*"
