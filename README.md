@@ -60,17 +60,17 @@ Copy or link the file `lib/jekyll/multiple/languages/plugin.rb` into your `_plug
 * Supports translated template files
 
 ##Changelog
-  1.2.5
-    Fixed a bug when global variables wasn't as global as expected
-  1.2.4
-    Fixed a bug when changes in .yml files got lost during live reload.
-  1.2.3
-    Much, much, much faster compilation when lots of translated strings.
+* 1.2.5
+  * Fixed a bug when global variables wasn't as global as expected
+* 1.2.4
+  * Fixed a bug when changes in .yml files got lost during live reload.
+* 1.2.3
+  * Much, much, much faster compilation when lots of translated strings.
 * 1.2.2
   * Supports translated posts in Octopress
 * 1.2.1
   * Supports writing translated posts in Jekyll
-  * Supports Octopress
+  * Supports translated .yml files in Octopress
 * 1.2.0
   * Renamed the project to jekyll-multiple-languages-plugin
 * 1.1.2
