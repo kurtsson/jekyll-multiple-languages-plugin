@@ -31,6 +31,7 @@ module Jekyll
         self.dest = dest_org
         self.config['baseurl'] = baseurl_org
       end
+      @@langs = {}
       puts 'Build complete'
     end
 
