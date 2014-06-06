@@ -71,7 +71,7 @@ module Jekyll
         Jekyll.langs[lang] = YAML.load_file("#{context.registers[:site].source}/_i18n/#{lang}.yml")
       end
       translation = Jekyll.langs[lang].access(key) if key.is_a?(String)
-      if translation.empty?
+      if translation == nil or translation.empty?
         puts "Missing i18n key: #{lang}:#{key}"
         "*#{lang}:#{key}*"
       else
