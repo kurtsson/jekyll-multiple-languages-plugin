@@ -60,6 +60,8 @@ Copy or link the file `lib/jekyll/multiple/languages/plugin.rb` into your `_plug
 * Supports translated template files
 
 ##Changelog
+* 1.2.6
+  * Added fallback to default language, thanks to [@agramian](https://github.com/agramian)
 * 1.2.5
   * Fixed a bug when global variables wasn't as global as expected
 * 1.2.4
@@ -221,3 +223,8 @@ This snippet will create a link that will toggle between Swedish and English. A 
 3. Commit your changes (`git commit -am 'Add some feature'`)
 4. Push to the branch (`git push origin my-new-feature`)
 5. Create new Pull Request
+
+### Contributors
+- [Bersch](https://github.com/bersch), better paths
+- [Davrandom](https://github.com/davrandom), plugin usage example
+- [agramian](https://github.com/agramian), fallback to default language
