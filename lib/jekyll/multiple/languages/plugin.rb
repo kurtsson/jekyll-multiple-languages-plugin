@@ -21,7 +21,7 @@ module Jekyll
       dest_org = self.dest
 
       #Loop
-      self.config['lang'] = languages.first
+      self.config['lang'] = self.config['default_lang'] = languages.first
       puts
       puts "Building site for default language: \"#{self.config['lang']}\" to: #{self.dest}"
       process_org
@@ -72,10 +72,9 @@ module Jekyll
       end
       translation = Jekyll.langs[lang].access(key) if key.is_a?(String)
       if translation.nil? or translation.empty?
-        default_lang = context.registers[:site].config['languages'].first
-        translation = Jekyll.langs[default_lang].access(key)
+        translation = Jekyll.langs[context.registers[:site].config['default_lang']].access(key)
         puts "Missing i18n key: #{lang}:#{key}"
-        puts "Using translation '#{translation}' from default language: #{default_lang}"
+        puts "Using translation '%s' from default language: %s" %[translation, context.registers[:site].config['default_lang']]
       end
       translation
     end
