@@ -60,6 +60,8 @@ Copy or link the file `lib/jekyll/multiple/languages/plugin.rb` into your `_plug
 * Supports translated template files
 
 ##Changelog
+* 1.2.7
+  * Support for Jekyll 2.5+, thanks to [@caxy4](https://github.com/caxy4)
 * 1.2.6
   * Added fallback to default language, thanks to [@agramian](https://github.com/agramian)
 * 1.2.5
