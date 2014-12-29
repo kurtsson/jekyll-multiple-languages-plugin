@@ -28,14 +28,14 @@ module Jekyll
       languages.drop(1).each do |lang|
 
         # Build site for language lang
-        self.dest = self.dest + "/" + lang
+        @dest = @dest + "/" + lang
         self.config['baseurl'] = self.config['baseurl'] + "/" + lang
         self.config['lang'] = lang
         puts "Building site for language: \"#{self.config['lang']}\" to: #{self.dest}"
         process_org
 
         #Reset variables for next language
-        self.dest = dest_org
+        @dest = dest_org
         self.config['baseurl'] = baseurl_org
       end
       Jekyll.setlangs({})
