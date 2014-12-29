@@ -2,7 +2,7 @@ module Jekyll
   module Multiple
     module Languages
       module Plugin
-        VERSION = "1.2.6"
+        VERSION = "1.2.7"
       end
     end
   end
