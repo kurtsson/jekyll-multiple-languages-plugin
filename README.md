@@ -100,7 +100,7 @@ The first language in the array will be the default language, English, German an
 To avoid redundancy, it is possible to exclude files and folders from beeing copied to the localization folders. 
 
 ```yaml
-exclude_from_localizations: [javascript", "images", "css"]
+exclude_from_localizations: ["javascript", "images", "css"]
 ```
 In code these specific files shoule be referenced via `baseurl_root`. E.g.
 
