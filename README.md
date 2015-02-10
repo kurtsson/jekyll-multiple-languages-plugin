@@ -97,6 +97,17 @@ languages: ["sv", "en", "de", "fr"]
 
 The first language in the array will be the default language, English, German and French will be added in to separate subfolders.
 
+To avoid redundancy, it is possible to exclude files and folders from beeing copied to the localization folders. 
+
+```yaml
+exclude_from_localizations: [javascript", "images", "css"]
+```
+In code these specific files shoule be referenced via `baseurl_root`. E.g.
+
+```
+<link rel="stylesheet" href="{{ "/css/bootstrap.css" | prepend: site.baseurl_root }}"/>
+```
+
 ###i18n
 Create this folder structure in your Jekyll project as an example:
 

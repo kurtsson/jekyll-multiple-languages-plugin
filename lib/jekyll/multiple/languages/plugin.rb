@@ -18,6 +18,7 @@ module Jekyll
       config['baseurl_root'] = self.config['baseurl']
       baseurl_org = self.config['baseurl']
       languages = self.config['languages']
+      exclude_org = self.config['exclude']
       dest_org = self.dest
 
       #Loop
@@ -31,12 +32,16 @@ module Jekyll
         @dest = @dest + "/" + lang
         self.config['baseurl'] = self.config['baseurl'] + "/" + lang
         self.config['lang'] = lang
+        # exclude folders or files from beeing copied to all the language folders
+        exclude_from_localizations = self.config['exclude_from_localizations'] || []
+        self.config['exclude'] = exclude_org.concat(exclude_from_localizations)
         puts "Building site for language: \"#{self.config['lang']}\" to: #{self.dest}"
         process_org
 
         #Reset variables for next language
         @dest = dest_org
         self.config['baseurl'] = baseurl_org
+        self.config['exclude'] = exclude_org
       end
       Jekyll.setlangs({})
       puts 'Build complete'
