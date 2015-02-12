@@ -60,6 +60,8 @@ Copy or link the file `lib/jekyll/multiple/languages/plugin.rb` into your `_plug
 * Supports translated template files
 
 ##Changelog
+* 1.2.8
+  * Support for excluding files from translation, thanks to [@h6](https://github.com/H6)
 * 1.2.7
   * Support for Jekyll 2.5+, thanks to [@caxy4](https://github.com/caxy4)
 * 1.2.6
@@ -238,6 +240,7 @@ This snippet will create a link that will toggle between Swedish and English. A 
 5. Create new Pull Request
 
 ### Contributors
-- [Bersch](https://github.com/bersch), better paths
-- [Davrandom](https://github.com/davrandom), plugin usage example
-- [agramian](https://github.com/agramian), fallback to default language
+- [@Bersch](https://github.com/bersch), better paths
+- [@Davrandom](https://github.com/davrandom), plugin usage example
+- [@agramian](https://github.com/agramian), fallback to default language
+- [@h6](https://github.com/H6), exclude files from translation
