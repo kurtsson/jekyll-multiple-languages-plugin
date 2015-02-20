@@ -246,4 +246,4 @@ This snippet will create a link that will toggle between Swedish and English. A 
 - [@Davrandom](https://github.com/davrandom), plugin usage example
 - [@agramian](https://github.com/agramian), fallback to default language
 - [@h6](https://github.com/H6), exclude files from translation
-- [@leoditommaso)(https://github.com/leoditommaso), update the example page
+- [@leoditommaso](https://github.com/leoditommaso), update the example page
