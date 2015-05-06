@@ -106,7 +106,7 @@ To avoid redundancy, it is possible to exclude files and folders from beeing cop
 ```yaml
 exclude_from_localizations: ["javascript", "images", "css"]
 ```
-In code these specific files shoule be referenced via `baseurl_root`. E.g.
+In code these specific files should be referenced via `baseurl_root`. E.g.
 
 ```
 <link rel="stylesheet" href="{{ "/css/bootstrap.css" | prepend: site.baseurl_root }}"/>
