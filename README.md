@@ -182,7 +182,7 @@ A perfect example is this:
 </html>
 ```
 
-So how can I add different translated titles to all pages? Don't worry, it's easy. The Multiple Languages plugin supports Liguid variables as well as strings so define a page variable in your page definition
+So how can I add different translated titles to all pages? Don't worry, it's easy. The Multiple Languages plugin supports Liquid variables as well as strings so define a page variable in your page definition
 
 ```yaml
 ---
