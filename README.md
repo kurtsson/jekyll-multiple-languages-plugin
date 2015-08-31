@@ -59,37 +59,6 @@ Copy or link the file `lib/jekyll/multiple/languages/plugin.rb` into your `_plug
 * Supports translated keys in YAML format
 * Supports translated template files
 
-##Changelog
-* 1.2.9
-  * Bug fix when excluding files from translation, again thanks to [@h6](https://github.com/H6)
-* 1.2.8
-  * Support for excluding files from translation, thanks to [@h6](https://github.com/H6)
-* 1.2.7
-  * Support for Jekyll 2.5+, thanks to [@caxy4](https://github.com/caxy4)
-* 1.2.6
-  * Added fallback to default language, thanks to [@agramian](https://github.com/agramian)
-* 1.2.5
-  * Fixed a bug when global variables wasn't as global as expected
-* 1.2.4
-  * Fixed a bug when changes in .yml files got lost during live reload.
-* 1.2.3
-  * Much, much, much faster compilation when lots of translated strings.
-* 1.2.2
-  * Supports translated posts in Octopress
-* 1.2.1
-  * Supports writing translated posts in Jekyll
-  * Supports translated .yml files in Octopress
-* 1.2.0
-  * Renamed the project to jekyll-multiple-languages-plugin
-* 1.1.2
-  * Support for both variables and strings in ```translate_file```
-* 1.1.1
-  * Fixed documentation
-* 1.1.0
-  * Pull request that removed dirty forward slash from URLs
-* 1.0.0
-  * First release
-
 
 ##Usage
 ###Configuration
@@ -232,6 +201,39 @@ This snippet will create a link that will toggle between Swedish and English. A 
 | site.baseurl | Points to the root of the site including the current language | ``` http://foo.bar/en ``` |
 | site.baseurl_root | Points to the root of the page without the language path | ``` http://foo.bar ``` |
 | page.url | The current page's relative URL to the baseurl | ``` /a/sub/folder/page/ ```|
+
+
+##Changelog
+* 1.2.9
+  * Bug fix when excluding files from translation, again thanks to [@h6](https://github.com/H6)
+* 1.2.8
+  * Support for excluding files from translation, thanks to [@h6](https://github.com/H6)
+* 1.2.7
+  * Support for Jekyll 2.5+, thanks to [@caxy4](https://github.com/caxy4)
+* 1.2.6
+  * Added fallback to default language, thanks to [@agramian](https://github.com/agramian)
+* 1.2.5
+  * Fixed a bug when global variables wasn't as global as expected
+* 1.2.4
+  * Fixed a bug when changes in .yml files got lost during live reload.
+* 1.2.3
+  * Much, much, much faster compilation when lots of translated strings.
+* 1.2.2
+  * Supports translated posts in Octopress
+* 1.2.1
+  * Supports writing translated posts in Jekyll
+  * Supports translated .yml files in Octopress
+* 1.2.0
+  * Renamed the project to jekyll-multiple-languages-plugin
+* 1.1.2
+  * Support for both variables and strings in ```translate_file```
+* 1.1.1
+  * Fixed documentation
+* 1.1.0
+  * Pull request that removed dirty forward slash from URLs
+* 1.0.0
+  * First release
+
 
 ## Contributing
 
