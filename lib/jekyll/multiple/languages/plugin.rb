@@ -32,8 +32,8 @@ module Jekyll
         @dest = @dest + "/" + lang
         self.config['baseurl'] = self.config['baseurl'] + "/" + lang
         self.config['lang'] = lang
-        
-        # exclude folders or files from beeing copied to all the language folders
+
+        # exclude folders or files from being copied to all the language folders
         exclude_from_localizations = self.config['exclude_from_localizations'] || []
         @exclude = @exclude + exclude_from_localizations
 
