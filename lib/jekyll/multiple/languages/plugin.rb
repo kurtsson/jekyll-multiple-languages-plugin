@@ -67,11 +67,7 @@ module Jekyll
         File.join(@dir, data['permalink'])
       else
         # Look if there's a permalink overwrite specified for this lang
-        if data['permalink_'+site.config['lang']]
-          data['permalink_'+site.config['lang']]
-        else
-          data['permalink']
-        end
+        data['permalink_'+site.config['lang']] || data['permalink']
       end
     end
   end
@@ -162,10 +158,11 @@ module Jekyll
       end
       key = key.split
       namespace = key[0]
-      lang = (key[1].nil? ? context.registers[:site].config['lang'] : key[1])
+      lang = key[1] || context.registers[:site].config['lang']
       default_lang = context.registers[:site].config['default_lang']
       baseurl = context.registers[:site].baseurl
       pages = context.registers[:site].pages
+      url = "";
 
       if default_lang != lang
         baseurl = baseurl + "/" + lang
@@ -175,11 +172,7 @@ module Jekyll
         unless p['namespace'].nil?
           page_namespace = p['namespace']
           if namespace == page_namespace
-            if p['permalink_'+lang]
-              permalink = p['permalink_'+lang]
-            else
-              permalink = p['permalink']
-            end
+            permalink = p['permalink_'+lang] || p['permalink']
             url = baseurl + permalink
           end
         end
