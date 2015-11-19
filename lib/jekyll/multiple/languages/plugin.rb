@@ -60,6 +60,18 @@ module Jekyll
     end
   end
 
+  class Page
+    def permalink
+      return nil if data.nil? || data['permalink'].nil?
+      if site.config['relative_permalinks']
+        File.join(@dir, data['permalink'])
+      else
+        # Look if there's a permalink overwrite specified for this lang
+        data['permalink_'+site.config['lang']] || data['permalink']
+      end
+    end
+  end
+
   class LocalizeTag < Liquid::Tag
 
     def initialize(tag_name, key, tokens)
@@ -130,6 +142,44 @@ module Jekyll
       end
     end
   end
+
+  class LocalizeLink < Liquid::Tag
+
+    def initialize(tag_name, key, tokens)
+      super
+      @key = key
+    end
+
+    def render(context)
+      if "#{context[@key]}" != "" #Check for page variable
+        key = "#{context[@key]}"
+      else
+        key = @key
+      end
+      key = key.split
+      namespace = key[0]
+      lang = key[1] || context.registers[:site].config['lang']
+      default_lang = context.registers[:site].config['default_lang']
+      baseurl = context.registers[:site].baseurl
+      pages = context.registers[:site].pages
+      url = "";
+
+      if default_lang != lang
+        baseurl = baseurl + "/" + lang
+      end
+
+      for p in pages
+        unless p['namespace'].nil?
+          page_namespace = p['namespace']
+          if namespace == page_namespace
+            permalink = p['permalink_'+lang] || p['permalink']
+            url = baseurl + permalink
+          end
+        end
+      end
+      url
+    end
+  end
 end
 
 unless Hash.method_defined? :access
@@ -153,3 +203,5 @@ Liquid::Template.register_tag('t', Jekyll::LocalizeTag)
 Liquid::Template.register_tag('translate', Jekyll::LocalizeTag)
 Liquid::Template.register_tag('tf', Jekyll::Tags::LocalizeInclude)
 Liquid::Template.register_tag('translate_file', Jekyll::Tags::LocalizeInclude)
+Liquid::Template.register_tag('tl', Jekyll::LocalizeLink)
+Liquid::Template.register_tag('translate_link', Jekyll::LocalizeLink)
