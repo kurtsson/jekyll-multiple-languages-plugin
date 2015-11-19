@@ -70,7 +70,7 @@ languages: ["sv", "en", "de", "fr"]
 
 The first language in the array will be the default language, English, German and French will be added in to separate subfolders.
 
-To avoid redundancy, it is possible to exclude files and folders from beeing copied to the localization folders. 
+To avoid redundancy, it is possible to exclude files and folders from beeing copied to the localization folders.
 
 ```yaml
 exclude_from_localizations: ["javascript", "images", "css"]
@@ -204,6 +204,9 @@ This snippet will create a link that will toggle between Swedish and English. A 
 
 
 ##Changelog
+* 1.3.0
+  * Support for localized links and custom permalinks, thanks to [@jasonlemay](https://github.com/screeninteraction/jekyll-multiple-languages-plugin/pull/53)
+  * Support for excluding posts from translation, thanks to [ctruelson](https://github.com/screeninteraction/jekyll-multiple-languages-plugin/pull/51)
 * 1.2.9
   * Bug fix when excluding files from translation, again thanks to [@h6](https://github.com/H6)
 * 1.2.8
