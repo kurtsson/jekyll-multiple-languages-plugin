@@ -52,7 +52,8 @@ module Jekyll
 
     alias :read_posts_org :read_posts
     def read_posts(dir)
-      if dir == ''
+      translate_posts = !self.config['exclude_from_localizations'].include?("_posts")
+      if dir == '' && translate_posts
         read_posts("_i18n/#{self.config['lang']}/")
       else
         read_posts_org(dir)
