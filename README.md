@@ -138,6 +138,21 @@ This plugin have exactly the same support and syntax as the built in
 
 tag, so plugins that extends its functionality should be picked up by this plugin as well.
 
+###Creating pages
+Depending on the theme, or your preferences, you need to create a "template" page at the root folder or in a folder (ex. `_pages`). Inside each page (in this example an `about.md`) you should have at least the following in the header and body:
+
+```yaml
+---
+layout: page
+title: About
+permalink: /about/
+---
+
+{% translate_file about/about.md %}
+```yaml
+
+Inside each of the language folders, you should create mirror pages to provide the actual content for that language (ex. `i18n/es/about/about.md`). Make sure to erase the headers from those md files, or else your site will break.
+
 ###i18n in templates
 Sometimes it is convenient to add keys even in template files. This works in the exact same way as in ordinary files, however sometimes it can be useful to include different string in different pages even if they use the same template.
 
