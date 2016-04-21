@@ -49,12 +49,14 @@ module Jekyll
       Jekyll.setlangs({})
       puts 'Build complete'
     end
+  end
 
+  class PostReader
     alias :read_posts_org :read_posts
     def read_posts(dir)
-      translate_posts = !self.config['exclude_from_localizations'].include?("_posts")
+      translate_posts = !site.config['exclude_from_localizations'].include?("_posts")
       if dir == '' && translate_posts
-        read_posts("_i18n/#{self.config['lang']}/")
+        read_posts("_i18n/#{site.config['lang']}/")
       else
         read_posts_org(dir)
       end
