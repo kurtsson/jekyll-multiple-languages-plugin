@@ -61,11 +61,11 @@ module Jekyll
       
       # Variables
       #-------------------------------------------------------------------------
-      config['baseurl_root'] = self.config['baseurl']  # baseurl set on _config.yml
-      baseurl_org = self.config['baseurl'] # baseurl set on _config.yml
-      languages = self.config['languages'] # List of languages set on _config.yml
-      exclude_org = self.exclude # List of excluded paths
-      dest_org = self.dest # Destination folder where the website is generated
+      config['baseurl_root'] = self.config[ 'baseurl' ] # baseurl set on _config.yml
+      baseurl_org            = self.config[ 'baseurl' ] # baseurl set on _config.yml
+      languages              = self.config['languages'] # List of languages set on _config.yml
+      exclude_org            = self.exclude             # List of excluded paths
+      dest_org               = self.dest                # Destination folder where the website is generated
       
       
       # Build the website for default language
@@ -73,32 +73,35 @@ module Jekyll
       self.config['lang'] = self.config['default_lang'] = languages.first
       puts
       puts "Building site for default language: \"#{self.config['lang']}\" to: #{self.dest}"
+      
       process_org
       
       
       # Build the website for the other languages
       #-------------------------------------------------------------------------
       languages.drop(1).each do |lang|
-
+        
         # Build site for language lang
-        @dest = @dest + "/" + lang
+        @dest                  = @dest                  + "/" + lang
         self.config['baseurl'] = self.config['baseurl'] + "/" + lang
-        self.config['lang'] = lang
-
+        self.config['lang']    =                                lang
+        
         # exclude folders or files from being copied to all the language folders
         exclude_from_localizations = self.config['exclude_from_localizations'] || []
-        @exclude = @exclude + exclude_from_localizations
-
+        @exclude                   =   @exclude + exclude_from_localizations
+        
         puts "Building site for language: \"#{self.config['lang']}\" to: #{self.dest}"
         process_org
-
+        
         #Reset variables for next language
-        @dest = dest_org
+        @dest    =    dest_org
         @exclude = exclude_org
-
+        
         self.config['baseurl'] = baseurl_org
       end
+      
       Jekyll.setlangs({})
+      
       puts 'Build complete'
     end
 
@@ -111,11 +114,13 @@ module Jekyll
     #======================================
     def read_posts(dir)
       translate_posts = !self.config['exclude_from_localizations'].include?("_posts")
+      
       if dir == '' && translate_posts
         read_posts("_i18n/#{self.config['lang']}/")
       else
         read_posts_org(dir)
       end
+      
     end
   end
 
@@ -125,18 +130,20 @@ module Jekyll
   # class Page
   ##############################################################################
   class Page
-
+  
     #======================================
     # permalink
     #======================================
     def permalink
       return nil if data.nil? || data['permalink'].nil?
+      
       if site.config['relative_permalinks']
-        File.join(@dir, data['permalink'])
+        File.join(@dir,  data['permalink'])
       else
         # Look if there's a permalink overwrite specified for this lang
         data['permalink_'+site.config['lang']] || data['permalink']
       end
+      
     end
   end
 
@@ -174,22 +181,28 @@ module Jekyll
     # render
     #======================================
     def render(context)
-      if "#{context[@key]}" != "" #Check for page variable
+      if      "#{context[@key]}" != "" # Check for page variable
         key = "#{context[@key]}"
       else
-        key = @key
+        key =            @key
       end
+      
       lang = context.registers[:site].config['lang']
+      
       unless Jekyll.langs.has_key?(lang)
-        puts "Loading translation from file #{context.registers[:site].source}/_i18n/#{lang}.yml"
+        puts  "Loading translation from file #{context.registers[:site].source}/_i18n/#{lang}.yml"
         Jekyll.langs[lang] = YAML.load_file("#{context.registers[:site].source}/_i18n/#{lang}.yml")
       end
+      
       translation = Jekyll.langs[lang].access(key) if key.is_a?(String)
+      
       if translation.nil? or translation.empty?
-        translation = Jekyll.langs[context.registers[:site].config['default_lang']].access(key)
+         translation = Jekyll.langs[context.registers[:site].config['default_lang']].access(key)
+        
         puts "Missing i18n key: #{lang}:#{key}"
         puts "Using translation '%s' from default language: %s" %[translation, context.registers[:site].config['default_lang']]
       end
+      
       translation
     end
   end
@@ -209,41 +222,44 @@ module Jekyll
       # render
       #======================================
       def render(context)
-        if "#{context[@file]}" != "" # Check for page variable
+        if       "#{context[@file]}" != "" # Check for page variable
           file = "#{context[@file]}"
         else
-          file = @file
+          file =            @file
         end
-
+        
         includes_dir = File.join(context.registers[:site].source, '_i18n/' + context.registers[:site].config['lang'])
-
+        
         if File.symlink?(includes_dir)
           return "Includes directory '#{includes_dir}' cannot be a symlink"
         end
+        
         if file !~ /^[a-zA-Z0-9_\/\.-]+$/ || file =~ /\.\// || file =~ /\/\./
           return "Include file '#{file}' contains invalid characters or sequences"
         end
-
+        
         Dir.chdir(includes_dir) do
           choices = Dir['**/*'].reject { |x| File.symlink?(x) }
-          if choices.include?(file)
-            source = File.read(file)
+          
+          if choices.include?(  file)
+            source  = File.read(file)
             partial = Liquid::Template.parse(source)
-
+            
             context.stack do
-              context['include'] = parse_params(context) if @params
-              contents = partial.render(context)
-              site = context.registers[:site]
-              ext = File.extname(file)
-
+              context['include'] = parse_params(  context) if @params
+              contents           = partial.render(context)
+              site               = context.registers[:site]
+              ext                = File.extname(file)
+              
               converter = site.converters.find { |c| c.matches(ext) }
-              contents = converter.convert(contents) unless converter.nil?
-
+              contents  = converter.convert(contents) unless converter.nil?
+              
               contents
             end
           else
             "Included file '#{file}' not found in #{includes_dir} directory"
           end
+          
         end
       end
     end
@@ -273,32 +289,35 @@ module Jekyll
     # render
     #======================================
     def render(context)
-      if "#{context[@key]}" != "" #Check for page variable
+      if      "#{context[@key]}" != "" # Check for page variable
         key = "#{context[@key]}"
       else
         key = @key
       end
-      key = key.split
-      namespace = key[0]
-      lang = key[1] || context.registers[:site].config['lang']
-      default_lang = context.registers[:site].config['default_lang']
-      baseurl = context.registers[:site].baseurl
-      pages = context.registers[:site].pages
-      url = "";
-
+      
+      key          = key.split
+      namespace    = key[0]
+      lang         = key[1] || context.registers[:site].config[        'lang']
+      default_lang =           context.registers[:site].config['default_lang']
+      baseurl      =           context.registers[:site].baseurl
+      pages        =           context.registers[:site].pages
+      url          = "";
+      
       if default_lang != lang
         baseurl = baseurl + "/" + lang
       end
-
+      
       for p in pages
-        unless p['namespace'].nil?
+        unless             p['namespace'].nil?
           page_namespace = p['namespace']
+          
           if namespace == page_namespace
             permalink = p['permalink_'+lang] || p['permalink']
-            url = baseurl + permalink
+            url       = baseurl + permalink
           end
         end
       end
+      
       url
     end
   end
@@ -319,14 +338,18 @@ unless Hash.method_defined? :access
     #======================================
     def access(path)
       ret = self
+      
       path.split('.').each do |p|
+      
         if p.to_i.to_s == p
           ret = ret[p.to_i]
         else
           ret = ret[p.to_s] || ret[p.to_sym]
         end
+        
         break unless ret
       end
+      
       ret
     end
   end
@@ -337,9 +360,10 @@ end
 ################################################################################
 # Liquid tags definitions
 
-Liquid::Template.register_tag('t', Jekyll::LocalizeTag)
-Liquid::Template.register_tag('translate', Jekyll::LocalizeTag)
-Liquid::Template.register_tag('tf', Jekyll::Tags::LocalizeInclude)
+Liquid::Template.register_tag('t',              Jekyll::LocalizeTag          )
+Liquid::Template.register_tag('translate',      Jekyll::LocalizeTag          )
+Liquid::Template.register_tag('tf',             Jekyll::Tags::LocalizeInclude)
 Liquid::Template.register_tag('translate_file', Jekyll::Tags::LocalizeInclude)
-Liquid::Template.register_tag('tl', Jekyll::LocalizeLink)
-Liquid::Template.register_tag('translate_link', Jekyll::LocalizeLink)
+Liquid::Template.register_tag('tl',             Jekyll::LocalizeLink         )
+Liquid::Template.register_tag('translate_link', Jekyll::LocalizeLink         )
+
