@@ -76,6 +76,8 @@ module Jekyll
       
       process_org
       
+      # Remove .htaccess file from included files, so it wont show up on translations folders.
+      self.include -= [".htaccess"]
       
       # Build the website for the other languages
       #-------------------------------------------------------------------------
