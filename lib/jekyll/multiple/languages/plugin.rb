@@ -1,31 +1,83 @@
+=begin
+
+Jekyll  Multiple  Languages  is  an  internationalization  plugin for Jekyll. It
+compiles  your  Jekyll site for one or more languages with a similar approach as
+Rails does. The different sites will be stored in sub folders with the same name
+as the language it contains.
+
+Please visit https://github.com/screeninteraction/jekyll-multiple-languages-plugin
+for more details.
+
+=end
+
+
+
 require "jekyll/multiple/languages/plugin/version"
 
 module Jekyll
+  # Hash that stores a list of language translations read from an YAML file.
   @parsedlangs = {}
+
+  #======================================
+  # self.langs
+  #
+  # Returns the list of translations.
+  #======================================
   def self.langs
     @parsedlangs
   end
+
+  #======================================
+  # self.setlangs
+  #
+  # Set the list of translations.
+  #======================================
   def self.setlangs(l)
     @parsedlangs = l
   end
+
+
+
+  ##############################################################################
+  # class Site
+  ##############################################################################
   class Site
+  
     alias :process_org :process
+    
+    #======================================
+    # process
+    #
+    # Reads Jekyll and plugin configuration parameters set on _config.yml, sets
+    # main parameters and processes the website for each language.
+    #======================================
     def process
+      # Check if some importat settings are set, if not, set a default.
+      #-------------------------------------------------------------------------
       if !self.config['baseurl']
         self.config['baseurl'] = ""
       end
-      #Variables
-      config['baseurl_root'] = self.config['baseurl']
-      baseurl_org = self.config['baseurl']
-      languages = self.config['languages']
-      exclude_org = self.exclude
-      dest_org = self.dest
-
-      #Loop
+      
+      
+      # Variables
+      #-------------------------------------------------------------------------
+      config['baseurl_root'] = self.config['baseurl']  # baseurl set on _config.yml
+      baseurl_org = self.config['baseurl'] # baseurl set on _config.yml
+      languages = self.config['languages'] # List of languages set on _config.yml
+      exclude_org = self.exclude # List of excluded paths
+      dest_org = self.dest # Destination folder where the website is generated
+      
+      
+      # Build the website for default language
+      #-------------------------------------------------------------------------
       self.config['lang'] = self.config['default_lang'] = languages.first
       puts
       puts "Building site for default language: \"#{self.config['lang']}\" to: #{self.dest}"
       process_org
+      
+      
+      # Build the website for the other languages
+      #-------------------------------------------------------------------------
       languages.drop(1).each do |lang|
 
         # Build site for language lang
@@ -50,7 +102,13 @@ module Jekyll
       puts 'Build complete'
     end
 
+
+
     alias :read_posts_org :read_posts
+
+    #======================================
+    # read_posts
+    #======================================
     def read_posts(dir)
       translate_posts = !self.config['exclude_from_localizations'].include?("_posts")
       if dir == '' && translate_posts
@@ -61,7 +119,16 @@ module Jekyll
     end
   end
 
+
+
+  ##############################################################################
+  # class Page
+  ##############################################################################
   class Page
+
+    #======================================
+    # permalink
+    #======================================
     def permalink
       return nil if data.nil? || data['permalink'].nil?
       if site.config['relative_permalinks']
@@ -73,13 +140,39 @@ module Jekyll
     end
   end
 
-  class LocalizeTag < Liquid::Tag
 
+
+
+
+
+  #-----------------------------------------------------------------------------
+  #
+  # The next classes implements the plugin Liquid Tags and/or Filters
+  #
+  #-----------------------------------------------------------------------------
+
+
+  ##############################################################################
+  # class LocalizeTag
+  #
+  # Localization by getting localized text from YAML files.
+  # User must use the "t" or "translate" liquid tags.
+  ##############################################################################
+  class LocalizeTag < Liquid::Tag
+  
+    #======================================
+    # initialize
+    #======================================
     def initialize(tag_name, key, tokens)
       super
       @key = key.strip
     end
-
+    
+    
+    
+    #======================================
+    # render
+    #======================================
     def render(context)
       if "#{context[@key]}" != "" #Check for page variable
         key = "#{context[@key]}"
@@ -101,10 +194,22 @@ module Jekyll
     end
   end
 
+
+
+  ##############################################################################
+  # class LocalizeInclude
+  #
+  # Localization by including whole files that contain the localization text.
+  # User must use the "tf" or "translate_file" liquid tags.
+  ##############################################################################
   module Tags
     class LocalizeInclude < IncludeTag
+    
+      #======================================
+      # render
+      #======================================
       def render(context)
-        if "#{context[@file]}" != "" #Check for page variable
+        if "#{context[@file]}" != "" # Check for page variable
           file = "#{context[@file]}"
         else
           file = @file
@@ -144,13 +249,29 @@ module Jekyll
     end
   end
 
+
+
+  ##############################################################################
+  # class LocalizeLink
+  #
+  # Creates links or permalinks for translated pages.
+  # User must use the "tl" or "translate_link" liquid tags.
+  ##############################################################################
   class LocalizeLink < Liquid::Tag
 
+    #======================================
+    # initialize
+    #======================================
     def initialize(tag_name, key, tokens)
       super
       @key = key
     end
-
+    
+    
+    
+    #======================================
+    # render
+    #======================================
     def render(context)
       if "#{context[@key]}" != "" #Check for page variable
         key = "#{context[@key]}"
@@ -181,10 +302,21 @@ module Jekyll
       url
     end
   end
-end
+  
+  
+end # End module Jekyll
 
+
+
+################################################################################
+# class Hash
+################################################################################
 unless Hash.method_defined? :access
   class Hash
+  
+    #======================================
+    # access
+    #======================================
     def access(path)
       ret = self
       path.split('.').each do |p|
@@ -199,6 +331,11 @@ unless Hash.method_defined? :access
     end
   end
 end
+
+
+
+################################################################################
+# Liquid tags definitions
 
 Liquid::Template.register_tag('t', Jekyll::LocalizeTag)
 Liquid::Template.register_tag('translate', Jekyll::LocalizeTag)
