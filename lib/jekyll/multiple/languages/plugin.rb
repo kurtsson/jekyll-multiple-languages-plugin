@@ -55,7 +55,7 @@ module Jekyll
       # Check if some importat settings are set, if not, set a default.
       #-------------------------------------------------------------------------
       if !self.config['baseurl']
-        self.config['baseurl'] = ""
+          self.config['baseurl'] = ""
       end
       
       
