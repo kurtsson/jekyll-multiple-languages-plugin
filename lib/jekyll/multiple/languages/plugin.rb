@@ -58,6 +58,8 @@ module Jekyll
           self.config['baseurl'] = ""
       end
       
+      self.config['exclude_from_localizations'] ||= []
+      
       
       # Variables
       #-------------------------------------------------------------------------
