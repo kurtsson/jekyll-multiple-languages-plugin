@@ -52,13 +52,22 @@ module Jekyll
     # main parameters and processes the website for each language.
     #======================================
     def process
-      # Check if some importat settings are set, if not, set a default.
+      # Check if some importat settings are set, if not, set a default or quit.
       #-------------------------------------------------------------------------
       if !self.config['baseurl']
           self.config['baseurl'] = ""
       end
       
       self.config['exclude_from_localizations'] ||= []
+      
+      if ( !self.config['languages']         or
+            self.config['languages'].empty?  or
+           !self.config['languages'].all?
+         )
+          puts 'You must provide at least one language using the "languages" setting on your _config.yml.'
+          
+          exit
+      end
       
       
       # Variables
