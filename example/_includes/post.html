@@ -18,13 +18,13 @@
 		<div align="right">
 			<a href="{{ link1 }}" >{% t global.english %}</a><span class="separator"> &bull; </span><a href="{{ link3 }}" >{% t global.spanish %}</a>
 		</div>	
-	{% else if site.lang == "en" %}
+	{% elsif site.lang == "en" %}
 		{% capture link2 %}{{ site.baseurl_root }}{{ page.url  }}{% endcapture %}
 		{% capture link3 %}{{ site.baseurl_root }}/es{{ page.url}}{% endcapture %}
 		<div align="right">
 			<a href="{{ link3 }}" >{% t global.spanish %}</a><span class="separator"> &bull; </span><a href="{{ link2 }}" >{% t global.italian %}</a>
 		</div>	
-	{% else if site.lang == "es" %}
+	{% elsif site.lang == "es" %}
 		{% capture link2 %}{{ site.baseurl_root }}{{ page.url  }}{% endcapture %}
 		{% capture link1 %}{{ site.baseurl_root }}/en{{ page.url}}{% endcapture %}
 		<div align="right">
