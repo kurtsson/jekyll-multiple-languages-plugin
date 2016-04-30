@@ -202,7 +202,7 @@ This allows you to create solutions like this:
 {% if site.lang == "sv" %}
     {% capture link1 %}{{ site.baseurl_root }}en{{ page.url}}{% endcapture %}
     <a href="{{ link1 }}" >{% t global.english %}</a>
-  {% else if site.lang == "en" %}
+  {% elsif site.lang == "en" %}
     {% capture link2 %}{{ site.baseurl_root }}{{ page.url  }}{% endcapture %}
     <a href="{{ link2 }}" >{% t global.swedish %}</a>
   {% endif %}
