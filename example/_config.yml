@@ -1,8 +1,16 @@
 name: Flex
 markdown: redcarpet
-pygments: true
+highlighter: pygments
 
 baseurl: ""
 permalink: /:title/
 
+# Plugins
+gems: 
+  - jekyll/multiple/languages/plugin
+
+
+# jekyll-multiple-languages-plugin settings:
 languages: ["it", "en", "es"]
+
+exclude_from_localizations: ["javascript", "images", "css", "Gemfile", "scripts", "favicon.ico", "LICENSE", "README.md"]
