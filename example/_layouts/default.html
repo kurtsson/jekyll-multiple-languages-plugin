@@ -23,8 +23,11 @@
     <div class="site">
       <div class="sidebar" id="sidebar">
         <div class="header">
-
-          <h1 class="title"><a href="/"><img id="logo" src="/images/logo.png"></a></h1>
+          {% if site.lang == "it" %}
+            <h1 class="title"><a href="{{ site.baseurl_root }}/"><img id="logo" src="/images/logo.png"></a></h1>
+          {% else %}
+            <h1 class="title"><a href="{{ site.baseurl_root }}/{{ site.lang }}"><img id="logo" src="/images/logo.png"></a></h1>
+          {% endif %}
           <span class="tagline">{% t global.tagline %}</span>
         </div>
         <div class="posts">
