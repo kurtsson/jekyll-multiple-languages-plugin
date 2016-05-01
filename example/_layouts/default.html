@@ -39,6 +39,18 @@
                 </a>
               </li>
             {% endfor %}
+            {% if site.pages.size > 1 %}
+              <hr>
+              {% for page in site.pages %}
+                {% if page.title != "Home" %}
+                  <li class="post-link">
+                    <a class="post-title" href="{{ site.baseurl }}{{ page.url }}">
+                      {{ page.title }} - {{ site.lang }}
+                    </a>
+                  </li>
+                {% endif %}
+              {% endfor %}
+            {% endif %}
           </ul>
         </div>
         <div class="footer">
