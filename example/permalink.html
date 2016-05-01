@@ -1,0 +1,53 @@
+---
+layout: default
+title:  Permalink
+cover:  cover.jpg
+
+namespace:     team
+permalink:     /squadra/
+permalink_en:  /team/
+permalink_es:  /equipo/
+---
+
+
+
+<div class="content" id="home">
+  <div id="sidebar-button">
+    <img src="/images/sidebar-button.png">
+  </div>
+  <div id="post-info">
+    <div id="cover-photo-container">
+      <img id="cover-photo" src="/images/{{ page.cover }}">
+    </div>
+    <div id="info-container">
+      <h1 id="title">{{ page.title }}</h1>
+    </div>
+  </div>
+
+  <div class="post">
+    {% if site.lang == "it" %}
+        {% capture link_en %}{{page.namespace}} en{% endcapture %}
+        {% capture link_es %}{{page.namespace}} es{% endcapture %}
+        <div align="right">
+            <a href="{% tl {{ link_en }} %}" >{% t global.english %}</a><span class="separator"> &bull; </span><a href="{% tl {{ link_es }} %}" >{% t global.spanish %}</a>
+        </div>
+    {% elsif site.lang == "en" %}
+        {% capture link_it %}{{page.namespace}} it{% endcapture %}
+        {% capture link_es %}{{page.namespace}} es{% endcapture %}
+        <div align="right">
+            <a href="{% tl {{ link_it }} %}" >{% t global.italian %}</a><span class="separator"> &bull; </span><a href="{% tl {{ link_es }} %}" >{% t global.spanish %}</a>
+        </div>
+    {% elsif site.lang == "es" %}
+        {% capture link_en %}{{page.namespace}} en{% endcapture %}
+        {% capture link_it %}{{page.namespace}} it{% endcapture %}
+        <div align="right">
+            <a href="{% tl {{ link_en }} %}" >{% t global.english %}</a><span class="separator"> &bull; </span><a href="{% tl {{ link_it }} %}" >{% t global.italian %}</a>
+        </div>
+    {% endif %}
+
+
+
+    {% tf permalink.md %}
+  </div>
+</div>
+
