@@ -120,21 +120,24 @@ module Jekyll
 
 
 
-    alias :read_posts_org :read_posts
+    if Gem::Version.new(Jekyll::VERSION) < Gem::Version.new("3.0.0")
+      alias :read_posts_org :read_posts
 
-    #======================================
-    # read_posts
-    #======================================
-    def read_posts(dir)
-      translate_posts = !self.config['exclude_from_localizations'].include?("_posts")
-      
-      if dir == '' && translate_posts
-        read_posts("_i18n/#{self.config['lang']}/")
-      else
-        read_posts_org(dir)
+      #======================================
+      # read_posts
+      #======================================
+      def read_posts(dir)
+        translate_posts = !self.config['exclude_from_localizations'].include?("_posts")
+        
+        if dir == '' && translate_posts
+          read_posts("_i18n/#{self.config['lang']}/")
+        else
+          read_posts_org(dir)
+        end
+        
       end
-      
     end
+
   end
 
 
@@ -166,7 +169,8 @@ module Jekyll
   # class Post
   ##############################################################################
   class Post
-      
+  
+    if Gem::Version.new(Jekyll::VERSION) < Gem::Version.new("3.0.0")
       alias :populate_categories_org :populate_categories
       
       #======================================
@@ -176,16 +180,17 @@ module Jekyll
       # ("_i18n" and language code) that are prepended to posts categories
       # because of how the multilingual posts are arranged in subfolders.
       #======================================
-    def populate_categories
-      categories_from_data = Utils.pluralized_array_from_hash(data, 'category', 'categories')
-      self.categories = (
-        Array(categories) + categories_from_data
-      ).map {|c| c.to_s.downcase}.flatten.uniq
-      
-      self.categories.delete("_i18n")
-      self.categories.delete(site.config['lang'])
-      
-      return self.categories
+      def populate_categories
+        categories_from_data = Utils.pluralized_array_from_hash(data, 'category', 'categories')
+        self.categories = (
+          Array(categories) + categories_from_data
+        ).map {|c| c.to_s.downcase}.flatten.uniq
+        
+        self.categories.delete("_i18n")
+        self.categories.delete(site.config['lang'])
+        
+        return self.categories
+      end
     end
   end
 
