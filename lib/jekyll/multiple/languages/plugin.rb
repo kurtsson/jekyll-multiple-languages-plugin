@@ -15,34 +15,14 @@ for more details.
 require "jekyll/multiple/languages/plugin/version"
 
 module Jekyll
-  # Hash that stores a list of language translations read from an YAML file.
-  @parsedlangs = {}
-
-  #======================================
-  # self.langs
-  #
-  # Returns the list of translations.
-  #======================================
-  def self.langs
-    @parsedlangs
-  end
-
-  #======================================
-  # self.setlangs
-  #
-  # Set the list of translations.
-  #======================================
-  def self.setlangs(l)
-    @parsedlangs = l
-  end
-
-
 
   ##############################################################################
   # class Site
   ##############################################################################
   class Site
-  
+    
+    attr_accessor :parsed_translations   # Hash that stores parsed translations read from YAML files.
+    
     alias :process_org :process
     
     #======================================
@@ -54,6 +34,8 @@ module Jekyll
     def process
       # Check if some importat settings are set, if not, set a default or quit.
       #-------------------------------------------------------------------------
+      self.parsed_translations ||= {}
+      
       if !self.config['baseurl']
           self.config['baseurl'] = ""
       end
@@ -112,8 +94,6 @@ module Jekyll
         
         self.config['baseurl'] = baseurl_org
       end
-      
-      Jekyll.setlangs({})
       
       puts 'Build complete'
     end
@@ -287,15 +267,15 @@ module Jekyll
       
       lang = context.registers[:site].config['lang']
       
-      unless Jekyll.langs.has_key?(lang)
-        puts  "Loading translation from file #{context.registers[:site].source}/_i18n/#{lang}.yml"
-        Jekyll.langs[lang] = YAML.load_file("#{context.registers[:site].source}/_i18n/#{lang}.yml")
+      unless context.registers[:site].parsed_translations.has_key?(lang)
+        puts                                  "Loading translation from file #{context.registers[:site].source}/_i18n/#{lang}.yml"
+        context.registers[:site].parsed_translations[lang] = YAML.load_file("#{context.registers[:site].source}/_i18n/#{lang}.yml")
       end
       
-      translation = Jekyll.langs[lang].access(key) if key.is_a?(String)
+      translation = context.registers[:site].parsed_translations[lang].access(key) if key.is_a?(String)
       
       if translation.nil? or translation.empty?
-         translation = Jekyll.langs[context.registers[:site].config['default_lang']].access(key)
+         translation = context.registers[:site].parsed_translations[context.registers[:site].config['default_lang']].access(key)
         
         puts "Missing i18n key: #{lang}:#{key}"
         puts "Using translation '%s' from default language: %s" %[translation, context.registers[:site].config['default_lang']]
