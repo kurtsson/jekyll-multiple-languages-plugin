@@ -312,9 +312,7 @@ module Jekyll
         
         includes_dir = File.join(site.source, '_i18n/' + site.config['lang'])
         
-        if file !~ /^[a-zA-Z0-9_\/\.-]+$/ || file =~ /\.\// || file =~ /\/\./
-          return "Include file '#{file}' contains invalid characters or sequences"
-        end
+        validate_file_name(file)
         
         Dir.chdir(includes_dir) do
           choices = Dir['**/*'].reject { |x| File.symlink?(x) }
