@@ -332,7 +332,7 @@ module Jekyll
               contents
             end
           else
-            "Included file '#{file}' not found in #{includes_dir} directory"
+            raise IOError.new "Included file '#{file}' not found in #{includes_dir} directory"
           end
           
         end
