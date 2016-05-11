@@ -265,20 +265,22 @@ module Jekyll
         key =            @key
       end
       
-      lang = context.registers[:site].config['lang']
+      site = context.registers[:site] # Jekyll site object
       
-      unless context.registers[:site].parsed_translations.has_key?(lang)
-        puts                                  "Loading translation from file #{context.registers[:site].source}/_i18n/#{lang}.yml"
-        context.registers[:site].parsed_translations[lang] = YAML.load_file("#{context.registers[:site].source}/_i18n/#{lang}.yml")
+      lang = site.config['lang']
+      
+      unless site.parsed_translations.has_key?(lang)
+        puts              "Loading translation from file #{site.source}/_i18n/#{lang}.yml"
+        site.parsed_translations[lang] = YAML.load_file("#{site.source}/_i18n/#{lang}.yml")
       end
       
-      translation = context.registers[:site].parsed_translations[lang].access(key) if key.is_a?(String)
+      translation = site.parsed_translations[lang].access(key) if key.is_a?(String)
       
       if translation.nil? or translation.empty?
-         translation = context.registers[:site].parsed_translations[context.registers[:site].config['default_lang']].access(key)
+         translation = site.parsed_translations[site.config['default_lang']].access(key)
         
         puts "Missing i18n key: #{lang}:#{key}"
-        puts "Using translation '%s' from default language: %s" %[translation, context.registers[:site].config['default_lang']]
+        puts "Using translation '%s' from default language: %s" %[translation, site.config['default_lang']]
       end
       
       translation
@@ -306,7 +308,9 @@ module Jekyll
           file =            @file
         end
         
-        includes_dir = File.join(context.registers[:site].source, '_i18n/' + context.registers[:site].config['lang'])
+        site = context.registers[:site] # Jekyll site object
+        
+        includes_dir = File.join(site.source, '_i18n/' + site.config['lang'])
         
         if File.symlink?(includes_dir)
           return "Includes directory '#{includes_dir}' cannot be a symlink"
@@ -326,7 +330,6 @@ module Jekyll
             context.stack do
               context['include'] = parse_params(  context) if @params
               contents           = partial.render(context)
-              site               = context.registers[:site]
               ext                = File.extname(file)
               
               converter = site.converters.find { |c| c.matches(ext) }
@@ -373,12 +376,14 @@ module Jekyll
         key = @key
       end
       
+      site = context.registers[:site] # Jekyll site object
+      
       key          = key.split
       namespace    = key[0]
-      lang         = key[1] || context.registers[:site].config[        'lang']
-      default_lang =           context.registers[:site].config['default_lang']
-      baseurl      =           context.registers[:site].baseurl
-      pages        =           context.registers[:site].pages
+      lang         = key[1] || site.config[        'lang']
+      default_lang =           site.config['default_lang']
+      baseurl      =           site.baseurl
+      pages        =           site.pages
       url          = "";
       
       if default_lang != lang
