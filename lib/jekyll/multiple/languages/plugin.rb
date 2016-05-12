@@ -54,45 +54,47 @@ module Jekyll
       
       # Variables
       #-------------------------------------------------------------------------
-      config['baseurl_root'] = self.config[ 'baseurl' ] # baseurl set on _config.yml
-      baseurl_org            = self.config[ 'baseurl' ] # baseurl set on _config.yml
-      languages              = self.config['languages'] # List of languages set on _config.yml
-      exclude_org            = self.exclude             # List of excluded paths
-      dest_org               = self.dest                # Destination folder where the website is generated
+      
+      # Original variables
+      baseurl_org                 = self.config[ 'baseurl' ] # baseurl set on _config.yml
+      exclude_org                 = self.exclude             # List of excluded paths
+      dest_org                    = self.dest                # Destination folder where the website is generated
+      
+      # Site building only variables
+      languages                   = self.config['languages'] # List of languages set on _config.yml
+      
+      # Site wide plugin config
+      self.config['default_lang'] = languages.first          # Default language (first language of array set on _config.yml)
+      self.config[        'lang'] = languages.first          # Current language being processed
       
       
       # Build the website for default language
       #-------------------------------------------------------------------------
-      self.config['lang'] = self.config['default_lang'] = languages.first
-      puts
       puts "Building site for default language: \"#{self.config['lang']}\" to: #{self.dest}"
       
       process_org
       
-      # Remove .htaccess file from included files, so it wont show up on translations folders.
-      self.include -= [".htaccess"]
       
       # Build the website for the other languages
       #-------------------------------------------------------------------------
+      
+      # Remove .htaccess file from included files, so it wont show up on translations folders.
+      self.include -= [".htaccess"]
+      
       languages.drop(1).each do |lang|
         
-        # Build site for language lang
-        @dest                  = @dest                  + "/" + lang
-        self.config['baseurl'] = self.config['baseurl'] + "/" + lang
-        self.config['lang']    =                                lang
+        # Language specific config/variables
+        @dest                  = dest_org    + "/" + lang
+        self.config['baseurl'] = baseurl_org + "/" + lang
+        self.config['lang']    =                     lang
         
         # exclude folders or files from being copied to all the language folders
-        exclude_from_localizations = self.config['exclude_from_localizations'] || []
-        @exclude                   =   @exclude + exclude_from_localizations
+        exclude_from_localizations =  self.config['exclude_from_localizations']
+        self.exclude               = exclude_org + exclude_from_localizations
         
         puts "Building site for language: \"#{self.config['lang']}\" to: #{self.dest}"
+        
         process_org
-        
-        #Reset variables for next language
-        @dest    =    dest_org
-        @exclude = exclude_org
-        
-        self.config['baseurl'] = baseurl_org
       end
       
       puts 'Build complete'
