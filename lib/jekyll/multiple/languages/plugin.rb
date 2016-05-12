@@ -32,13 +32,9 @@ module Jekyll
     # main parameters and processes the website for each language.
     #======================================
     def process
-      # Check if some importat settings are set, if not, set a default or quit.
+      # Check if plugin settings are set, if not, set a default or quit.
       #-------------------------------------------------------------------------
       self.parsed_translations ||= {}
-      
-      if !self.config['baseurl']
-          self.config['baseurl'] = ""
-      end
       
       self.config['exclude_from_localizations'] ||= []
       
