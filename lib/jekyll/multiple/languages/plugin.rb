@@ -51,17 +51,18 @@ module Jekyll
       # Variables
       #-------------------------------------------------------------------------
       
-      # Original variables
-      baseurl_org                 = self.config[ 'baseurl' ] # baseurl set on _config.yml
+      # Original Jekyll configurations
+      baseurl_org                 = self.config[ 'baseurl' ] # Baseurl set on _config.yml
       exclude_org                 = self.exclude             # List of excluded paths
       dest_org                    = self.dest                # Destination folder where the website is generated
       
       # Site building only variables
       languages                   = self.config['languages'] # List of languages set on _config.yml
       
-      # Site wide plugin config
+      # Site wide plugin configurations
       self.config['default_lang'] = languages.first          # Default language (first language of array set on _config.yml)
       self.config[        'lang'] = languages.first          # Current language being processed
+      self.config['baseurl_root'] = baseurl_org              # Baseurl of website root (without the appended language code)
       
       
       # Build the website for default language
