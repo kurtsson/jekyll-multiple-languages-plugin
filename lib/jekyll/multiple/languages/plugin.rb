@@ -12,7 +12,7 @@ for more details.
 
 
 
-require "jekyll/multiple/languages/plugin/version"
+require_relative "plugin/version"
 
 module Jekyll
 
