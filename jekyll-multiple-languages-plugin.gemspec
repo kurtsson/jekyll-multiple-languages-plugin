@@ -5,7 +5,7 @@ require 'plugin/version'
 
 Gem::Specification.new do |s|
   s.name             = "jekyll-multiple-languages-plugin"
-  s.version          = Jekyll::Multiple::Languages::Plugin::VERSION
+  s.version          = Jekyll::MultipleLanguagesPlugin::VERSION
   s.license          = "MPL2"
 
   s.summary          = %q{I18n plugin for Jekyll and Octopress}

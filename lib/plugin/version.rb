@@ -1,9 +1,6 @@
 module Jekyll
-  module Multiple
-    module Languages
-      module Plugin
-        VERSION = "1.3.0"
-      end
-    end
+  module MultipleLanguagesPlugin
+    VERSION = "1.3.0"
   end
 end
+
