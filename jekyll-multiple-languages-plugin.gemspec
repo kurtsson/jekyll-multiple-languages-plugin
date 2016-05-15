@@ -3,21 +3,27 @@ lib = File.expand_path('../lib', __FILE__)
 $LOAD_PATH.unshift(lib) unless $LOAD_PATH.include?(lib)
 require 'plugin/version'
 
-Gem::Specification.new do |spec|
-  spec.name          = "jekyll-multiple-languages-plugin"
-  spec.version       = Jekyll::Multiple::Languages::Plugin::VERSION
-  spec.authors       = ["Martin Kurtsson"]
-  spec.email         = ["martin.kurtsson@screeninteraction.com"]
-  spec.description   = %q{Plugin for Jekyll and Octopress that adds support for translated keys, templates and posts.}
-  spec.summary       = %q{I18n plugin for Jekyll and Octopress}
-  spec.homepage      = "https://github.com/screeninteraction/jekyll-multiple-languages-plugin/"
-  spec.license       = "MPL2"
+Gem::Specification.new do |s|
+  s.name             = "jekyll-multiple-languages-plugin"
+  s.version          = Jekyll::Multiple::Languages::Plugin::VERSION
+  s.license          = "MPL2"
 
-  spec.files         = `git ls-files`.split($/)
-  spec.executables   = spec.files.grep(%r{^bin/}) { |f| File.basename(f) }
-  spec.test_files    = spec.files.grep(%r{^(test|spec|features)/})
-  spec.require_paths = ["lib"]
+  s.summary          = %q{I18n plugin for Jekyll and Octopress}
+  s.description      = %q{Plugin for Jekyll and Octopress that adds support for translated keys, templates and posts.}
 
-  spec.add_development_dependency "bundler", "~> 1.3"
-  spec.add_development_dependency "rake", "~> 0"
+  s.authors          = ["Martin Kurtsson"]
+  s.email            = ["martin.kurtsson@screeninteraction.com", "anthonygaudino45@gmail.com"]
+  s.homepage         = "https://github.com/screeninteraction/jekyll-multiple-languages-plugin/"
+
+  all_files          = `git ls-files -z`.split("\x0")
+  s.files            = all_files.grep(%r{^lib/})
+#  s.executables      = all_files.grep(%r{^bin/}) { |f| File.basename(f) }
+  s.require_paths    = ["lib"]
+
+  s.rdoc_options     = ['--charset=UTF-8']
+  s.extra_rdoc_files = %w[README.md LICENSE.txt]
+
+  s.add_development_dependency "bundler", "~> 1.3"
+  s.add_development_dependency "rake",    "~> 0"
 end
+
