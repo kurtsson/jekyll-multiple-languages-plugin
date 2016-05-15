@@ -7,7 +7,7 @@ permalink: /:title/
 
 # Plugins
 gems: 
-  - jekyll/multiple/languages/plugin
+  - jekyll-multiple-languages-plugin
 
 
 # jekyll-multiple-languages-plugin settings:

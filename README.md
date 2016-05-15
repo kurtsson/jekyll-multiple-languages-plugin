@@ -42,13 +42,14 @@ To activate the plugin add it to the Jekyll `_config.yml` file, under the `gems`
 
 ```ruby
 gems: 
-  - jekyll/multiple/languages/plugin
+  - jekyll-multiple-languages-plugin
 ```
 See the [Jekyll configuration documentation](http://jekyllrb.com/docs/configuration) for details.
 
 ### Manually
-
-Copy or link the directory `lib` into your `_plugins` folder of your Jekyll project.
+1. Download the repository with Git or your preferred method.
+2. Inside your Jekyll `_plugins` folder create a new folder called `jekyll-multiple-languages-plugin`.
+3. Copy or link the directory `lib`, that is inside the downloaded repository, into your `_plugins/jekyll-multiple-languages-plugin` folder of your Jekyll project.
 
 ### As a Git Submodule
 
