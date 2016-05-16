@@ -8,8 +8,8 @@ Gem::Specification.new do |s|
   s.version          = Jekyll::MultipleLanguagesPlugin::VERSION
   s.license          = "MPL2"
 
-  s.summary          = %q{I18n plugin for Jekyll and Octopress}
-  s.description      = %q{Plugin for Jekyll and Octopress that adds support for translated keys, templates and posts.}
+  s.summary          = %q{I18n plugin for Jekyll}
+  s.description      = %q{Plugin for Jekyll 2.x and 3.x that adds support for translated keys, templates and posts.}
 
   s.authors          = ["Martin Kurtsson"]
   s.email            = ["martin.kurtsson@screeninteraction.com", "anthonygaudino45@gmail.com"]

@@ -8,6 +8,20 @@ The plugin was developed as an utility at [Screen Interaction](http://www.screen
 
 
 
+## Current Relese Notice
+
+1.4.0 is the current stable release.
+
+Users that update from older versions to 1.4.0 must change their `_config.yml` for the plugin to be loaded. Please see the `Installation` section bellow for the new string used to load the plugin.
+
+The plugin now works with Jekyll 3, but it's backwards compatible with Jekyll 2.
+Please note that it was only tested with Jekyll 2.5.3 and 3.1.3.
+
+The support for Octopress is dropped, but the plugin still should work with it since Octopress core is Jekyll.
+Octopress 3 now has it's own multi languages plugin: https://github.com/octopress/multilingual
+
+
+
 ## Features
 * Works with Jekyll 2.5.3 and 3.1.3
 * Supports multiple languages with the same code base.
@@ -305,6 +319,15 @@ Then, create a file named `about.md` under `_i18n/en` with the English content. 
 
 
 ## Changelog
+* 1.4.0
+  * Support for Jekyll 3, thanks to [@pedrocarmona](https://github.com/screeninteraction/jekyll-multiple-languages-plugin/pull/62)
+  * How to create pages documentation, thanks to [@elotroalex](https://github.com/screeninteraction/jekyll-multiple-languages-plugin/pull/57)
+  * Many bug fixes
+  * Code refactoring, cleanup and reorganization
+  * Files and folders reorganization
+  * Improved and fixed issues on the example website
+  * Inprovement and fixes on documentations
+  * Inproved license files
 * 1.3.0
   * Support for localized links and custom permalinks, thanks to [@jasonlemay](https://github.com/screeninteraction/jekyll-multiple-languages-plugin/pull/53)
   * Support for excluding posts from translation, thanks to [@ctruelson](https://github.com/screeninteraction/jekyll-multiple-languages-plugin/pull/51)
@@ -348,15 +371,17 @@ Then, create a file named `about.md` under `_i18n/en` with the English content. 
 5. Create new Pull Request
 
 ### Contributors
-| User                                             | Contribution                   |
-| :----------------------------------------------- | :----------------------------- |
-| [@jasonlemay](https://github.com/jasonlemay)     | support for localized links    |
-| [@ctruelson](https://github.com/ctruelson)       | support for excluding posts    |
-| [@Bersch](https://github.com/bersch)             | better paths                   |
-| [@Davrandom](https://github.com/davrandom)       | plugin usage example           |
-| [@agramian](https://github.com/agramian)         | fallback to default language   |
-| [@h6](https://github.com/H6)                     | exclude files from translation |
-| [@leoditommaso](https://github.com/leoditommaso) | update the example page        |
+| User                                             | Contribution                         |
+| :----------------------------------------------- | :----------------------------------- |
+| [@pedrocarmona](https://github.com/pedrocarmona) | support for Jekyll 3                 |
+| [@elotroalex](https://github.com/elotroalex)     | added a how to create page to README |
+| [@jasonlemay](https://github.com/jasonlemay)     | support for localized links          |
+| [@ctruelson](https://github.com/ctruelson)       | support for excluding posts          |
+| [@Bersch](https://github.com/bersch)             | better paths                         |
+| [@Davrandom](https://github.com/davrandom)       | plugin usage example                 |
+| [@agramian](https://github.com/agramian)         | fallback to default language         |
+| [@h6](https://github.com/H6)                     | exclude files from translation       |
+| [@leoditommaso](https://github.com/leoditommaso) | update the example page              |
 
 ### Created by
 [@kurtsson](https://github.com/kurtsson) from [Screen Interaction](https://github.com/screeninteraction) (http://screeninteraction.com)
