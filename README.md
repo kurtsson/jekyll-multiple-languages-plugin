@@ -375,6 +375,7 @@ Then, create a file named `about.md` under `_i18n/en` with the English content. 
 | :----------------------------------------------- | :----------------------------------- |
 | [@pedrocarmona](https://github.com/pedrocarmona) | support for Jekyll 3                 |
 | [@elotroalex](https://github.com/elotroalex)     | added a how to create page to README |
+| [@mohamnag](https://github.com/mohamnag)         | permalink generation bug fix         |
 | [@jasonlemay](https://github.com/jasonlemay)     | support for localized links          |
 | [@ctruelson](https://github.com/ctruelson)       | support for excluding posts          |
 | [@Bersch](https://github.com/bersch)             | better paths                         |
