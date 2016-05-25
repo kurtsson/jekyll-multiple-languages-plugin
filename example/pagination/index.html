@@ -1,0 +1,66 @@
+---
+layout: default
+title: Pagination
+cover:  cover.jpg
+---
+
+{% capture title %}{% t titles.pagination %}{% endcapture %}
+
+<div class="content" id="home">
+  <div id="sidebar-button">
+    <img src="/images/sidebar-button.png">
+  </div>
+  <div id="post-info">
+    <div id="cover-photo-container">
+      <img id="cover-photo" src="/images/{{ page.cover }}">
+    </div>
+    <div id="info-container">
+      <h1 id="title">{{ title }}</h1>
+    </div>
+  </div>
+
+  <div class="post">
+    {% if site.lang == "it" %}
+      {% capture link1 %}{{ site.baseurl_root }}/en{{ page.url}}{% endcapture %}
+      {% capture link3 %}{{ site.baseurl_root }}/es{{ page.url}}{% endcapture %}
+      <div align="right">
+        <a href="{{ link1 }}" >{% t global.english %}</a><span class="separator"> &bull; </span><a href="{{ link3 }}" >{% t global.spanish %}</a>
+      </div>  
+    {% elsif site.lang == "en" %}
+      {% capture link2 %}{{ site.baseurl_root }}{{ page.url }}{% endcapture %}
+      {% capture link3 %}{{ site.baseurl_root }}/es{{ page.url }}{% endcapture %}
+      <div align="right">
+        <a href="{{ link3 }}" >{% t global.spanish %}</a><span class="separator"> &bull; </span><a href="{{ link2 }}" >{% t global.italian %}</a>
+      </div>  
+    {% elsif site.lang == "es" %}
+      {% capture link2 %}{{ site.baseurl_root }}{{ page.url }}{% endcapture %}
+      {% capture link1 %}{{ site.baseurl_root }}/en{{ page.url }}{% endcapture %}
+      <div align="right">
+        <a href="{{ link1 }}" >{% t global.english %}</a><span class="separator"> &bull; </span><a href="{{ link2 }}" >{% t global.italian %}</a>
+      </div>
+    {% endif %}
+
+    <!-- This loops through the paginated posts -->
+    {% for post in paginator.posts %}
+      <h1><a href="{{ site.baseurl }}{{ post.url }}">{{ post.title }}</a></h1>
+      <div class="content">
+        {{ post.content }}
+      </div>
+    {% endfor %}
+
+    <!-- Pagination links -->
+    <div class="pagination">
+      {% if paginator.previous_page %}
+        <a href="{{ site.baseurl }}{{ paginator.previous_page_path }}" class="previous">Previous</a>
+      {% else %}
+        <span class="previous">Previous</span>
+      {% endif %}
+      <span class="page_number ">Page: {{ paginator.page }} of {{ paginator.total_pages }}</span>
+      {% if paginator.next_page %}
+        <a href="{{ site.baseurl }}{{ paginator.next_page_path }}" class="next">Next</a>
+      {% else %}
+        <span class="next ">Next</span>
+      {% endif %}
+    </div>
+  </div>
+</div>

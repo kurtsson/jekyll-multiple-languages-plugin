@@ -43,11 +43,13 @@
               <hr>
               {% for page in site.pages %}
                 {% if page.title != "Home" %}
-                  <li class="post-link">
-                    <a class="post-title" href="{{ site.baseurl }}{{ page.url }}">
-                      {{ page.title }} - {{ site.lang }}
-                    </a>
-                  </li>
+                  {% unless page.url contains "page2" or page.url contains "page3" %}
+                    <li class="post-link">
+                      <a class="post-title" href="{{ site.baseurl }}{{ page.url }}">
+                        {{ page.title }} - {{ site.lang }}
+                      </a>
+                    </li>
+                  {% endunless %}
                 {% endif %}
               {% endfor %}
             {% endif %}

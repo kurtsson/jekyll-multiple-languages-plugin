@@ -5,9 +5,13 @@ highlighter: pygments
 baseurl: ""
 permalink: /:title/
 
+paginate: 1
+paginate_path: "/pagination/page:num/"
+
 # Plugins
 gems: 
   - jekyll-multiple-languages-plugin
+  - jekyll-paginate
 
 
 # jekyll-multiple-languages-plugin settings:

@@ -9,3 +9,5 @@ global:
 pages:
   example: example
   includeexample: The following text is a Jekyll include liquid tag parameter
+titles:
+  pagination: Pagination
