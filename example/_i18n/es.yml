@@ -8,3 +8,4 @@ global:
   github: GitHub
 pages:
   example: Ejemplo
+  includeexample: El siguiente texto es un parámetro de Jekyll include liquid tag
