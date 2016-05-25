@@ -94,6 +94,11 @@ module Jekyll
         process_org
       end
       
+      # Revert to initial Jekyll configurations (necessary for regeneration)
+      self.config[ 'baseurl' ] = baseurl_org  # Baseurl set on _config.yml
+      self.exclude             = exclude_org  # List of excluded paths
+      @dest                    = dest_org     # Destination folder where the website is generated
+      
       puts 'Build complete'
     end
 
