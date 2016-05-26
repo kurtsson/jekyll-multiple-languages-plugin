@@ -8,7 +8,34 @@ The plugin was developed as an utility at [Screen Interaction](http://www.screen
 
 
 
-## Current Relese Notice
+Table of Contents
+-----------------
+* [1\. Current Relese Notice](#1-current-relese-notice)
+* [2\. Features](#2-features)
+* [3\. Installation](#3-installation)
+  * [3\.1\. Using the gem](#31-using-the-gem)
+  * [3\.2\. Manually](#32-manually)
+  * [3\.3\. As a Git Submodule](#33-as-a-git-submodule)
+* [4\. Configuration](#4-configuration)
+  * [4\.1\. \_config\.yml](#41-_configyml)
+  * [4\.2\. Folder structure](#42-folder-structure)
+* [5\. Usage](#5-usage)
+  * [5\.1\. Translating strings](#51-translating-strings)
+  * [5\.2\. Including translated files](#52-including-translated-files)
+  * [5\.3\. Permalinks and Translating Links](#53-permalinks-and-translating-links)
+  * [5\.4\. i18n in templates](#54-i18n-in-templates)
+  * [5\.5\. Link between languages](#55-link-between-languages)
+  * [5\.6\. Creating pages](#56-creating-pages)
+* [7\. Example website](#7-example-website)
+  * [7\.1\. Adding a new language](#71-adding-a-new-language)
+  * [7\.2\. Adding new page](#72-adding-new-page)
+* [8\. Changelog](#8-changelog)
+* [9\. Contributing](#9-contributing)
+  * [Contributors](#contributors)
+  * [Created by](#created-by)
+  * [Maintained by](#maintained-by)
+
+## 1. Current Relese Notice
 
 1.4.1 is the current stable release.
 
@@ -17,12 +44,12 @@ Users that update from older versions to 1.4.0 or newer must change their `_conf
 The plugin now works with Jekyll 3, but it's backwards compatible with Jekyll 2.
 Please note that it was only tested with Jekyll 2.5.3 and 3.1.3.
 
-The support for Octopress is dropped, but the plugin still should work with it since Octopress core is Jekyll.
+The support for Octopress is dropped, but the plugin should still work with it since Octopress core is Jekyll.
 Octopress 3 now has it's own multi languages plugin: https://github.com/octopress/multilingual
 
 
 
-## Features
+## 2. Features
 * Works with Jekyll 2.5.3 and 3.1.3
 * Supports multiple languages with the same code base.
 * Supports all template languages that your Liquid pipeline supports.
@@ -36,9 +63,9 @@ Octopress 3 now has it's own multi languages plugin: https://github.com/octopres
 
 
 
-## Installation
+## 3. Installation
 
-### Using the gem
+### 3.1. Using the gem
 
 This plugin is available as a Rubygem, https://rubygems.org/gems/jekyll-multiple-languages-plugin.
 
@@ -60,12 +87,12 @@ gems:
 ```
 See the [Jekyll configuration documentation](http://jekyllrb.com/docs/configuration) for details.
 
-### Manually
+### 3.2. Manually
 1. Download the repository with Git or your preferred method.
 2. Inside your Jekyll `_plugins` folder create a new folder called `jekyll-multiple-languages-plugin`.
 3. Copy or link the directory `lib`, that is inside the downloaded repository, into your `_plugins/jekyll-multiple-languages-plugin` folder of your Jekyll project.
 
-### As a Git Submodule
+### 3.3. As a Git Submodule
 
 If your Jekyll project is in a git repository, you can easily manage your plugins by utilizing git submodules.
 
@@ -84,8 +111,8 @@ $ git pull origin master
 
 
 
-## Configuration
-### _config.yml
+## 4. Configuration
+### 4.1. _config.yml
 Add the languages available in your website into your _config.yml (obligatory):
 
 ```yaml
@@ -105,7 +132,7 @@ In code, these specific files should be referenced via `baseurl_root`. E.g.
 <link rel="stylesheet" href="{{ "/css/bootstrap.css" | prepend: site.baseurl_root }}"/>
 ```
 
-### Folder structure
+### 4.2. Folder structure
 Create a folder called `_i18n` and add sub-folders for each language, using the same names used on the `languages` setting on the `_config.yml`:
 
   - /_i18n/sv.yml
@@ -119,8 +146,8 @@ Create a folder called `_i18n` and add sub-folders for each language, using the 
 
 
 
-## Usage
-### Translating strings
+## 5. Usage
+### 5.1. Translating strings
 To add a translated string into your web page use one of these liquid tags:
 
 ```liquid
@@ -135,11 +162,11 @@ The language.yml files are written in YAML syntax which caters for a simple grou
 
 ```yaml
 global:
-	swedish: Svenska
-	english: English
+  swedish: Svenska
+  english: English
 pages:
-	home: Home
-	work: Work
+  home: Home
+  work: Work
 ```
 
   To access the english key, use one of these tag:
@@ -150,7 +177,7 @@ or
 {% translate global.english %}
 ```
 
-### Including translated files
+### 5.2. Including translated files
 The plugin also supports using different markdown files for different languages using the liquid tag:
 
 ```liquid
@@ -167,7 +194,7 @@ This plugin have exactly the same support and syntax as the Jekyll's built in li
 
 so plugins that extends its functionality should be picked up by this plugin as well.
 
-### Permalinks and Translating Links
+### 5.3. Permalinks and Translating Links
 To use localized pages with permalinks, you must provide a defalt permalink `permalink` and the language specific permalinks, for example, `permalink_fr` for French.
 
 To translate links, you must also add a **unique namespace** on the YAML front matter along with the permalinks.
@@ -199,16 +226,16 @@ or the longer version:
 <a href="{% translate_link team fr %}"> <!--This link will always return /fr/equipe</a>-->
 ```
 
-### i18n in templates
+### 5.4. i18n in templates
 Sometimes it is convenient to add keys even in template files. This works in the exact same way as in ordinary files, however sometimes it can be useful to include different string in different pages even if they use the same template.
 
 A perfect example is this:
 
 ```html
 <html>
-	<head>
-		<title>{% t page.title %}</title>
-	</head>
+  <head>
+    <title>{% t page.title %}</title>
+  </head>
 </html>
 ```
 
@@ -225,12 +252,12 @@ and `<title>{% t page.title %}</title>` will pick up the `titles.home` key from 
 
 ```yaml
 titles:
-	home: "Home"
+  home: "Home"
 ```
 
 
 
-### Link between languages
+### 5.5. Link between languages
 This plugin gives you the variables
 
 ```liquid
@@ -267,7 +294,7 @@ This snippet will create a link that will toggle between Swedish and English. A 
 
 
 
-### Creating pages
+### 5.6. Creating pages
 Depending on the theme, or your preferences, you need to create a "template" page at the root folder or in a folder (ex. `_pages`). Inside each page (in this example an `about.md`) you should have at least the following in the header and body:
 
 ```yaml
@@ -284,14 +311,14 @@ Inside each of the language folders, you should create mirror pages to provide t
 
 
 
-## Example website
+## 7. Example website
 
 This repository has an example website where you can test the plugin.
 After downloading the repository, get into the `example` directory and run: `bundle install` to install the newest version of Jekyll (change the Gemfile to install another version), the plugin, and all other dependencies.
 
 Then run `bundle exec jekyll serve` to start the Jekyll server. Using your web browser, access the address `http://localhost:4000`.
 
-### Adding a new language
+### 7.1. Adding a new language
 
 Imagine you want to add German pages on the test website. First, add a the new language into the list of languages on `_config.yml`:
 ```ruby
@@ -300,7 +327,7 @@ languages: ["it", "en", "es", "de"]
 
 Create a new folder for the language under the `_i18n` folder and add a markdown file containing the translation, just like on the other languages folders, and you're done.
 
-### Adding new page
+### 7.2. Adding new page
 
 Let's say you want to create an about page for the example website, you will create an `about.html` page on the root of the website (same place as index.html), with this:
 
@@ -318,7 +345,7 @@ Then, create a file named `about.md` under `_i18n/en` with the English content. 
 
 
 
-## Changelog
+## 8. Changelog
 * 1.4.1
   * Fixes a bug during site regeneration where translation paths were being nested based on wrongly set Jekyll variables.
 * 1.4.0
@@ -364,7 +391,7 @@ Then, create a file named `about.md` under `_i18n/en` with the English content. 
   * First release
 
 
-## Contributing
+## 9. Contributing
 
 1. Fork it
 2. Create your feature branch (`git checkout -b my-new-feature`)
