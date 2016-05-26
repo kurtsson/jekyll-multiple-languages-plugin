@@ -1,5 +1,7 @@
 # Jekyll Multiple Languages Plugin
 
+![Jekll Multiple Languages Plugin](brand/jekyll_multiple_languages_plugin_logo.png)
+
 Jekyll Multiple Languages is an internationalization plugin for [Jekyll](https://github.com/mojombo/jekyll). It compiles your Jekyll site for one or more languages with a similar approach as Rails does. The different sites will be stored in sub folders with the same name as the language it contains.
 
 The plugin was developed as an utility at [Screen Interaction](http://www.screeninteraction.com)

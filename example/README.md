@@ -1,6 +1,8 @@
 Minimal website using multiple languages plugin
 ===============================================
 
+![Jekll Multiple Languages Plugin](../brand/jekyll_multiple_languages_plugin_logo.png)
+
 Features:
 - internationalization of the website
 - per-post translation link
