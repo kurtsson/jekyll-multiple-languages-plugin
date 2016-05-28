@@ -3,7 +3,7 @@ Jekyll Multiple Languages Plugin logo
 
 Logo files for [Jekyll Multiple Languages Plugin](https://github.com/Anthony-Gaudino/jekyll-multiple-languages-plugin).
 
-![Jekll Multiple Languages Plugin](jekyll_multiple_languages_plugin_logo.png)
+![Jekyll Multiple Languages Plugin](jekyll_multiple_languages_plugin_logo.png)
 
 
 ## SVG Source Files
@@ -13,7 +13,7 @@ The Jekyll Multiple Languages Plugin logo is a fork of the original Jekyll logo 
 
 ## Font
 
-The free font, [Arizonia](https://www.google.com/fonts/specimen/Arizonia), used on the logo, is on the `fonts` directory.
+The free font, [Arizonia](https://www.google.com/fonts/specimen/Arizonia), used on the logo, is in the `fonts` directory.
 This is the same free font used on the original Jekyll logo.
 
 Since the SVG logo has editable text, you should install the font to see the text properly.
