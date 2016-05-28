@@ -36,7 +36,7 @@ Table of Contents
   * [Contributors](#contributors)
   * [Created by](#created-by)
   * [Maintained by](#maintained-by)
-* [10\. Other Language Plugins](#10-contributing)
+* [10\. Other Language Plugins](#10-other-language-plugins)
 
 ## 1. Current Release Notice
 
@@ -431,23 +431,23 @@ Bellow is a list of other language plugins for Jekyll (2016/05/28):
 
 **Seems to be maintained:**
 
-[Jekyll Language Plugin](https://github.com/vwochnik/jekyll-language-plugin)
-[Polyglot](https://github.com/untra/polyglot)
-[Jekyll Multiple Languages](https://github.com/liaohuqiu/jekyll-multiple-languages)
-[Octopress Multilingual](https://github.com/octopress/multilingual)
-[jekyll-i18n_tags](https://github.com/KrzysiekJ/jekyll-i18n_tags)
-[jekyll-task-i18n](https://github.com/ruby-gettext/jekyll-task-i18n)
+* [Jekyll Language Plugin](https://github.com/vwochnik/jekyll-language-plugin)
+* [Polyglot](https://github.com/untra/polyglot)
+* [Jekyll Multiple Languages](https://github.com/liaohuqiu/jekyll-multiple-languages)
+* [Octopress Multilingual](https://github.com/octopress/multilingual)
+* [jekyll-i18n_tags](https://github.com/KrzysiekJ/jekyll-i18n_tags)
+* [jekyll-task-i18n](https://github.com/ruby-gettext/jekyll-task-i18n)
 
 **Seems to be unmaintained / abandoned:**
 
-[Jekyll-Multilingualism](https://github.com/aleiphoenix/jekyll-multilingualism)
-[Jekyll::Languages](https://github.com/janlindblom/jekyll-languages)
-[Jekyll I18n support](https://github.com/hendricius/jekyll-i18n)
-[jekyll-multilingual](https://github.com/drallgood/jekyll-multilingual)
-[jekyll-msgcat](https://github.com/gromnitsky/jekyll-msgcat)
-[jekyll-localize](https://github.com/incompl/jekyll-localize)
-[Jekyll i18n Filter](https://github.com/nelsonsar/jekyll-i18n-filter)
-[jekyll-localization](https://github.com/prometheus-ev/jekyll-localization)
-[Jekyll i18n](https://github.com/liamzebedee/jekyll-i18n)
+* [Jekyll-Multilingualism](https://github.com/aleiphoenix/jekyll-multilingualism)
+* [Jekyll::Languages](https://github.com/janlindblom/jekyll-languages)
+* [Jekyll I18n support](https://github.com/hendricius/jekyll-i18n)
+* [jekyll-multilingual](https://github.com/drallgood/jekyll-multilingual)
+* [jekyll-msgcat](https://github.com/gromnitsky/jekyll-msgcat)
+* [jekyll-localize](https://github.com/incompl/jekyll-localize)
+* [Jekyll i18n Filter](https://github.com/nelsonsar/jekyll-i18n-filter)
+* [jekyll-localization](https://github.com/prometheus-ev/jekyll-localization)
+* [Jekyll i18n](https://github.com/liamzebedee/jekyll-i18n)
 
 This plugin will in the future try to merge all pertinent features of all those plugins into it.
