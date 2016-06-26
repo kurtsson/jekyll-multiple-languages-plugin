@@ -357,6 +357,8 @@ Then, create a file named `about.md` under `_i18n/en` with the English content. 
 
 
 ## 8. Changelog
+* 1.4.2
+  * Exposes the `site.translations` hash containing the translated strings to Liquid.
 * 1.4.1
   * Fixes a bug during site regeneration where translation paths were being nested based on wrongly set Jekyll variables.
 * 1.4.0
