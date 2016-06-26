@@ -63,6 +63,7 @@ module Jekyll
       self.config['default_lang'] = languages.first          # Default language (first language of array set on _config.yml)
       self.config[        'lang'] = languages.first          # Current language being processed
       self.config['baseurl_root'] = baseurl_org              # Baseurl of website root (without the appended language code)
+      self.config['translations'] = self.parsed_translations # Hash that stores parsed translations read from YAML files. Exposes this hash to Liquid.
       
       
       # Build the website for default language

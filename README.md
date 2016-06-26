@@ -180,6 +180,14 @@ or
 {% translate global.english %}
 ```
 
+You can also access translated strings by accesing the `site.translations` hash, this allows you to loop trough your translations within Liquid:
+
+```liquid
+{% for item in site.translations[site.lang]["my_nested_yaml_collection"] %}
+    <p>{{ item[0] }} -> {{ item[1] }}</p>
+{% endfor %}
+```
+
 ### 5.2. Including translated files
 The plugin also supports using different markdown files for different languages using the liquid tag:
 
