@@ -40,7 +40,7 @@ Table of Contents
 
 ## 1. Current Release Notice
 
-1.4.1 is the current stable release.
+1.5.0 is the current stable release.
 
 Users that update from older versions to 1.4.0 or newer must change their `_config.yml` for the plugin to be loaded. Please see the `Installation` section bellow for the new string used to load the plugin.
 
@@ -357,6 +357,9 @@ Then, create a file named `about.md` under `_i18n/en` with the English content. 
 
 
 ## 8. Changelog
+* 1.5.0
+  * Enables Liquid expansions within Liquid Tags.
+  * The example website post language switchers were rewritten in an algorithmic way.
 * 1.4.2
   * Exposes the `site.translations` hash containing the translated strings to Liquid.
 * 1.4.1

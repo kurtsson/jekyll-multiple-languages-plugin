@@ -1,11 +1,12 @@
 global:
-  italian: Italiano
-  english: English
-  spanish: Español
   tagline: English
   about: About
   twitter: Twitter
   github: GitHub
+langs:
+  it: Italiano
+  en: English
+  es: Español
 pages:
   example: example
   includeexample: The following text is a Jekyll include liquid tag parameter

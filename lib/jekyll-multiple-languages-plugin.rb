@@ -270,6 +270,8 @@ module Jekyll
         key =            @key
       end
       
+      key = Liquid::Template.parse(key).render(context)  # Parses and renders some Liquid syntax on arguments (allows expansions)
+      
       site = context.registers[:site] # Jekyll site object
       
       lang = site.config['lang']
@@ -312,6 +314,8 @@ module Jekyll
         else
           file =            @file
         end
+        
+        file = Liquid::Template.parse(file).render(context)  # Parses and renders some Liquid syntax on arguments (allows expansions)
         
         site = context.registers[:site] # Jekyll site object
         
@@ -374,6 +378,8 @@ module Jekyll
       else
         key = @key
       end
+      
+      key = Liquid::Template.parse(key).render(context)  # Parses and renders some Liquid syntax on arguments (allows expansions)
       
       site = context.registers[:site] # Jekyll site object
       

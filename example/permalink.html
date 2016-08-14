@@ -25,28 +25,22 @@ permalink_es:  /equipo/
   </div>
 
   <div class="post">
-    {% if site.lang == "it" %}
-        {% capture link_en %}{{page.namespace}} en{% endcapture %}
-        {% capture link_es %}{{page.namespace}} es{% endcapture %}
-        <div align="right">
-            <a href="{% tl {{ link_en }} %}" >{% t global.english %}</a><span class="separator"> &bull; </span><a href="{% tl {{ link_es }} %}" >{% t global.spanish %}</a>
-        </div>
-    {% elsif site.lang == "en" %}
-        {% capture link_it %}{{page.namespace}} it{% endcapture %}
-        {% capture link_es %}{{page.namespace}} es{% endcapture %}
-        <div align="right">
-            <a href="{% tl {{ link_it }} %}" >{% t global.italian %}</a><span class="separator"> &bull; </span><a href="{% tl {{ link_es }} %}" >{% t global.spanish %}</a>
-        </div>
-    {% elsif site.lang == "es" %}
-        {% capture link_en %}{{page.namespace}} en{% endcapture %}
-        {% capture link_it %}{{page.namespace}} it{% endcapture %}
-        <div align="right">
-            <a href="{% tl {{ link_en }} %}" >{% t global.english %}</a><span class="separator"> &bull; </span><a href="{% tl {{ link_it }} %}" >{% t global.italian %}</a>
-        </div>
-    {% endif %}
-
-
-
+    <div align="right">
+      <!-- Adds links to other languages on the post -->
+      {% for lang in site.languages %}
+        {% unless site.lang == lang %}
+          <a href="{% tl {{ page.namespace }} {{ lang }} %}" >{% t langs.{{ lang }} %}</a>
+          
+          {% assign next = forloop.index | plus: 1 %}
+          
+          {% if forloop.last != true and site.languages[forloop.index] != site.lang or site.languages[forloop.index] == site.lang and next < forloop.length %}
+            <span class="separator"> &bull; </span>
+          {% endif %}
+          
+        {% endunless %}
+      {% endfor %}
+    </div>
+    
     {% tf permalink.md %}
   </div>
 </div>

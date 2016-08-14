@@ -20,25 +20,25 @@ cover:  cover.jpg
   </div>
 
   <div class="post">
-    {% if site.lang == "it" %}
-      {% capture link1 %}{{ site.baseurl_root }}/en{{ page.url}}{% endcapture %}
-      {% capture link3 %}{{ site.baseurl_root }}/es{{ page.url}}{% endcapture %}
-      <div align="right">
-        <a href="{{ link1 }}" >{% t global.english %}</a><span class="separator"> &bull; </span><a href="{{ link3 }}" >{% t global.spanish %}</a>
-      </div>  
-    {% elsif site.lang == "en" %}
-      {% capture link2 %}{{ site.baseurl_root }}{{ page.url }}{% endcapture %}
-      {% capture link3 %}{{ site.baseurl_root }}/es{{ page.url }}{% endcapture %}
-      <div align="right">
-        <a href="{{ link3 }}" >{% t global.spanish %}</a><span class="separator"> &bull; </span><a href="{{ link2 }}" >{% t global.italian %}</a>
-      </div>  
-    {% elsif site.lang == "es" %}
-      {% capture link2 %}{{ site.baseurl_root }}{{ page.url }}{% endcapture %}
-      {% capture link1 %}{{ site.baseurl_root }}/en{{ page.url }}{% endcapture %}
-      <div align="right">
-        <a href="{{ link1 }}" >{% t global.english %}</a><span class="separator"> &bull; </span><a href="{{ link2 }}" >{% t global.italian %}</a>
-      </div>
-    {% endif %}
+    <div align="right">
+      <!-- Adds links to other languages on the post -->
+      {% for lang in site.languages %}
+        {% unless site.lang == lang %}
+          {% if lang == site.default_lang %}
+            <a href="{{ site.baseurl_root }}{{ page.url }}" >{% t langs.{{ lang }} %}</a>
+          {% else %}
+            <a href="{{ site.baseurl_root }}/{{ lang }}{{ page.url }}" >{% t langs.{{ lang }} %}</a>
+          {% endif %}
+          
+          {% assign next = forloop.index | plus: 1 %}
+          
+          {% if forloop.last != true and site.languages[forloop.index] != site.lang or site.languages[forloop.index] == site.lang and next < forloop.length %}
+            <span class="separator"> &bull; </span>
+          {% endif %}
+          
+        {% endunless %}
+      {% endfor %}
+    </div>
 
     <!-- This loops through the paginated posts -->
     {% for post in paginator.posts %}
