@@ -1,0 +1,10 @@
+# This  file  exists  for  testing  purposes only to verify possible bugs on the
+# Jekyll Multiple Languages Plugin.
+
+
+
+# With the default configuration of the demo website, this file should be copied
+# and exist on the website root and only there.
+
+# If this file is not on the root or is in the root of translated websites, this
+# means that there is an error.
