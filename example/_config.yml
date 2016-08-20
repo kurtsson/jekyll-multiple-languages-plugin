@@ -1,12 +1,16 @@
 name: Flex
 markdown: redcarpet
 highlighter: pygments
+exclude: ["Gemfile", "Gemfile.lock", "LICENSE.txt", "README.md"]
 
 baseurl: ""
 permalink: /:title/
 
+
+# Paginate
 paginate: 1
 paginate_path: "/pagination/page:num/"
+
 
 # Plugins
 gems: 
@@ -17,4 +21,4 @@ gems:
 # jekyll-multiple-languages-plugin settings:
 languages: ["it", "en", "es"]
 
-exclude_from_localizations: ["javascript", "images", "css", "Gemfile", "scripts", "favicon.ico", "LICENSE", "README.md"]
+exclude_from_localizations: ["javascript", "images", "css", "scripts", "favicon.ico"]
