@@ -1,0 +1,31 @@
+# Translations with region support and fallback
+
+# English (default)
+# -----------------
+en: &DEFAULT_EN
+  page:
+    title: Vacation
+  impress:
+    title: Impress
+en-GB:
+  <<: *DEFAULT_EN
+  page:
+    title: Holiday
+en-US:
+  <<: *DEFAULT_EN
+en-CA:
+  <<: *DEFAULT_EN
+
+
+# German
+# --------------
+de: &DEFAULT_DE
+  <<: *DEFAULT_EN
+  page:
+    title: Urlaub
+de-DE:
+  <<: *DEFAULT_DE
+de-CH:
+  <<: *DEFAULT_DE
+  page:
+    title: Ferien
