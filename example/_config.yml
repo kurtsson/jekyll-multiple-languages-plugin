@@ -1,7 +1,7 @@
 name: Flex
 markdown: redcarpet
 highlighter: pygments
-exclude: ["Gemfile", "Gemfile.lock", "LICENSE.txt", "README.md"]
+exclude: ["LICENSE.txt", "README.md"]
 
 baseurl: ""
 permalink: /:title/

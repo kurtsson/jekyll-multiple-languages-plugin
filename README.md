@@ -325,7 +325,7 @@ Inside each of the language folders, you should create mirror pages to provide t
 ## 7. Example website
 
 This repository has an example website where you can test the plugin.
-After downloading the repository, get into the `example` directory and run: `bundle install` to install the newest version of Jekyll (change the Gemfile to install another version), the plugin, and all other dependencies.
+After downloading the repository, get into the `example` directory and run: `bundle install` to install the newest version of Jekyll (edit the Gemfile to install another version) and all other dependencies.
 
 Then run `bundle exec jekyll serve` to start the Jekyll server. Using your web browser, access the address `http://localhost:4000`.
 
