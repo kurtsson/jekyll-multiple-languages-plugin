@@ -1,0 +1,11 @@
+This file exists for testing purposes only to verify possible bugs on the Jekyll
+Multiple Languages Plugin.
+
+
+
+With  the  default configuration of the demo website, this file should be copied
+and exist on the translated sites and main site root folders.
+
+If this file is not on one of the directories this means that there is an error,
+probably  on  the static  file  exclusion  code  that  currently  resides on the
+":site, :post_render hook".

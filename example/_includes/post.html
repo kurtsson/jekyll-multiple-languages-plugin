@@ -35,5 +35,13 @@
     <p>{% t pages.includeexample %}: <b>{{ include.param }}</b></p>
 
     {{ content }}
+    
+    <br>
+    <br>
+    <br>
+    <h3>The list of static files bellow was created by accessing <em>site.static_files</em> and must be visible on all translations:</h3>
+    {% for file in site.static_files %}
+      <p>{{ file.path }} last edited at {{ file.modified_time | date:"%H:%m" }} with extname {{ file.extname }}</p>
+    {% endfor %}
   </div>
 </div>
