@@ -40,7 +40,7 @@ Table of Contents
 
 ## 1. Current Release Notice
 
-1.5.0 is the current stable release.
+1.5.1 is the current stable release.
 
 Users that update from older versions to 1.4.0 or newer must change their `_config.yml` for the plugin to be loaded. Please see the `Installation` section bellow for the new string used to load the plugin.
 
@@ -357,6 +357,10 @@ Then, create a file named `about.md` under `_i18n/en` with the English content. 
 
 
 ## 8. Changelog
+* 1.5.1
+  * Fix a bug (#70) where `site.static_files` would be empty on subsites if `exclude_from_localizations` is used.
+  * Some overall project enhancements and minor fixes.
+  * A simple Rake task is available to test the plugin, CI services now have something to run.
 * 1.5.0
   * Enables Liquid expansions within Liquid Tags.
   * The example website post language switchers were rewritten in an algorithmic way.
