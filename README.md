@@ -188,6 +188,8 @@ You can also access translated strings by accesing the `site.translations` hash,
 {% endfor %}
 ```
 
+:warning: Language fallbacks will not work looping through translations like this.
+
 ### 5.2. Including translated files
 The plugin also supports using different markdown files for different languages using the liquid tag:
 
