@@ -35,7 +35,7 @@ module Jekyll
           
         # Remove "/" from beginning of static file relative path
         static_file_r_path    = static_file.instance_variable_get(:@relative_path).dup
-        static_file_r_path[0] = ''
+        static_file_r_path[0] = '' if static_file_r_path[0] == '/'
         
         exclude_paths.any? do |exclude_path|
           Pathname.new(static_file_r_path).descend do |static_file_path|
