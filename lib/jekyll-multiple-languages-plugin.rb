@@ -23,13 +23,8 @@ require_relative 'tools'
 
 module Jekyll
 
-  #*****************************************************************************
-  # :site, :post_render hook
-  #*****************************************************************************
   Jekyll::Hooks.register(:site, :post_render) do |site, payload|
 
-    # Removes all static files that should not be copied to translated sites.
-    #===========================================================================
     default_lang  = payload["site"]["default_lang"]
     current_lang  = payload["site"]["lang"]
 
@@ -46,8 +41,6 @@ module Jekyll
       end
     end
 
-    #===========================================================================
-
   end
 
-end # End module Jekyll
+end

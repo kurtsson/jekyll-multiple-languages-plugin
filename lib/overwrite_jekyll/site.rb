@@ -1,8 +1,6 @@
 module Jekyll
-  
-  ##############################################################################
-  # class Site
-  ##############################################################################
+
+
   class Site
 
     attr_accessor :parsed_translations   # Hash that stores parsed translations read from YAML files.
@@ -82,13 +80,10 @@ module Jekyll
     end
 
 
-
+    # Support for old jekyll
     if Gem::Version.new(Jekyll::VERSION) < Gem::Version.new("3.0.0")
       alias :read_posts_org :read_posts
 
-      #======================================
-      # read_posts
-      #======================================
       def read_posts(dir)
         translate_posts = !self.config['exclude_from_localizations'].include?("_posts")
 
