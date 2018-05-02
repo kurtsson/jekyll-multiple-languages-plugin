@@ -85,7 +85,7 @@ Or install it yourself as: `$ gem install jekyll-multiple-languages-plugin`
 To activate the plugin add it to the Jekyll `_config.yml` file, under the `gems` option:
 
 ```ruby
-gems: 
+gems:
   - jekyll-multiple-languages-plugin
 ```
 See the [Jekyll configuration documentation](http://jekyllrb.com/docs/configuration) for details.
@@ -418,6 +418,16 @@ Then, create a file named `about.md` under `_i18n/en` with the English content. 
 3. Commit your changes (`git commit -am 'Add some feature'`)
 4. Push to the branch (`git push origin my-new-feature`)
 5. Create a new Pull Request
+
+### Test
+
+For testing purpose:
+
+    rake test
+
+For test the building:
+
+    rake build
 
 ### Contributors
 | User                                             | Contribution                         |
