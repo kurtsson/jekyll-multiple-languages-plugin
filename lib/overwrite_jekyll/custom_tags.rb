@@ -1,12 +1,6 @@
 module Jekyll
 
-
-    #-----------------------------------------------------------------------------
-    #
-    # The next classes implements the plugin Liquid Tags and/or Filters
-    #
-    #-----------------------------------------------------------------------------
-
+    # Implements the plugin Liquid Tags and/or Filters
 
     ##############################################################################
     # class LocalizeTag
@@ -16,19 +10,11 @@ module Jekyll
     ##############################################################################
     class LocalizeTag < Liquid::Tag
 
-      #======================================
-      # initialize
-      #======================================
       def initialize(tag_name, key, tokens)
         super
         @key = key.strip
       end
 
-
-
-      #======================================
-      # render
-      #======================================
       def render(context)
         if      "#{context[@key]}" != "" # Check for page variable
           key = "#{context[@key]}"
@@ -61,7 +47,6 @@ module Jekyll
     end
 
 
-
     ##############################################################################
     # class LocalizeInclude
     #
@@ -71,9 +56,6 @@ module Jekyll
     module Tags
       class LocalizeInclude < IncludeTag
 
-        #======================================
-        # render
-        #======================================
         def render(context)
           if       "#{context[@file]}" != "" # Check for page variable
             file = "#{context[@file]}"
@@ -125,19 +107,11 @@ module Jekyll
     ##############################################################################
     class LocalizeLink < Liquid::Tag
 
-      #======================================
-      # initialize
-      #======================================
       def initialize(tag_name, key, tokens)
         super
         @key = key
       end
 
-
-
-      #======================================
-      # render
-      #======================================
       def render(context)
         if      "#{context[@key]}" != "" # Check for page variable
           key = "#{context[@key]}"
