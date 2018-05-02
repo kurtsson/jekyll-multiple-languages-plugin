@@ -115,9 +115,9 @@ $ git pull origin master
 
 
 ## 4. Configuration
-### 4.1. _config.yml_
+### 4.1. \_config.yml
 
-Add the languages available in your website into your _config.yml_ (obligatory):
+Add the languages available in your website into your \_config.yml (obligatory):
 
 ```yaml
 languages: ["sv", "en", "de", "fr"]
