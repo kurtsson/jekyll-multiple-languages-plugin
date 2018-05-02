@@ -11,13 +11,13 @@ for more details.
 =end
 
 require_relative 'plugin/version'
-require_relative 'jekyll_plugin/site'
-require_relative 'jekyll_plugin/page'
-require_relative 'jekyll_plugin/post'
-require_relative 'jekyll_plugin/post_reader'
-require_relative 'jekyll_plugin/document'
-require_relative 'jekyll_plugin/custom_tags'
-require_relative 'jekyll_plugin/hash_custom'
+require_relative 'overwrite_jekyll/site'
+require_relative 'overwrite_jekyll/page'
+require_relative 'overwrite_jekyll/post'
+require_relative 'overwrite_jekyll/post_reader'
+require_relative 'overwrite_jekyll/document'
+require_relative 'overwrite_jekyll/custom_tags'
+require_relative 'overwrite_jekyll/hash_custom'
 
 require_relative 'tools'
 
