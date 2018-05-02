@@ -10,16 +10,15 @@ for more details.
 
 =end
 
-
-
 require_relative "plugin/version"
+require_relative "tools.rb"
 
 module Jekyll
 
   #*****************************************************************************
   # :site, :post_render hook
   #*****************************************************************************
-  Jekyll::Hooks.register :site, :post_render do |site, payload|
+  Jekyll::Hooks.register(:site, :post_render) do |site, payload|
 
     # Removes all static files that should not be copied to translated sites.
     #===========================================================================
@@ -32,23 +31,11 @@ module Jekyll
 
     if default_lang != current_lang
       static_files.delete_if do |static_file|
-
+        # Jekyll::StaticFile
+        static_file_relative_path    = static_file.instance_variable_get(:@relative_path).dup
         # Remove "/" from beginning of static file relative path
-        static_file_r_path    = static_file.instance_variable_get(:@relative_path).dup
-        static_file_r_path[0] = ''
-
-        exclude_paths.any? do |exclude_path|
-          Pathname.new(static_file_r_path).descend do |static_file_path|
-            p "--------------"
-            p "--------------"
-            p exclude_path
-            p static_file_path
-            p "--------------"
-            p "--------------"
-            path_equivalent_tool = PathEquivalentTool.new(exclude_path, static_file_path)
-            break(true) if path_equivalent_tool.check
-          end
-        end
+        static_file_relative_path[0] = ''
+        MultipleLanguagesTools::Remover.go static_file_relative_path, exclude_paths
       end
     end
 
@@ -56,21 +43,6 @@ module Jekyll
 
   end
 
-
-  class PathEquivalentTool
-    def initialize exclude_path, static_path
-      @exclude_path = exclude_path
-      @static_path = static_path
-    end
-
-    def check
-      # <=> Spaceship operator
-      # retun 0 if 2 operator are ==
-      result = Pathname.new(@exclude_path) <=> @static_path
-      return true if result == 0
-      false
-    end
-  end
 
 
 
