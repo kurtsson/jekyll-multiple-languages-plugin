@@ -40,7 +40,7 @@ module Jekyll
         # Remove "/" from beginning of static file relative path
         static_file_relative_path    = static_file.instance_variable_get(:@relative_path).dup
         static_file_relative_path[0] = ''
-        MultipleLanguagePluginTools::Remover.go static_file_relative_path, exclude_paths
+        MultipleLanguagePluginTools::RemoverStaticFiles.go static_file_relative_path, exclude_paths
       end
 
       pages.delete_if do |page|

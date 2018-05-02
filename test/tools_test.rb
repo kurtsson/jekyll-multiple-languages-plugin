@@ -5,7 +5,7 @@ module Jekyll
       def test_delete_from_array
         static_files  = ['file.jpeg', 'file.txt', '/relative_path.pdf'].map{|value| Pathname.new(value)}
         static_files.delete_if do |static_file|
-          Remover.go static_file, ['file.jpeg']
+          RemoverStaticFiles.go static_file, ['file.jpeg']
         end
         assert_equal static_files, ['file.txt', '/relative_path.pdf'].map{|value| Pathname.new(value)}
       end

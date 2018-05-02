@@ -1,7 +1,7 @@
 module Jekyll
   module MultipleLanguagePluginTools
 
-    class Remover
+    class RemoverStaticFiles
       def self.go static_file_relative_path, excluded_paths
         excluded_paths.any? do |excluded_path|
           same_path?(static_file_relative_path, excluded_path)
