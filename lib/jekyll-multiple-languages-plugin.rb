@@ -23,11 +23,10 @@ module Jekyll
     # Removes all static files that should not be copied to translated sites.
     #===========================================================================
     default_lang  = payload["site"]["default_lang"]
-    current_lang  = payload["site"][        "lang"]
+    current_lang  = payload["site"]["lang"]
 
     static_files  = payload["site"]["static_files"]
     exclude_paths = payload["site"]["exclude_from_localizations"]
-
 
     if default_lang != current_lang
       static_files.delete_if do |static_file|
@@ -35,7 +34,6 @@ module Jekyll
         # Remove "/" from beginning of static file relative path
         static_file_relative_path    = static_file.instance_variable_get(:@relative_path).dup
         static_file_relative_path[0] = ''
-        p static_file_relative_path
         MultipleLanguagePluginTools::Remover.go static_file_relative_path, exclude_paths
       end
     end

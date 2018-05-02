@@ -5,6 +5,7 @@ require './lib/tools.rb'
 module Jekyll
   module MultipleLanguagePluginTools
     class TestTools < Minitest::Test
+
       def test_delete_from_array
         static_files  = ['file.jpeg', 'file.txt', '/relative_path.pdf'].map{|value| Pathname.new(value)}
         exclude_paths = ['file.jpeg']
@@ -18,6 +19,7 @@ module Jekyll
         equivalent_tool = PathEquivalent.new('file.rb', Pathname.new('file.rb'))
         assert equivalent_tool.check
       end
+
     end
   end
 end
