@@ -1,4 +1,5 @@
 module Jekyll
+
   module MultipleLanguagePluginTools
     class Remover
       def self.go static_file_relative_path, exclude_paths
