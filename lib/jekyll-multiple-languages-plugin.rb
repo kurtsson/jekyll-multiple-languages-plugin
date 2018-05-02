@@ -16,9 +16,9 @@ require_relative 'overwrite_jekyll/page'
 require_relative 'overwrite_jekyll/post'
 require_relative 'overwrite_jekyll/post_reader'
 require_relative 'overwrite_jekyll/document'
-require_relative 'overwrite_jekyll/custom_tags'
 require_relative 'overwrite_jekyll/hash_custom'
 
+require_relative 'custom_tags'
 require_relative 'tools'
 
 module Jekyll
