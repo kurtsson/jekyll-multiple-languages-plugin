@@ -40,7 +40,7 @@ gemspec
 # development
 #######################################
 #group :development do
-#  
+#
 #end
 
 
@@ -51,4 +51,5 @@ gemspec
 group :test do
   gem "jekyll-paginate"
   gem "redcarpet"
+  gem 'minitest'
 end
