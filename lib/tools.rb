@@ -1,6 +1,7 @@
 module Jekyll
 
   module MultipleLanguagePluginTools
+
     class Remover
       def self.go static_file_relative_path, exclude_paths
         exclude_paths.any? do |exclude_path|
@@ -9,7 +10,6 @@ module Jekyll
             break(true) if path_equivalent_tool.check
           end
         end
-
       end
     end
 
