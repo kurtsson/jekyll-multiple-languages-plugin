@@ -115,8 +115,9 @@ $ git pull origin master
 
 
 ## 4. Configuration
-### 4.1. _config.yml
-Add the languages available in your website into your _config.yml (obligatory):
+### 4.1. _config.yml_
+
+Add the languages available in your website into your _config.yml_ (obligatory):
 
 ```yaml
 languages: ["sv", "en", "de", "fr"]
@@ -129,23 +130,24 @@ To avoid redundancy, it is possible to exclude files and folders from being copi
 ```yaml
 exclude_from_localizations: ["javascript", "images", "css"]
 ```
+
 In code, these specific files should be referenced via `baseurl_root`. E.g.
 
-```
+```html
 <link rel="stylesheet" href="{{ "/css/bootstrap.css" | prepend: site.baseurl_root }}"/>
 ```
 
 ### 4.2. Folder structure
 Create a folder called `_i18n` and add sub-folders for each language, using the same names used on the `languages` setting on the `_config.yml`:
 
-  - /_i18n/sv.yml
-  - /_i18n/en.yml
-  - /_i18n/de.yml
-  - /_i18n/fr.yml
-  - /_i18n/sv/pagename/blockname.md
-  - /_i18n/en/pagename/blockname.md
-  - /_i18n/de/pagename/blockname.md
-  - /_i18n/fr/pagename/blockname.md
+  - /\_i18n/sv.yml
+  - /\_i18n/en.yml
+  - /\_i18n/de.yml
+  - /\_i18n/fr.yml
+  - /\_i18n/sv/pagename/blockname.md
+  - /\_i18n/en/pagename/blockname.md
+  - /\_i18n/de/pagename/blockname.md
+  - /\_i18n/fr/pagename/blockname.md
 
 
 
@@ -352,11 +354,11 @@ permalink: /about/
 {% translate_file about/about.md %}
 ```
 
-Then, create a file named `about.md` under `_i18n/en` with the English content. Repeat this for the other languages (_i18n/es/about.md ...). When running the website, visit the address `http://localhost:4000/about` to see the English version, `http://localhost:4000/es/about` for the Spanish one, etc.
-
+Then, create a file named `about.md` under `_i18n/en` with the English content. Repeat this for the other languages (\_i18n/es/about.md ...). When running the website, visit the address `http://localhost:4000/about` to see the English version, `http://localhost:4000/es/about` for the Spanish one, etc.
 
 
 ## 8. Changelog
+
 * 1.5.1
   * Fix a bug (#70) where `site.static_files` would be empty on subsites if `exclude_from_localizations` is used.
   * Some overall project enhancements and minor fixes.
