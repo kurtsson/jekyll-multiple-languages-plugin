@@ -1,4 +1,5 @@
 require 'minitest/autorun'
 require 'minitest/pride'
-require './lib/tools'
+require './lib/tools/path_equivalent'
+require './lib/tools/remover'
 require './test/tools_test'

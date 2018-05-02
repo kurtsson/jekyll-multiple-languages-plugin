@@ -19,7 +19,8 @@ require_relative 'overwrite_jekyll/document'
 require_relative 'overwrite_jekyll/hash_custom'
 
 require_relative 'custom_tags'
-require_relative 'tools'
+require_relative 'tools/path_equivalent'
+require_relative 'tools/remover'
 
 module Jekyll
 
@@ -30,6 +31,8 @@ module Jekyll
 
     static_files  = payload["site"]["static_files"]
     exclude_paths = payload["site"]["exclude_from_localizations"]
+    pages         = payload["site"]["pages"]
+
 
     if default_lang != current_lang
       static_files.delete_if do |static_file|
@@ -38,6 +41,10 @@ module Jekyll
         static_file_relative_path    = static_file.instance_variable_get(:@relative_path).dup
         static_file_relative_path[0] = ''
         MultipleLanguagePluginTools::Remover.go static_file_relative_path, exclude_paths
+      end
+
+      pages.delete_if do |page|
+        exclude_paths.include? page.name
       end
     end
 
