@@ -20,33 +20,56 @@ module Jekyll
   # :site, :post_render hook
   #*****************************************************************************
   Jekyll::Hooks.register :site, :post_render do |site, payload|
-    
+
     # Removes all static files that should not be copied to translated sites.
     #===========================================================================
     default_lang  = payload["site"]["default_lang"]
     current_lang  = payload["site"][        "lang"]
-    
+
     static_files  = payload["site"]["static_files"]
     exclude_paths = payload["site"]["exclude_from_localizations"]
-    
-    
+
+
     if default_lang != current_lang
       static_files.delete_if do |static_file|
-          
+
         # Remove "/" from beginning of static file relative path
         static_file_r_path    = static_file.instance_variable_get(:@relative_path).dup
         static_file_r_path[0] = ''
-        
+
         exclude_paths.any? do |exclude_path|
           Pathname.new(static_file_r_path).descend do |static_file_path|
-            break(true) if (Pathname.new(exclude_path) <=> static_file_path) == 0
+            p "--------------"
+            p "--------------"
+            p exclude_path
+            p static_file_path
+            p "--------------"
+            p "--------------"
+            path_equivalent_tool = PathEquivalentTool.new(exclude_path, static_file_path)
+            break(true) if path_equivalent_tool.check
           end
         end
       end
     end
-    
+
     #===========================================================================
-    
+
+  end
+
+
+  class PathEquivalentTool
+    def initialize exclude_path, static_path
+      @exclude_path = exclude_path
+      @static_path = static_path
+    end
+
+    def check
+      # <=> Spaceship operator
+      # retun 0 if 2 operator are ==
+      result = Pathname.new(@exclude_path) <=> @static_path
+      return true if result == 0
+      false
+    end
   end
 
 
@@ -55,11 +78,11 @@ module Jekyll
   # class Site
   ##############################################################################
   class Site
-    
+
     attr_accessor :parsed_translations   # Hash that stores parsed translations read from YAML files.
-    
+
     alias :process_org :process
-    
+
     #======================================
     # process
     #
@@ -70,65 +93,65 @@ module Jekyll
       # Check if plugin settings are set, if not, set a default or quit.
       #-------------------------------------------------------------------------
       self.parsed_translations ||= {}
-      
+
       self.config['exclude_from_localizations'] ||= []
-      
+
       if ( !self.config['languages']         or
             self.config['languages'].empty?  or
            !self.config['languages'].all?
          )
           puts 'You must provide at least one language using the "languages" setting on your _config.yml.'
-          
+
           exit
       end
-      
-      
+
+
       # Variables
       #-------------------------------------------------------------------------
-      
+
       # Original Jekyll configurations
       baseurl_org                 = self.config[ 'baseurl' ] # Baseurl set on _config.yml
       dest_org                    = self.dest                # Destination folder where the website is generated
-      
+
       # Site building only variables
       languages                   = self.config['languages'] # List of languages set on _config.yml
-      
+
       # Site wide plugin configurations
       self.config['default_lang'] = languages.first          # Default language (first language of array set on _config.yml)
       self.config[        'lang'] = languages.first          # Current language being processed
       self.config['baseurl_root'] = baseurl_org              # Baseurl of website root (without the appended language code)
       self.config['translations'] = self.parsed_translations # Hash that stores parsed translations read from YAML files. Exposes this hash to Liquid.
-      
-      
+
+
       # Build the website for default language
       #-------------------------------------------------------------------------
       puts "Building site for default language: \"#{self.config['lang']}\" to: #{self.dest}"
-      
+
       process_org
-      
-      
+
+
       # Build the website for the other languages
       #-------------------------------------------------------------------------
-      
+
       # Remove .htaccess file from included files, so it wont show up on translations folders.
       self.include -= [".htaccess"]
-      
+
       languages.drop(1).each do |lang|
-        
+
         # Language specific config/variables
         @dest                  = dest_org    + "/" + lang
         self.config['baseurl'] = baseurl_org + "/" + lang
         self.config['lang']    =                     lang
-        
+
         puts "Building site for language: \"#{self.config['lang']}\" to: #{self.dest}"
-        
+
         process_org
       end
-      
+
       # Revert to initial Jekyll configurations (necessary for regeneration)
       self.config[ 'baseurl' ] = baseurl_org  # Baseurl set on _config.yml
       @dest                    = dest_org     # Destination folder where the website is generated
-      
+
       puts 'Build complete'
     end
 
@@ -142,13 +165,13 @@ module Jekyll
       #======================================
       def read_posts(dir)
         translate_posts = !self.config['exclude_from_localizations'].include?("_posts")
-        
+
         if dir == '' && translate_posts
           read_posts("_i18n/#{self.config['lang']}/")
         else
           read_posts_org(dir)
         end
-        
+
       end
     end
 
@@ -160,10 +183,10 @@ module Jekyll
   # class PostReader
   ##############################################################################
   class PostReader
-  
+
     if Gem::Version.new(Jekyll::VERSION) >= Gem::Version.new("3.0.0")
       alias :read_posts_org :read_posts
-      
+
       #======================================
       # read_posts
       #======================================
@@ -177,27 +200,27 @@ module Jekyll
       end
     end
   end
-  
-  
-  
+
+
+
   ##############################################################################
   # class Page
   ##############################################################################
   class Page
-  
+
     #======================================
     # permalink
     #======================================
     def permalink
       return nil if data.nil? || data['permalink'].nil?
-      
+
       if site.config['relative_permalinks']
         File.join(@dir,  data['permalink'])
       else
         # Look if there's a permalink overwrite specified for this lang
         data['permalink_'+site.config['lang']] || data['permalink']
       end
-      
+
     end
   end
 
@@ -207,10 +230,10 @@ module Jekyll
   # class Post
   ##############################################################################
   class Post
-  
+
     if Gem::Version.new(Jekyll::VERSION) < Gem::Version.new("3.0.0")
       alias :populate_categories_org :populate_categories
-      
+
       #======================================
       # populate_categories
       #
@@ -223,10 +246,10 @@ module Jekyll
         self.categories = (
           Array(categories) + categories_from_data
         ).map {|c| c.to_s.downcase}.flatten.uniq
-        
+
         self.categories.delete("_i18n")
         self.categories.delete(site.config['lang'])
-        
+
         return self.categories
       end
     end
@@ -238,10 +261,10 @@ module Jekyll
   # class Document
   ##############################################################################
   class Document
-    
+
     if Gem::Version.new(Jekyll::VERSION) >= Gem::Version.new("3.0.0")
       alias :populate_categories_org :populate_categories
-      
+
       #======================================
       # populate_categories
       #
@@ -252,7 +275,7 @@ module Jekyll
       def populate_categories
         data['categories'].delete("_i18n")
         data['categories'].delete(site.config['lang'])
-        
+
         merge_data!({
           'categories' => (
             Array(data['categories']) + Utils.pluralized_array_from_hash(data, 'category', 'categories')
@@ -261,9 +284,9 @@ module Jekyll
       end
     end
   end
-  
-  
-  
+
+
+
   #-----------------------------------------------------------------------------
   #
   # The next classes implements the plugin Liquid Tags and/or Filters
@@ -278,7 +301,7 @@ module Jekyll
   # User must use the "t" or "translate" liquid tags.
   ##############################################################################
   class LocalizeTag < Liquid::Tag
-  
+
     #======================================
     # initialize
     #======================================
@@ -286,9 +309,9 @@ module Jekyll
       super
       @key = key.strip
     end
-    
-    
-    
+
+
+
     #======================================
     # render
     #======================================
@@ -298,27 +321,27 @@ module Jekyll
       else
         key =            @key
       end
-      
+
       key = Liquid::Template.parse(key).render(context)  # Parses and renders some Liquid syntax on arguments (allows expansions)
-      
+
       site = context.registers[:site] # Jekyll site object
-      
+
       lang = site.config['lang']
-      
+
       unless site.parsed_translations.has_key?(lang)
         puts              "Loading translation from file #{site.source}/_i18n/#{lang}.yml"
         site.parsed_translations[lang] = YAML.load_file("#{site.source}/_i18n/#{lang}.yml")
       end
-      
+
       translation = site.parsed_translations[lang].access(key) if key.is_a?(String)
-      
+
       if translation.nil? or translation.empty?
          translation = site.parsed_translations[site.config['default_lang']].access(key)
-        
+
         puts "Missing i18n key: #{lang}:#{key}"
         puts "Using translation '%s' from default language: %s" %[translation, site.config['default_lang']]
       end
-      
+
       translation
     end
   end
@@ -333,7 +356,7 @@ module Jekyll
   ##############################################################################
   module Tags
     class LocalizeInclude < IncludeTag
-    
+
       #======================================
       # render
       #======================================
@@ -343,36 +366,36 @@ module Jekyll
         else
           file =            @file
         end
-        
+
         file = Liquid::Template.parse(file).render(context)  # Parses and renders some Liquid syntax on arguments (allows expansions)
-        
+
         site = context.registers[:site] # Jekyll site object
-        
+
         includes_dir = File.join(site.source, '_i18n/' + site.config['lang'])
-        
+
         validate_file_name(file)
-        
+
         Dir.chdir(includes_dir) do
           choices = Dir['**/*'].reject { |x| File.symlink?(x) }
-          
+
           if choices.include?(  file)
             source  = File.read(file)
             partial = Liquid::Template.parse(source)
-            
+
             context.stack do
               context['include'] = parse_params(  context) if @params
               contents           = partial.render(context)
               ext                = File.extname(file)
-              
+
               converter = site.converters.find { |c| c.matches(ext) }
               contents  = converter.convert(contents) unless converter.nil?
-              
+
               contents
             end
           else
             raise IOError.new "Included file '#{file}' not found in #{includes_dir} directory"
           end
-          
+
         end
       end
     end
@@ -395,9 +418,9 @@ module Jekyll
       super
       @key = key
     end
-    
-    
-    
+
+
+
     #======================================
     # render
     #======================================
@@ -407,11 +430,11 @@ module Jekyll
       else
         key = @key
       end
-      
+
       key = Liquid::Template.parse(key).render(context)  # Parses and renders some Liquid syntax on arguments (allows expansions)
-      
+
       site = context.registers[:site] # Jekyll site object
-      
+
       key          = key.split
       namespace    = key[0]
       lang         = key[1] || site.config[        'lang']
@@ -419,27 +442,27 @@ module Jekyll
       baseurl      =           site.baseurl
       pages        =           site.pages
       url          = "";
-      
+
       if default_lang != lang
         baseurl = baseurl + "/" + lang
       end
-      
+
       for p in pages
         unless             p['namespace'].nil?
           page_namespace = p['namespace']
-          
+
           if namespace == page_namespace
             permalink = p['permalink_'+lang] || p['permalink']
             url       = baseurl + permalink
           end
         end
       end
-      
+
       url
     end
   end
-  
-  
+
+
 end # End module Jekyll
 
 
@@ -449,24 +472,24 @@ end # End module Jekyll
 ################################################################################
 unless Hash.method_defined? :access
   class Hash
-  
+
     #======================================
     # access
     #======================================
     def access(path)
       ret = self
-      
+
       path.split('.').each do |p|
-      
+
         if p.to_i.to_s == p
           ret = ret[p.to_i]
         else
           ret = ret[p.to_s] || ret[p.to_sym]
         end
-        
+
         break unless ret
       end
-      
+
       ret
     end
   end
@@ -483,4 +506,3 @@ Liquid::Template.register_tag('tf',             Jekyll::Tags::LocalizeInclude)
 Liquid::Template.register_tag('translate_file', Jekyll::Tags::LocalizeInclude)
 Liquid::Template.register_tag('tl',             Jekyll::LocalizeLink         )
 Liquid::Template.register_tag('translate_link', Jekyll::LocalizeLink         )
-
