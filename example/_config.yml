@@ -13,7 +13,7 @@ paginate_path: "/pagination/page:num/"
 
 
 # Plugins
-gems:
+plugins:
   - jekyll-multiple-languages-plugin
   - jekyll-paginate
 
