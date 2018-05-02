@@ -35,6 +35,7 @@ module Jekyll
 
 
     if default_lang != current_lang
+      # Remove excluded files from static files
       static_files.delete_if do |static_file|
         # static_file is a Jekyll::StaticFile
         # Remove "/" from beginning of static file relative path
@@ -42,7 +43,7 @@ module Jekyll
         static_file_relative_path[0] = ''
         MultipleLanguagePluginTools::RemoverStaticFiles.go static_file_relative_path, exclude_paths
       end
-
+      # Remove excluded files from pages (ex: dynamic robots.txt)
       pages.delete_if do |page|
         exclude_paths.include? page.name
       end
