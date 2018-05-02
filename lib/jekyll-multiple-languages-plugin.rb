@@ -31,11 +31,12 @@ module Jekyll
 
     if default_lang != current_lang
       static_files.delete_if do |static_file|
-        # Jekyll::StaticFile
-        static_file_relative_path    = static_file.instance_variable_get(:@relative_path).dup
+        # static_file is a Jekyll::StaticFile
         # Remove "/" from beginning of static file relative path
+        static_file_relative_path    = static_file.instance_variable_get(:@relative_path).dup
         static_file_relative_path[0] = ''
-        MultipleLanguagesTools::Remover.go static_file_relative_path, exclude_paths
+        p static_file_relative_path
+        MultipleLanguagePluginTools::Remover.go static_file_relative_path, exclude_paths
       end
     end
 
