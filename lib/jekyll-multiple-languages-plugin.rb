@@ -22,6 +22,7 @@ module Jekyll
   Jekyll::Hooks.register :site, :pre_render do |site, payload|
       lang = site.config['lang']
       unless site.parsed_translations.has_key?(lang)
+        puts "Loading translation from file #{site.source}/_i18n/#{lang}.yml"
         site.parsed_translations[lang] = YAML.load_file("#{site.source}/_i18n/#{lang}.yml")
       end
   end
