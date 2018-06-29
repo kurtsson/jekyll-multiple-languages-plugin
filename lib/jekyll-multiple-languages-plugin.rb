@@ -347,10 +347,25 @@ module Jekyll
         file = Liquid::Template.parse(file).render(context)  # Parses and renders some Liquid syntax on arguments (allows expansions)
         
         site = context.registers[:site] # Jekyll site object
-        
-        includes_dir = File.join(site.source, '_i18n/' + site.config['lang'])
+
+        default_lang = site.config['default_lang']
         
         validate_file_name(file)
+
+        includes_dir = File.join(site.source, '_i18n/' + site.config['lang'])
+
+        # If directory doesn't exist, go to default lang
+        if !Dir.exist?(includes_dir)
+          includes_dir = File.join(site.source, '_i18n/' + default_lang)
+        elsif
+          # If file doesn't exist, go to default lang
+          Dir.chdir(includes_dir) do
+            choices = Dir['**/*'].reject { |x| File.symlink?(x) }
+            if !choices.include?(  file)
+              includes_dir = File.join(site.source, '_i18n/' + default_lang)
+            end
+          end
+        end
         
         Dir.chdir(includes_dir) do
           choices = Dir['**/*'].reject { |x| File.symlink?(x) }
