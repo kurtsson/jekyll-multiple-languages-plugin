@@ -319,16 +319,7 @@ module Jekyll
         site.parsed_translations[lang] = YAML.load_file("#{site.source}/_i18n/#{lang}.yml")
       end
       
-      translation = site.parsed_translations[lang].access(key) if key.is_a?(String)
-      
-      if translation.nil? or translation.empty?
-         translation = site.parsed_translations[site.config['default_lang']].access(key)
-        
-        puts "Missing i18n key: #{lang}:#{key}"
-        puts "Using translation '%s' from default language: %s" %[translation, site.config['default_lang']]
-      end
-      
-      translation
+      translate_key(key, lang, site)
     end
   end
 
@@ -482,6 +473,32 @@ unless Hash.method_defined? :access
 end
 
 
+
+#======================================
+# translate_key
+#
+# Translate given key to given language.
+#======================================
+def translate_key(key, lang, site)
+  unless site.parsed_translations.has_key?(lang)
+    puts              "Loading translation from file #{site.source}/_i18n/#{lang}.yml"
+    site.parsed_translations[lang] = YAML.load_file("#{site.source}/_i18n/#{lang}.yml")
+  end
+
+  translation = site.parsed_translations[lang].access(key) if key.is_a?(String)
+
+  if translation.nil? or translation.empty?
+    translation = site.parsed_translations[site.config['default_lang']].access(key)
+
+    puts "Missing i18n key: #{lang}:#{key}"
+    puts "Using translation '%s' from default language: %s" %[translation, site.config['default_lang']]
+  end
+
+  translation
+end
+
+
+
 ################################################################################
 # class SiteLocalize
 ################################################################################
@@ -517,31 +534,8 @@ class SiteLocalize
   #======================================
   def translate(lang)
     @site_props.each do |prop_name|
-      @site.config[prop_name] = self.translate_key(@site_values[prop_name], lang)
+      @site.config[prop_name] = translate_key(@site_values[prop_name], lang, @site)
     end
-  end
-
-  #======================================
-  # translate_key
-  #
-  # Translate given key to given language.
-  #======================================
-  def translate_key(key, lang)
-    unless @site.parsed_translations.has_key?(lang)
-      puts              "Loading translation from file #{@site.source}/_i18n/#{lang}.yml"
-      @site.parsed_translations[lang] = YAML.load_file("#{@site.source}/_i18n/#{lang}.yml")
-    end
-
-    translation = @site.parsed_translations[lang].access(key) if key.is_a?(String)
-
-    if translation.nil? or translation.empty?
-      translation = @site.parsed_translations[@site.config['default_lang']].access(key)
-
-      puts "Missing i18n key: #{lang}:#{key}"
-      puts "Using translation '%s' from default language: %s" %[translation, @site.config['default_lang']]
-    end
-
-    translation
   end
 end
 
