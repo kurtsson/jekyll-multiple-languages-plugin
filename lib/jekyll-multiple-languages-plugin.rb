@@ -82,6 +82,42 @@ module Jekyll
           exit
       end
       
+      site_props_to_localize = self.config['localize_site'] || []
+      site_values = {}
+      # Saving original values.
+      site_props_to_localize.each do |prop_name|
+        site_values[prop_name] = self.config[prop_name]
+      end
+
+      #======================================
+      # translate_site
+      #
+      # Translate properties mentioned in a list 'localize_site' of _config.yml.
+      # If the property is not defined or it is empty, no translation is performed.
+      #======================================
+      def translate_site(lang, site_values, site_props)
+        def translate_key(key, lang)
+          unless self.parsed_translations.has_key?(lang)
+            puts              "Loading translation from file #{self.source}/_i18n/#{lang}.yml"
+            self.parsed_translations[lang] = YAML.load_file("#{self.source}/_i18n/#{lang}.yml")
+          end
+
+          translation = self.parsed_translations[lang].access(key) if key.is_a?(String)
+
+          if translation.nil? or translation.empty?
+            translation = self.parsed_translations[self.config['default_lang']].access(key)
+
+            puts "Missing i18n key: #{lang}:#{key}"
+            puts "Using translation '%s' from default language: %s" %[translation, self.config['default_lang']]
+          end
+
+          return translation
+        end
+
+        site_props.each do |prop_name|
+          self.config[prop_name] = translate_key(site_values[prop_name], lang)
+        end
+      end
       
       # Variables
       #-------------------------------------------------------------------------
@@ -99,6 +135,8 @@ module Jekyll
       self.config['baseurl_root'] = baseurl_org              # Baseurl of website root (without the appended language code)
       self.config['translations'] = self.parsed_translations # Hash that stores parsed translations read from YAML files. Exposes this hash to Liquid.
       
+      # Translate site attributes to default language
+      translate_site(languages.first, site_values, site_props_to_localize)
       
       # Build the website for default language
       #-------------------------------------------------------------------------
@@ -120,6 +158,9 @@ module Jekyll
         self.config['baseurl'] = baseurl_org + "/" + lang
         self.config['lang']    =                     lang
         
+        # Translate site attributes to current language
+        translate_site(lang, site_values, site_props_to_localize)
+
         puts "Building site for language: \"#{self.config['lang']}\" to: #{self.dest}"
         
         process_org
@@ -129,6 +170,9 @@ module Jekyll
       self.config[ 'baseurl' ] = baseurl_org  # Baseurl set on _config.yml
       @dest                    = dest_org     # Destination folder where the website is generated
       
+      # Get translation back to default language
+      translate_site(languages.first, site_values, site_props_to_localize)
+
       puts 'Build complete'
     end
 
