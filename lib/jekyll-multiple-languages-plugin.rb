@@ -509,7 +509,22 @@ class SiteLocalize
   def initialize(site)
     super()
     @site = site
-    self.store_original_values
+    self.save_props
+    self.save_original_values
+  end
+
+  def save_props
+    @site_props = Array.new
+    (@site.config['localize_site'] || []).each do |prop_name|
+      if prop_name.is_a? String
+        prop_name = prop_name.strip
+        unless prop_name.empty?
+          @site_props.push(prop_name)
+        end
+      else
+        puts "Incorrect property name #{prop_name}. Must be a string"
+      end
+    end
   end
 
   #======================================
@@ -518,8 +533,7 @@ class SiteLocalize
   # Store original values of site properties defined 
   # in a property 'localize_site' of _config.yml. 
   #======================================
-  def store_original_values
-    @site_props = @site.config['localize_site'] || []
+  def save_original_values
     @site_values = {}
     # Saving original values.
     @site_props.each do |prop_name|
