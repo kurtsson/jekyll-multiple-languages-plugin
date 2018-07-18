@@ -82,42 +82,6 @@ module Jekyll
           exit
       end
       
-      site_props_to_localize = self.config['localize_site'] || []
-      site_values = {}
-      # Saving original values.
-      site_props_to_localize.each do |prop_name|
-        site_values[prop_name] = self.config[prop_name]
-      end
-
-      #======================================
-      # translate_site
-      #
-      # Translate properties mentioned in a list 'localize_site' of _config.yml.
-      # If the property is not defined or it is empty, no translation is performed.
-      #======================================
-      def translate_site(lang, site_values, site_props)
-        def translate_key(key, lang)
-          unless self.parsed_translations.has_key?(lang)
-            puts              "Loading translation from file #{self.source}/_i18n/#{lang}.yml"
-            self.parsed_translations[lang] = YAML.load_file("#{self.source}/_i18n/#{lang}.yml")
-          end
-
-          translation = self.parsed_translations[lang].access(key) if key.is_a?(String)
-
-          if translation.nil? or translation.empty?
-            translation = self.parsed_translations[self.config['default_lang']].access(key)
-
-            puts "Missing i18n key: #{lang}:#{key}"
-            puts "Using translation '%s' from default language: %s" %[translation, self.config['default_lang']]
-          end
-
-          return translation
-        end
-
-        site_props.each do |prop_name|
-          self.config[prop_name] = translate_key(site_values[prop_name], lang)
-        end
-      end
       
       # Variables
       #-------------------------------------------------------------------------
@@ -135,8 +99,9 @@ module Jekyll
       self.config['baseurl_root'] = baseurl_org              # Baseurl of website root (without the appended language code)
       self.config['translations'] = self.parsed_translations # Hash that stores parsed translations read from YAML files. Exposes this hash to Liquid.
       
+      site_localize = SiteLocalize.new(self)
       # Translate site attributes to default language
-      translate_site(languages.first, site_values, site_props_to_localize)
+      site_localize.translate(languages.first)
       
       # Build the website for default language
       #-------------------------------------------------------------------------
@@ -159,7 +124,7 @@ module Jekyll
         self.config['lang']    =                     lang
         
         # Translate site attributes to current language
-        translate_site(lang, site_values, site_props_to_localize)
+        site_localize.translate(lang)
 
         puts "Building site for language: \"#{self.config['lang']}\" to: #{self.dest}"
         
@@ -170,8 +135,8 @@ module Jekyll
       self.config[ 'baseurl' ] = baseurl_org  # Baseurl set on _config.yml
       @dest                    = dest_org     # Destination folder where the website is generated
       
-      # Get translation back to default language
-      translate_site(languages.first, site_values, site_props_to_localize)
+      # Set translation to default language
+      site_localize.translate(languages.first)
 
       puts 'Build complete'
     end
@@ -513,6 +478,70 @@ unless Hash.method_defined? :access
       
       ret
     end
+  end
+end
+
+
+################################################################################
+# class SiteLocalize
+################################################################################
+class SiteLocalize
+  #======================================
+  # initialize
+  #======================================
+  def initialize(site)
+    super()
+    @site = site
+    self.store_original_values
+  end
+
+  #======================================
+  # store_original_values
+  #
+  # Store original values of site properties defined 
+  # in a property 'localize_site' of _config.yml. 
+  #======================================
+  def store_original_values
+    @site_props = @site.config['localize_site'] || []
+    @site_values = {}
+    # Saving original values.
+    @site_props.each do |prop_name|
+      @site_values[prop_name] = @site.config[prop_name]
+    end
+  end
+
+  #======================================
+  # translate
+  #
+  # Translate properties defined in a list 'localize_site' of _config.yml.
+  #======================================
+  def translate(lang)
+    @site_props.each do |prop_name|
+      @site.config[prop_name] = self.translate_key(@site_values[prop_name], lang)
+    end
+  end
+
+  #======================================
+  # translate_key
+  #
+  # Translate given key to given language.
+  #======================================
+  def translate_key(key, lang)
+    unless @site.parsed_translations.has_key?(lang)
+      puts              "Loading translation from file #{@site.source}/_i18n/#{lang}.yml"
+      @site.parsed_translations[lang] = YAML.load_file("#{@site.source}/_i18n/#{lang}.yml")
+    end
+
+    translation = @site.parsed_translations[lang].access(key) if key.is_a?(String)
+
+    if translation.nil? or translation.empty?
+      translation = @site.parsed_translations[@site.config['default_lang']].access(key)
+
+      puts "Missing i18n key: #{lang}:#{key}"
+      puts "Using translation '%s' from default language: %s" %[translation, @site.config['default_lang']]
+    end
+
+    translation
   end
 end
 
