@@ -512,6 +512,12 @@ class SiteLocalize
     self.save_props
   end
 
+  #======================================
+  # save_props
+  #
+  # Save property names and their values from 'site' 
+  # which are proposed for i18n.
+  #======================================
   def save_props
     @site_props = {}
     (@site.config['localize_site'] || []).each do |prop_name|
