@@ -510,34 +510,25 @@ class SiteLocalize
     super()
     @site = site
     self.save_props
-    self.save_original_values
   end
 
   def save_props
-    @site_props = Array.new
+    @site_props = {}
     (@site.config['localize_site'] || []).each do |prop_name|
-      if prop_name.is_a? String
+      if prop_name.is_a?(String)
         prop_name = prop_name.strip
-        unless prop_name.empty?
-          @site_props.push(prop_name)
+        if prop_name.empty?
+          puts "There is empty property defined in 'localize_site'"
+        else
+          prop_value = @site.config[prop_name]
+          if prop_value and !prop_value.empty?
+            # If site has this property, saving it for further translation
+            @site_props[prop_name] = prop_value
+          end
         end
       else
-        puts "Incorrect property name #{prop_name}. Must be a string"
+        puts "Incorrect property name '#{prop_name}'. Must be a string"
       end
-    end
-  end
-
-  #======================================
-  # store_original_values
-  #
-  # Store original values of site properties defined 
-  # in a property 'localize_site' of _config.yml. 
-  #======================================
-  def save_original_values
-    @site_values = {}
-    # Saving original values.
-    @site_props.each do |prop_name|
-      @site_values[prop_name] = @site.config[prop_name]
     end
   end
 
@@ -547,8 +538,8 @@ class SiteLocalize
   # Translate properties defined in a list 'localize_site' of _config.yml.
   #======================================
   def translate(lang)
-    @site_props.each do |prop_name|
-      @site.config[prop_name] = translate_key(@site_values[prop_name], lang, @site)
+    @site_props.each do |prop_name, prop_value|
+      @site.config[prop_name] = translate_key(prop_value, lang, @site)
     end
   end
 end
