@@ -60,7 +60,7 @@ module Jekyll
     puts "Localizing pages's data for language: #{lang} ..."
     (site.pages + site.documents).each do |item|
       localizer = Localizer.new(item.data, site)
-      localizer.localize_to(lang)
+      localizer.translate_to(lang)
      end
   end
 
@@ -114,7 +114,7 @@ module Jekyll
       
       localizer = Localizer.new(self.config,self)
       # Translate site attributes to default language
-      localizer.localize_to(languages.first)
+      localizer.translate_to(languages.first)
       
       # Build the website for default language
       #-------------------------------------------------------------------------
@@ -137,7 +137,7 @@ module Jekyll
         self.config['lang']    =                     lang
         
         # Translate site attributes to current language
-        localizer.localize_to(lang)
+        localizer.translate_to(lang)
 
         puts "Building site for language: \"#{self.config['lang']}\" to: #{self.dest}"
         
@@ -149,7 +149,7 @@ module Jekyll
       @dest                    = dest_org     # Destination folder where the website is generated
       
       # Set translation to default language
-      localizer.localize_to(languages.first)
+      localizer.translate_to(languages.first)
 
       puts 'Build complete'
     end
@@ -519,7 +519,7 @@ class Localizer
   #======================================
   # initialize
   #======================================
-  def initialize(data, site, props_key_name = 'localize_props')
+  def initialize(data, site, props_key_name = 'translate_props')
     super()
     @data = data
     @site = site
@@ -554,11 +554,11 @@ class Localizer
   end
 
   #======================================
-  # localize_to
+  # translate_to
   #
-  # Perform localization of properties defined in localization property list.
+  # Perform translation of properties defined in translation property list.
   #======================================
-  def localize_to(lang)
+  def translate_to(lang)
     @props.each do |prop_name, prop_value|
       @data[prop_name] = translate_key(prop_value, lang, @site)
     end
