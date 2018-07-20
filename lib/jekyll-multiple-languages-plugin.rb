@@ -57,7 +57,7 @@ module Jekyll
     # Localize front matter data of every page.
     #===========================================================================
     lang = site.config['lang']
-    puts "Localizing pages's data for language: #{lang} ..."
+    puts "Localizing pages' data for language: #{lang} ..."
     (site.pages + site.documents).each do |item|
       localizer = Localizer.new(item.data, site)
       localizer.translate_to(lang)
