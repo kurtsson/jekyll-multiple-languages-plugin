@@ -56,11 +56,8 @@ module Jekyll
     
     # Localize front matter data of every page.
     #===========================================================================
-    lang = site.config['lang']
-    puts "Localizing pages' data for language: #{lang}"
     (site.pages + site.documents).each do |item|
-      localizer = Localizer.new(item.data, site)
-      localizer.translate_to(lang)
+      translate_props(item.data, site)
      end
   end
 
@@ -112,9 +109,8 @@ module Jekyll
       self.config['baseurl_root'] = baseurl_org              # Baseurl of website root (without the appended language code)
       self.config['translations'] = self.parsed_translations # Hash that stores parsed translations read from YAML files. Exposes this hash to Liquid.
       
-      localizer = Localizer.new(self.config,self)
       # Translate site attributes to default language
-      localizer.translate_to(languages.first)
+      translate_props(self.config, self)
       
       # Build the website for default language
       #-------------------------------------------------------------------------
@@ -137,7 +133,7 @@ module Jekyll
         self.config['lang']    =                     lang
         
         # Translate site attributes to current language
-        localizer.translate_to(lang)
+        translate_props(self.config, self)
 
         puts "Building site for language: \"#{self.config['lang']}\" to: #{self.dest}"
         
@@ -148,9 +144,6 @@ module Jekyll
       self.config[ 'baseurl' ] = baseurl_org  # Baseurl set on _config.yml
       @dest                    = dest_org     # Destination folder where the website is generated
       
-      # Set translation to default language
-      localizer.translate_to(languages.first)
-
       puts 'Build complete'
     end
 
@@ -332,7 +325,7 @@ module Jekyll
         site.parsed_translations[lang] = YAML.load_file("#{site.source}/_i18n/#{lang}.yml")
       end
       
-      translate_key(key, lang, site)
+      TranslatedString.translate(key, lang, site)
     end
   end
 
@@ -511,56 +504,57 @@ def translate_key(key, lang, site)
 end
 
 
-
 ################################################################################
-# class Localize
+# class TranslatedString
 ################################################################################
-class Localizer
+class TranslatedString < String
   #======================================
   # initialize
   #======================================
-  def initialize(data, site, props_key_name = 'translate_props')
-    super()
-    @data = data
-    @site = site
-    @props_key_name = props_key_name
-    self.save_props
+  def initialize(*several_variants, key)
+    super(*several_variants)
+    @key = key
+  end
+  
+  def key
+    @key
   end
 
   #======================================
-  # save_props
-  #
-  # Save property names and their values from data object
-  # which are proposed for i18n.
+  # translate
   #======================================
-  def save_props
-    @props = {}
-    (@data[@props_key_name] || []).each do |prop_name|
-      if prop_name.is_a?(String)
-        prop_name = prop_name.strip
-        if prop_name.empty?
-          puts "There is empty property defined in '#{@props_key_name}'"
-        else
-          prop_value = @data[prop_name]
-          if prop_value and !prop_value.empty?
-            # If site has this property, saving it for further translation
-            @props[prop_name] = prop_value
-          end
-        end
-      else
-        puts "Incorrect property name '#{prop_name}'. Must be a string"
-      end
+  def self.translate(str, lang, site)
+    if str.is_a?(TranslatedString)
+      key = str.key
+    else
+      key = str
     end
+    return TranslatedString.new(translate_key(key, lang, site), key = key)
   end
+end
 
-  #======================================
-  # translate_to
-  #
-  # Perform translation of properties defined in translation property list.
-  #======================================
-  def translate_to(lang)
-    @props.each do |prop_name, prop_value|
-      @data[prop_name] = translate_key(prop_value, lang, @site)
+
+#======================================
+# translate_props
+#
+# Perform translation of properties defined in translation property list.
+#======================================
+def translate_props(data, site, props_key_name = 'translate_props')
+  lang = site.config['lang']
+  props = {}
+  (data[props_key_name] || []).each do |prop_name|
+    if prop_name.is_a?(String)
+      prop_name = prop_name.strip
+      if prop_name.empty?
+        puts "There is empty property defined in '#{props_key_name}'"
+      else
+        prop_value = data[prop_name]
+        if prop_value.is_a?(String) and !prop_value.empty?
+          data[prop_name] = TranslatedString.translate(prop_value, lang, site)
+        end
+      end
+    else
+      puts "Incorrect property name '#{prop_name}'. Must be a string"
     end
   end
 end
