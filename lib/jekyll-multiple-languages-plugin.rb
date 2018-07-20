@@ -99,9 +99,9 @@ module Jekyll
       self.config['baseurl_root'] = baseurl_org              # Baseurl of website root (without the appended language code)
       self.config['translations'] = self.parsed_translations # Hash that stores parsed translations read from YAML files. Exposes this hash to Liquid.
       
-      site_localize = SiteLocalize.new(self)
+      localizer = Localizer.new(self.config,self)
       # Translate site attributes to default language
-      site_localize.translate(languages.first)
+      localizer.localize_to(languages.first)
       
       # Build the website for default language
       #-------------------------------------------------------------------------
@@ -124,7 +124,7 @@ module Jekyll
         self.config['lang']    =                     lang
         
         # Translate site attributes to current language
-        site_localize.translate(lang)
+        localizer.localize_to(lang)
 
         puts "Building site for language: \"#{self.config['lang']}\" to: #{self.dest}"
         
@@ -136,7 +136,7 @@ module Jekyll
       @dest                    = dest_org     # Destination folder where the website is generated
       
       # Set translation to default language
-      site_localize.translate(languages.first)
+      localizer.localize_to(languages.first)
 
       puts 'Build complete'
     end
@@ -500,36 +500,38 @@ end
 
 
 ################################################################################
-# class SiteLocalize
+# class Localize
 ################################################################################
-class SiteLocalize
+class Localizer
   #======================================
   # initialize
   #======================================
-  def initialize(site)
+  def initialize(data, site, props_key_name = 'localize_props')
     super()
+    @data = data
     @site = site
+    @props_key_name = props_key_name
     self.save_props
   end
 
   #======================================
   # save_props
   #
-  # Save property names and their values from 'site' 
+  # Save property names and their values from data object
   # which are proposed for i18n.
   #======================================
   def save_props
-    @site_props = {}
-    (@site.config['localize_site'] || []).each do |prop_name|
+    @props = {}
+    (@data[@props_key_name] || []).each do |prop_name|
       if prop_name.is_a?(String)
         prop_name = prop_name.strip
         if prop_name.empty?
-          puts "There is empty property defined in 'localize_site'"
+          puts "There is empty property defined in '#{@props_key_name}'"
         else
-          prop_value = @site.config[prop_name]
+          prop_value = @data[prop_name]
           if prop_value and !prop_value.empty?
             # If site has this property, saving it for further translation
-            @site_props[prop_name] = prop_value
+            @props[prop_name] = prop_value
           end
         end
       else
@@ -539,13 +541,13 @@ class SiteLocalize
   end
 
   #======================================
-  # translate
+  # localize_to
   #
-  # Translate properties defined in a list 'localize_site' of _config.yml.
+  # Perform localization of properties defined in localization property list.
   #======================================
-  def translate(lang)
-    @site_props.each do |prop_name, prop_value|
-      @site.config[prop_name] = translate_key(prop_value, lang, @site)
+  def localize_to(lang)
+    @props.each do |prop_name, prop_value|
+      @data[prop_name] = translate_key(prop_value, lang, @site)
     end
   end
 end
