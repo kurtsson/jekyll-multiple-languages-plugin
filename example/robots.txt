@@ -1,0 +1,4 @@
+---
+permalink: robots.txt
+---
+Test for dynamic content that have to be excluded from localization folders.

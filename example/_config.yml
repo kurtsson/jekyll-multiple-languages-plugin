@@ -13,7 +13,7 @@ paginate_path: "/pagination/page:num/"
 
 
 # Plugins
-gems: 
+plugins:
   - jekyll-multiple-languages-plugin
   - jekyll-paginate
 
@@ -21,4 +21,4 @@ gems:
 # jekyll-multiple-languages-plugin settings:
 languages: ["it", "en", "es"]
 
-exclude_from_localizations: ["javascript", "images", "css", "scripts", "favicon.ico"]
+exclude_from_localizations: ["javascript", "images", "css", "scripts", "favicon.ico", "robots.txt"]
