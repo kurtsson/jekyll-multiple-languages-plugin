@@ -87,8 +87,8 @@ module Jekyll
       #-------------------------------------------------------------------------
       
       # Original Jekyll configurations
-      baseurl_org                 = self.config[ 'baseurl' ] # Baseurl set on _config.yml
-      dest_org                    = self.dest                # Destination folder where the website is generated
+      baseurl_org                 = self.config[ 'baseurl' ].to_s # Baseurl set on _config.yml
+      dest_org                    = self.dest                     # Destination folder where the website is generated
       
       # Site building only variables
       languages                   = self.config['languages'] # List of languages set on _config.yml
