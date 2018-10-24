@@ -28,6 +28,7 @@ Table of Contents
   * [5\.4\. i18n in templates](#54-i18n-in-templates)
   * [5\.5\. Link between languages](#55-link-between-languages)
   * [5\.6\. Creating pages](#56-creating-pages)
+  * [5\.7\. Create posts](#57-creating-posts)
 * [7\. Example website](#7-example-website)
   * [7\.1\. Adding a new language](#71-adding-a-new-language)
   * [7\.2\. Adding new page](#72-adding-new-page)
@@ -319,6 +320,11 @@ permalink: /about/
 ```
 
 Inside each of the language folders, you should create mirror pages to provide the actual content for that language (ex. `i18n/es/about/about.md`). Make sure to erase the headers from those md files, or else your site will break.
+
+
+
+### 5.7. Creating posts
+There are no global posts. The posts are localized by language. And your posts will live in the `_i18n/[lang]/_posts` directory. So if, for example, you have English language on your website you should put your posts on `_i18n/en/_posts` directory.
 
 
 
