@@ -86,7 +86,7 @@ Or install it yourself as: `$ gem install jekyll-multiple-languages-plugin`
 To activate the plugin add it to the Jekyll `_config.yml` file, under the `gems` option:
 
 ```ruby
-gems: 
+gems:
   - jekyll-multiple-languages-plugin
 ```
 See the [Jekyll configuration documentation](http://jekyllrb.com/docs/configuration) for details.
@@ -287,7 +287,7 @@ This allows you to create solutions like this:
 
 ``` liquid
 {% if site.lang == "sv" %}
-  {% capture link1 %}{{ site.baseurl_root }}en{{ page.url}}{% endcapture %}
+  {% capture link1 %}{{ site.baseurl_root }}/en{{ page.url}}{% endcapture %}
   <a href="{{ link1 }}" >{% t global.english %}</a>
 {% elsif site.lang == "en" %}
   {% capture link2 %}{{ site.baseurl_root }}{{ page.url  }}{% endcapture %}
