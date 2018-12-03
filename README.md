@@ -273,7 +273,7 @@ titles:
 This plugin gives you the variables
 
 ```liquid
-{{ page.lang }}
+{{ site.lang }}
 
 and
 
