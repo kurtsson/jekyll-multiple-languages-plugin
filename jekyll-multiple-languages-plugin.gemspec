@@ -6,14 +6,14 @@ require 'plugin/version'
 Gem::Specification.new do |s|
   s.name             = "jekyll-multiple-languages-plugin"
   s.version          = Jekyll::MultipleLanguagesPlugin::VERSION
-  s.license          = "MPL2"
+  s.license          = "MIT"
 
   s.summary          = %q{I18n plugin for Jekyll}
   s.description      = %q{Plugin for Jekyll 2.x and 3.x that adds support for translated keys, templates and posts.}
 
   s.authors          = ["Martin Kurtsson"]
-  s.email            = ["martin.kurtsson@screeninteraction.com", "anthonygaudino45@gmail.com"]
-  s.homepage         = "https://github.com/screeninteraction/jekyll-multiple-languages-plugin/"
+  s.email            = ["martin.kurtsson@daresay.co", "anthonygaudino45@gmail.com"]
+  s.homepage         = "https://github.com/Anthony-Gaudino/jekyll-multiple-languages-plugin/"
 
   all_files          = `git ls-files -z`.split("\x0")
   s.files            = all_files.grep(%r{^lib/})

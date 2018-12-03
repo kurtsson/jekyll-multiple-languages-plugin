@@ -363,6 +363,12 @@ Then, create a file named `about.md` under `_i18n/en` with the English content. 
 
 
 ## 8. Changelog
+* 1.6.0
+  * fix: check if static_file_r_path is set
+  * Missing slash before lang prefix in lang picker example
+  * Updated README.md with _posts directory
+  * Build translations in pre_render hook
+  * If include not found, fall back to default language
 * 1.5.1
   * Fix a bug (#70) where `site.static_files` would be empty on subsites if `exclude_from_localizations` is used.
   * Some overall project enhancements and minor fixes.
