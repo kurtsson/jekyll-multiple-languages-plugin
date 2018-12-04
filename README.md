@@ -41,12 +41,7 @@ Table of Contents
 
 ## 1. Current Release Notice
 
-1.5.1 is the current stable release.
-
-Users that update from older versions to 1.4.0 or newer must change their `_config.yml` for the plugin to be loaded. Please see the `Installation` section bellow for the new string used to load the plugin.
-
-The plugin now works with Jekyll 3, but it's backward compatible with Jekyll 2.
-Please note that it was only tested with Jekyll 2.5.3 and 3.1.3.
+1.6.0 is the current stable release.
 
 The support for Octopress is dropped, but the plugin should still work with it since Octopress core is Jekyll.
 Octopress 3 now has its own multi languages plugin: https://github.com/octopress/multilingual
@@ -54,7 +49,6 @@ Octopress 3 now has its own multi languages plugin: https://github.com/octopress
 
 
 ## 2. Features
-* Works with Jekyll 2.5.3 and 3.1.3
 * Supports multiple languages with the same code base.
 * Supports all template languages that your Liquid pipeline supports.
 * Uses [Liquid tags](https://github.com/Shopify/liquid) in your HTML for including translated strings.
