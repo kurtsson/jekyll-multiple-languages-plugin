@@ -167,7 +167,7 @@ pages:
   work: Work
 ```
 
-  To access the `english` key, use one of these tag:
+  To access the `english` key, use one of these tags:
 
 ```liquid
 {% t global.english %}
@@ -175,7 +175,7 @@ or
 {% translate global.english %}
 ```
 
-You can also access translated strings by accesing the `site.translations` hash, this allows you to loop trough your translations within Liquid:
+You can also access translated strings by accessing the `site.translations` hash, this allows you to loop through your translations within Liquid:
 
 ```liquid
 {% for item in site.translations[site.lang]["my_nested_yaml_collection"] %}
