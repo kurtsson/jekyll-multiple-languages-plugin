@@ -213,7 +213,7 @@ module Jekyll
 
     end
   end
-  
+
   Page.prepend(Permalink)
   Document.prepend(Permalink)
 
@@ -447,6 +447,9 @@ module Jekyll
       if default_lang != lang
         baseurl = baseurl + "/" + lang
       end
+
+      collections = site.collections.values.collect{|x| x.docs}.flatten
+      pages = site.pages + collections
 
       for p in pages
         unless             p['namespace'].nil?
