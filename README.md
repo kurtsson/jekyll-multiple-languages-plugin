@@ -440,11 +440,10 @@ Then, create a file named `about.md` under `_i18n/en` with the English content. 
 | [@leoditommaso](https://github.com/leoditommaso) | update the example page              |
 
 ### Created by
-[@kurtsson](https://github.com/kurtsson) from [Screen Interaction](https://github.com/screeninteraction) (http://screeninteraction.com)
+[@kurtsson](https://github.com/kurtsson) from [Daresay](https://github.com/daresaydigital) (https://daresay.co)
 
 
 ### Maintained by
-- [@kurtsson](https://github.com/kurtsson)
 - [@Anthony-Gaudino](https://github.com/Anthony-Gaudino)
 
 
