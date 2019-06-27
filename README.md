@@ -29,6 +29,7 @@ Table of Contents
   * [5\.5\. Link between languages](#55-link-between-languages)
   * [5\.6\. Creating pages](#56-creating-pages)
   * [5\.7\. Create posts](#57-creating-posts)
+* [6\. License](#6-license)
 * [7\. Example website](#7-example-website)
   * [7\.1\. Adding a new language](#71-adding-a-new-language)
   * [7\.2\. Adding new page](#72-adding-new-page)
@@ -77,10 +78,10 @@ And then execute: `$ bundle install`
 
 Or install it yourself as: `$ gem install jekyll-multiple-languages-plugin`
 
-To activate the plugin add it to the Jekyll `_config.yml` file, under the `gems` option:
+To activate the plugin add it to the Jekyll `_config.yml` file, under the `plugins` option:
 
 ```ruby
-gems:
+plugins:
   - jekyll-multiple-languages-plugin
 ```
 See the [Jekyll configuration documentation](http://jekyllrb.com/docs/configuration) for details.
@@ -320,7 +321,9 @@ Inside each of the language folders, you should create mirror pages to provide t
 ### 5.7. Creating posts
 There are no global posts. The posts are localized by language. And your posts will live in the `_i18n/[lang]/_posts` directory. So if, for example, you have English language on your website you should put your posts on `_i18n/en/_posts` directory.
 
+## 6. License
 
+This project is available under the [MIT License](LICENSE.txt).
 
 ## 7. Example website
 
@@ -442,26 +445,26 @@ Then, create a file named `about.md` under `_i18n/en` with the English content. 
 ### Created by
 [@kurtsson](https://github.com/kurtsson) from [Daresay](https://github.com/daresaydigital) (https://daresay.co)
 
-
 ### Maintained by
+- [@shushugah](https://github.com/shushugah)
+
+### Former maintainer
 - [@Anthony-Gaudino](https://github.com/Anthony-Gaudino)
 
 
 
 ## 10. Other Language Plugins
-Bellow is a list of other language plugins for Jekyll (2016/05/28):
+Below is a list of other language plugins for Jekyll (2019/06/27):
 
 **Seems to be maintained:**
-
-* [Jekyll Language Plugin](https://github.com/vwochnik/jekyll-language-plugin)
 * [Polyglot](https://github.com/untra/polyglot)
-* [Jekyll Multiple Languages](https://github.com/liaohuqiu/jekyll-multiple-languages)
-* [Octopress Multilingual](https://github.com/octopress/multilingual)
-* [jekyll-i18n_tags](https://github.com/KrzysiekJ/jekyll-i18n_tags)
+* [Jekyll Language Plugin](https://github.com/vwochnik/jekyll-language-plugin)
 * [jekyll-task-i18n](https://github.com/ruby-gettext/jekyll-task-i18n)
 
 **Seems to be unmaintained / abandoned:**
-
+* [jekyll-i18n_tags](https://github.com/KrzysiekJ/jekyll-i18n_tags)
+* [Octopress Multilingual](https://github.com/octopress/multilingual)
+* [Jekyll Multiple Languages](https://github.com/liaohuqiu/jekyll-multiple-languages)
 * [Jekyll-Multilingualism](https://github.com/aleiphoenix/jekyll-multilingualism)
 * [Jekyll::Languages](https://github.com/janlindblom/jekyll-languages)
 * [Jekyll I18n support](https://github.com/hendricius/jekyll-i18n)
