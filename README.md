@@ -8,6 +8,9 @@ The plugin was developed as a utility at [Daresay](https://daresay.co)
 
 ### Gem [![Gem Version](https://badge.fury.io/rb/jekyll-multiple-languages-plugin.png)](http://badge.fury.io/rb/jekyll-multiple-languages-plugin)
 
+## We are looking for maintainers.
+
+Are you using this plugin? Could you test and verify incoming PRs? Please give us a shout!
 
 
 Table of Contents
