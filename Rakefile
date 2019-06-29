@@ -12,12 +12,13 @@ task :default => [:test]
 #######################################
 # test
 #######################################
-# A simple test which buils the example site.
+# A simple test which buils the example site
+# and checks for valid links.
 desc "Run tests"
 task :test do
   cd "example" do
     sh "bundle exec jekyll build"
-    options = { empty_alt_ignore: true }
+    options = { empty_alt_ignore: true, enforce_https: true }
     HTMLProofer.check_directory("./_site", options).run
   end
 end
