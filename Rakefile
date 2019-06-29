@@ -1,5 +1,5 @@
 require "bundler/gem_tasks"
-
+require "html-proofer"
 
 
 #######################################
@@ -17,5 +17,7 @@ desc "Run tests"
 task :test do
   cd "example" do
     sh "bundle exec jekyll build"
+    options = { empty_alt_ignore: true }
+    HTMLProofer.check_directory("./_site", options).run
   end
 end
