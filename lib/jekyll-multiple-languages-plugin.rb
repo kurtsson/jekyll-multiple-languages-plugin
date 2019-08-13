@@ -19,6 +19,11 @@ module Jekyll
   #*****************************************************************************
   # :site, :post_render hook
   #*****************************************************************************
+  Jekyll::Hooks.register :site, :pre_render do |site, payload|
+      lang = site.config['lang']
+      puts "Loading translation from file #{site.source}/_i18n/#{lang}.yml"
+      site.parsed_translations[lang] = YAML.load_file("#{site.source}/_i18n/#{lang}.yml")
+  end
   Jekyll::Hooks.register :site, :post_render do |site, payload|
     
     # Removes all static files that should not be copied to translated sites.
@@ -34,12 +39,16 @@ module Jekyll
       static_files.delete_if do |static_file|
           
         # Remove "/" from beginning of static file relative path
-        static_file_r_path    = static_file.instance_variable_get(:@relative_path).dup
-        static_file_r_path[0] = ''
-        
-        exclude_paths.any? do |exclude_path|
-          Pathname.new(static_file_r_path).descend do |static_file_path|
-            break(true) if (Pathname.new(exclude_path) <=> static_file_path) == 0
+        if static_file.instance_variable_get(:@relative_path) != nil
+          static_file_r_path = static_file.instance_variable_get(:@relative_path).dup
+          if static_file_r_path
+            static_file_r_path[0] = ''
+
+            exclude_paths.any? do |exclude_path|
+              Pathname.new(static_file_r_path).descend do |static_file_path|
+                break(true) if (Pathname.new(exclude_path) <=> static_file_path) == 0
+              end
+            end
           end
         end
       end
@@ -87,8 +96,8 @@ module Jekyll
       #-------------------------------------------------------------------------
       
       # Original Jekyll configurations
-      baseurl_org                 = self.config[ 'baseurl' ] # Baseurl set on _config.yml
-      dest_org                    = self.dest                # Destination folder where the website is generated
+      baseurl_org                 = self.config[ 'baseurl' ].to_s # Baseurl set on _config.yml
+      dest_org                    = self.dest                     # Destination folder where the website is generated
       
       # Site building only variables
       languages                   = self.config['languages'] # List of languages set on _config.yml
@@ -180,11 +189,14 @@ module Jekyll
   
   
   
-  ##############################################################################
-  # class Page
-  ##############################################################################
-  class Page
-  
+  #-----------------------------------------------------------------------------
+  #
+  # Include (with priority—prepend)the translated
+  # permanent link for Page and document
+  #
+  #-----------------------------------------------------------------------------
+
+  module Permalink
     #======================================
     # permalink
     #======================================
@@ -201,6 +213,8 @@ module Jekyll
     end
   end
 
+  Page.prepend(Permalink)
+  Document.prepend(Permalink)
 
 
   ##############################################################################
@@ -305,11 +319,6 @@ module Jekyll
       
       lang = site.config['lang']
       
-      unless site.parsed_translations.has_key?(lang)
-        puts              "Loading translation from file #{site.source}/_i18n/#{lang}.yml"
-        site.parsed_translations[lang] = YAML.load_file("#{site.source}/_i18n/#{lang}.yml")
-      end
-      
       translation = site.parsed_translations[lang].access(key) if key.is_a?(String)
       
       if translation.nil? or translation.empty?
@@ -348,9 +357,24 @@ module Jekyll
         
         site = context.registers[:site] # Jekyll site object
         
-        includes_dir = File.join(site.source, '_i18n/' + site.config['lang'])
-        
+        default_lang = site.config['default_lang']
+
         validate_file_name(file)
+
+        includes_dir = File.join(site.source, '_i18n/' + site.config['lang'])
+
+        # If directory doesn't exist, go to default lang
+        if !Dir.exist?(includes_dir)
+          includes_dir = File.join(site.source, '_i18n/' + default_lang)
+        elsif
+          # If file doesn't exist, go to default lang
+          Dir.chdir(includes_dir) do
+            choices = Dir['**/*'].reject { |x| File.symlink?(x) }
+            if !choices.include?(  file)
+              includes_dir = File.join(site.source, '_i18n/' + default_lang)
+            end
+          end
+        end
         
         Dir.chdir(includes_dir) do
           choices = Dir['**/*'].reject { |x| File.symlink?(x) }
@@ -443,6 +467,9 @@ module Jekyll
         baseurl = baseurl + "/" + lang
       end
       
+      collections = site.collections.values.collect{|x| x.docs}.flatten
+      pages = site.pages + collections
+      
       for p in pages
         unless             p['namespace'].nil?
           page_namespace = p['namespace']
@@ -502,4 +529,3 @@ Liquid::Template.register_tag('tf',             Jekyll::Tags::LocalizeInclude)
 Liquid::Template.register_tag('translate_file', Jekyll::Tags::LocalizeInclude)
 Liquid::Template.register_tag('tl',             Jekyll::LocalizeLink         )
 Liquid::Template.register_tag('translate_link', Jekyll::LocalizeLink         )
-

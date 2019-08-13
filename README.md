@@ -8,6 +8,9 @@ The plugin was developed as a utility at [Daresay](https://daresay.co)
 
 ### Gem [![Gem Version](https://badge.fury.io/rb/jekyll-multiple-languages-plugin.png)](http://badge.fury.io/rb/jekyll-multiple-languages-plugin)
 
+## !! We are looking for more maintainers !!
+
+Are you using this plugin? Could you test and verify incoming PRs? Please give us a shout!
 
 
 Table of Contents
@@ -28,6 +31,8 @@ Table of Contents
   * [5\.4\. i18n in templates](#54-i18n-in-templates)
   * [5\.5\. Link between languages](#55-link-between-languages)
   * [5\.6\. Creating pages](#56-creating-pages)
+  * [5\.7\. Create posts](#57-creating-posts)
+* [6\. License](#6-license)
 * [7\. Example website](#7-example-website)
   * [7\.1\. Adding a new language](#71-adding-a-new-language)
   * [7\.2\. Adding new page](#72-adding-new-page)
@@ -40,12 +45,7 @@ Table of Contents
 
 ## 1. Current Release Notice
 
-1.5.1 is the current stable release.
-
-Users that update from older versions to 1.4.0 or newer must change their `_config.yml` for the plugin to be loaded. Please see the `Installation` section bellow for the new string used to load the plugin.
-
-The plugin now works with Jekyll 3, but it's backward compatible with Jekyll 2.
-Please note that it was only tested with Jekyll 2.5.3 and 3.1.3.
+1.6.0 is the current stable release.
 
 The support for Octopress is dropped, but the plugin should still work with it since Octopress core is Jekyll.
 Octopress 3 now has its own multi languages plugin: https://github.com/octopress/multilingual
@@ -53,7 +53,6 @@ Octopress 3 now has its own multi languages plugin: https://github.com/octopress
 
 
 ## 2. Features
-* Works with Jekyll 2.5.3 and 3.1.3
 * Supports multiple languages with the same code base.
 * Supports all template languages that your Liquid pipeline supports.
 * Uses [Liquid tags](https://github.com/Shopify/liquid) in your HTML for including translated strings.
@@ -82,10 +81,10 @@ And then execute: `$ bundle install`
 
 Or install it yourself as: `$ gem install jekyll-multiple-languages-plugin`
 
-To activate the plugin add it to the Jekyll `_config.yml` file, under the `gems` option:
+To activate the plugin add it to the Jekyll `_config.yml` file, under the `plugins` option:
 
 ```ruby
-gems: 
+plugins:
   - jekyll-multiple-languages-plugin
 ```
 See the [Jekyll configuration documentation](http://jekyllrb.com/docs/configuration) for details.
@@ -172,7 +171,7 @@ pages:
   work: Work
 ```
 
-  To access the `english` key, use one of these tag:
+  To access the `english` key, use one of these tags:
 
 ```liquid
 {% t global.english %}
@@ -180,7 +179,7 @@ or
 {% translate global.english %}
 ```
 
-You can also access translated strings by accesing the `site.translations` hash, this allows you to loop trough your translations within Liquid:
+You can also access translated strings by accessing the `site.translations` hash, this allows you to loop through your translations within Liquid:
 
 ```liquid
 {% for item in site.translations[site.lang]["my_nested_yaml_collection"] %}
@@ -272,7 +271,7 @@ titles:
 This plugin gives you the variables
 
 ```liquid
-{{ page.lang }}
+{{ site.lang }}
 
 and
 
@@ -286,7 +285,7 @@ This allows you to create solutions like this:
 
 ``` liquid
 {% if site.lang == "sv" %}
-  {% capture link1 %}{{ site.baseurl_root }}en{{ page.url}}{% endcapture %}
+  {% capture link1 %}{{ site.baseurl_root }}/en{{ page.url}}{% endcapture %}
   <a href="{{ link1 }}" >{% t global.english %}</a>
 {% elsif site.lang == "en" %}
   {% capture link2 %}{{ site.baseurl_root }}{{ page.url  }}{% endcapture %}
@@ -321,6 +320,13 @@ permalink: /about/
 Inside each of the language folders, you should create mirror pages to provide the actual content for that language (ex. `i18n/es/about/about.md`). Make sure to erase the headers from those md files, or else your site will break.
 
 
+
+### 5.7. Creating posts
+There are no global posts. The posts are localized by language. And your posts will live in the `_i18n/[lang]/_posts` directory. So if, for example, you have English language on your website you should put your posts on `_i18n/en/_posts` directory.
+
+## 6. License
+
+This project is available under the [MIT License](LICENSE.txt).
 
 ## 7. Example website
 
@@ -357,6 +363,12 @@ Then, create a file named `about.md` under `_i18n/en` with the English content. 
 
 
 ## 8. Changelog
+* 1.6.0
+  * fix: check if static_file_r_path is set
+  * Missing slash before lang prefix in lang picker example
+  * Updated README.md with _posts directory
+  * Build translations in pre_render hook
+  * If include not found, fall back to default language
 * 1.5.1
   * Fix a bug (#70) where `site.static_files` would be empty on subsites if `exclude_from_localizations` is used.
   * Some overall project enhancements and minor fixes.
@@ -434,29 +446,28 @@ Then, create a file named `about.md` under `_i18n/en` with the English content. 
 | [@leoditommaso](https://github.com/leoditommaso) | update the example page              |
 
 ### Created by
-[@kurtsson](https://github.com/kurtsson) from [Screen Interaction](https://github.com/screeninteraction) (http://screeninteraction.com)
-
+[@kurtsson](https://github.com/kurtsson) from [Daresay](https://github.com/daresaydigital) (https://daresay.co)
 
 ### Maintained by
-- [@kurtsson](https://github.com/kurtsson)
+- [@shushugah](https://github.com/shushugah)
+
+### Former maintainer
 - [@Anthony-Gaudino](https://github.com/Anthony-Gaudino)
 
 
 
 ## 10. Other Language Plugins
-Bellow is a list of other language plugins for Jekyll (2016/05/28):
+Below is a list of other language plugins for Jekyll (2019/06/27):
 
 **Seems to be maintained:**
-
-* [Jekyll Language Plugin](https://github.com/vwochnik/jekyll-language-plugin)
 * [Polyglot](https://github.com/untra/polyglot)
-* [Jekyll Multiple Languages](https://github.com/liaohuqiu/jekyll-multiple-languages)
-* [Octopress Multilingual](https://github.com/octopress/multilingual)
-* [jekyll-i18n_tags](https://github.com/KrzysiekJ/jekyll-i18n_tags)
+* [Jekyll Language Plugin](https://github.com/vwochnik/jekyll-language-plugin)
 * [jekyll-task-i18n](https://github.com/ruby-gettext/jekyll-task-i18n)
 
 **Seems to be unmaintained / abandoned:**
-
+* [jekyll-i18n_tags](https://github.com/KrzysiekJ/jekyll-i18n_tags)
+* [Octopress Multilingual](https://github.com/octopress/multilingual)
+* [Jekyll Multiple Languages](https://github.com/liaohuqiu/jekyll-multiple-languages)
 * [Jekyll-Multilingualism](https://github.com/aleiphoenix/jekyll-multilingualism)
 * [Jekyll::Languages](https://github.com/janlindblom/jekyll-languages)
 * [Jekyll I18n support](https://github.com/hendricius/jekyll-i18n)
