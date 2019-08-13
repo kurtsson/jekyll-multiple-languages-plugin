@@ -6,7 +6,9 @@ Jekyll Multiple Languages is an internationalization plugin for [Jekyll](https:/
 
 The plugin was developed as a utility at [Daresay](https://daresay.co)
 
-### Gem [![Gem Version](https://badge.fury.io/rb/jekyll-multiple-languages-plugin.png)](http://badge.fury.io/rb/jekyll-multiple-languages-plugin)
+### Badges
+[![Build Status](https://travis-ci.com/kurtsson/jekyll-multiple-languages-plugin.svg?branch=master)](https://travis-ci.com/kurtsson/jekyll-multiple-languages-plugin)
+[![Gem Version](https://badge.fury.io/rb/jekyll-multiple-languages-plugin.png)](http://badge.fury.io/rb/jekyll-multiple-languages-plugin)
 
 ## !! We are looking for more maintainers !!
 
