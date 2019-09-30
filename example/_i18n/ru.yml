@@ -1,0 +1,15 @@
+global:
+  tagline: Русский
+  about: О нас
+  twitter: Twitter
+  github: GitHub
+langs:
+  it: Italiano
+  en: English
+  es: Español
+  ru: Русский
+pages:
+  example: пример
+  includeexample: Следующий текст содержит изменяющийся тег-пареметр Jekyll
+titles:
+  pagination: Страницы
