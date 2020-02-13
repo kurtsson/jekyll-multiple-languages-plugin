@@ -13,7 +13,7 @@ Gem::Specification.new do |s|
 
   s.authors          = ["Martin Kurtsson"]
   s.email            = ["martin.kurtsson@daresay.co", "anthonygaudino45@gmail.com"]
-  s.homepage         = "https://github.com/Anthony-Gaudino/jekyll-multiple-languages-plugin/"
+  s.homepage         = "https://github.com/kurtsson/jekyll-multiple-languages-plugin/"
 
   all_files          = `git ls-files -z`.split("\x0")
   s.files            = all_files.grep(%r{^lib/})
