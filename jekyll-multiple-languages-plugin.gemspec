@@ -23,10 +23,9 @@ Gem::Specification.new do |s|
   s.rdoc_options     = ['--charset=UTF-8']
   s.extra_rdoc_files = %w[README.md LICENSE.txt]
 
-  s.add_development_dependency "bundler", "~> 1.3"
+  s.add_development_dependency "bundler", "~> 2.0.1"
   s.add_development_dependency "html-proofer"
   s.add_development_dependency "rake",    "~> 0"
 
-  s.add_runtime_dependency     "jekyll",  ">= 2.0", "< 4.0"
+  s.add_runtime_dependency     "jekyll",  ">= 2.0", "< 5.0"
 end
-

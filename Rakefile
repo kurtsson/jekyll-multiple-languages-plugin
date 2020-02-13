@@ -13,8 +13,8 @@ task :default => [:test]
 # test
 #######################################
 # A simple test which buils the example site
-# and checks for valid links.
-desc "Run tests"
+# and checks all links are valid.
+desc "Run HTMLProofer"
 task :test do
   cd "example" do
     sh "bundle exec jekyll build"

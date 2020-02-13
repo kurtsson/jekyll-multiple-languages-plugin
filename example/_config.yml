@@ -1,5 +1,5 @@
 name: Flex
-markdown: redcarpet
+markdown: kramdown
 highlighter: pygments
 exclude: ["LICENSE.txt", "README.md"]
 
@@ -13,7 +13,7 @@ paginate_path: "/pagination/page:num/"
 
 
 # Plugins
-gems: 
+plugins:
   - jekyll-multiple-languages-plugin
   - jekyll-paginate
 
