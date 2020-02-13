@@ -11,8 +11,8 @@ Gem::Specification.new do |s|
   s.summary          = %q{I18n plugin for Jekyll}
   s.description      = %q{Plugin for Jekyll 2.x and 3.x that adds support for translated keys, templates and posts.}
 
-  s.authors          = ["Martin Kurtsson"]
-  s.email            = ["martin.kurtsson@daresay.co", "anthonygaudino45@gmail.com"]
+  s.authors          = ["Martin Kurtsson", "Yonatan Miller"]
+  s.email            = ["martin.kurtsson@daresay.co", "yonatan@shushugah.com"]
   s.homepage         = "https://github.com/kurtsson/jekyll-multiple-languages-plugin/"
 
   all_files          = `git ls-files -z`.split("\x0")
