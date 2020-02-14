@@ -17,33 +17,38 @@ Are you using this plugin? Could you test and verify incoming PRs? Please give u
 
 Table of Contents
 -----------------
-* [1\. Current Release Notice](#1-current-release-notice)
-* [2\. Features](#2-features)
-* [3\. Installation](#3-installation)
-  * [3\.1\. Using the gem](#31-using-the-gem)
-  * [3\.2\. Manually](#32-manually)
-  * [3\.3\. As a Git Submodule](#33-as-a-git-submodule)
-* [4\. Configuration](#4-configuration)
-  * [4\.1\. \_config\.yml](#41-_configyml)
-  * [4\.2\. Folder structure](#42-folder-structure)
-* [5\. Usage](#5-usage)
-  * [5\.1\. Translating strings](#51-translating-strings)
-  * [5\.2\. Including translated files](#52-including-translated-files)
-  * [5\.3\. Permalinks and Translating Links](#53-permalinks-and-translating-links)
-  * [5\.4\. i18n in templates](#54-i18n-in-templates)
-  * [5\.5\. Link between languages](#55-link-between-languages)
-  * [5\.6\. Creating pages](#56-creating-pages)
-  * [5\.7\. Create posts](#57-creating-posts)
-* [6\. License](#6-license)
-* [7\. Example website](#7-example-website)
-  * [7\.1\. Adding a new language](#71-adding-a-new-language)
-  * [7\.2\. Adding new page](#72-adding-new-page)
-* [8\. Changelog](#8-changelog)
-* [9\. Contributing](#9-contributing)
-  * [Contributors](#contributors)
-  * [Created by](#created-by)
-  * [Maintained by](#maintained-by)
-* [10\. Other Language Plugins](#10-other-language-plugins)
+- [Jekyll Multiple Languages Plugin](#jekyll-multiple-languages-plugin)
+    - [Badges](#badges)
+  - [!! We are looking for more maintainers !!](#we-are-looking-for-more-maintainers)
+  - [Table of Contents](#table-of-contents)
+  - [1. Current Release Notice](#1-current-release-notice)
+  - [2. Features](#2-features)
+  - [3. Installation](#3-installation)
+    - [3.1. Using the gem](#31-using-the-gem)
+    - [3.2. Manually](#32-manually)
+    - [3.3. As a Git Submodule](#33-as-a-git-submodule)
+  - [4. Configuration](#4-configuration)
+    - [4.1. _config.yml](#41-configyml)
+    - [4.2. Folder structure](#42-folder-structure)
+  - [5. Usage](#5-usage)
+    - [5.1. Translating strings](#51-translating-strings)
+    - [5.2. Including translated files](#52-including-translated-files)
+    - [5.3. Permalinks and Translating Links](#53-permalinks-and-translating-links)
+    - [5.4. i18n in templates](#54-i18n-in-templates)
+    - [5.5. Link between languages](#55-link-between-languages)
+    - [5.6. Creating pages](#56-creating-pages)
+    - [5.7. Creating posts](#57-creating-posts)
+  - [6. License](#6-license)
+  - [7. Example website](#7-example-website)
+    - [7.1. Adding a new language](#71-adding-a-new-language)
+    - [7.2. Adding new page](#72-adding-new-page)
+  - [8. Changelog](#8-changelog)
+  - [9. Contributing](#9-contributing)
+    - [Contributors](#contributors)
+    - [Created by](#created-by)
+    - [Maintained by](#maintained-by)
+    - [Former maintainer](#former-maintainer)
+  - [10. Other Language Plugins](#10-other-language-plugins)
 
 ## 1. Current Release Notice
 
@@ -363,8 +368,12 @@ permalink: /about/
 Then, create a file named `about.md` under `_i18n/en` with the English content. Repeat this for the other languages (_i18n/es/about.md ...). When running the website, visit the address `http://localhost:4000/about` to see the English version, `http://localhost:4000/es/about` for the Spanish one, etc.
 
 
-
 ## 8. Changelog
+* 1.6.1
+  * Improved testing
+  * Support for Jekyll 4
+  * Russian examples 
+  * Translations rebuilt every time page is reloaded in developer mode 
 * 1.6.0
   * fix: check if static_file_r_path is set
   * Missing slash before lang prefix in lang picker example
