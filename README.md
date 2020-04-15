@@ -186,11 +186,33 @@ or
 {% translate global.english %}
 ```
 
-You can also access translated strings by accessing the `site.translations` hash, this allows you to loop through your translations within Liquid:
+You can also access translated strings by accessing the `site.translations` hash, this allows you to loop through your translations within Liquid using the translated string's index:
 
 ```liquid
-{% for item in site.translations[site.lang]["my_nested_yaml_collection"] %}
+{% for item in site.translations[site.lang].my_nested_yaml_collection %}
     <p>{{ item[0] }} -> {{ item[1] }}</p>
+{% endfor %}
+```
+
+or the translated string's assignment:
+
+```yaml
+my_nested_yaml_collection:
+  -
+    title: First
+    message: Message
+  -
+    title: Second
+    message: Message
+
+```
+
+```liquid
+{% for item in site.translations[site.lang].my_nested_yaml_collection %}
+   <li>
+      <h2>{{ item["title"] }}</h2>
+      <p>{{ item["message"] }}</p>
+   </li>
 {% endfor %}
 ```
 
