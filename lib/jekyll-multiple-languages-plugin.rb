@@ -324,8 +324,10 @@ module Jekyll
       if translation.nil? or translation.empty?
          translation = site.parsed_translations[site.config['default_lang']].access(key)
         
-        puts "Missing i18n key: #{lang}:#{key}"
-        puts "Using translation '%s' from default language: %s" %[translation, site.config['default_lang']]
+        if site.config["verbose"]
+          puts "Missing i18n key: #{lang}:#{key}"
+          puts "Using translation '%s' from default language: %s" %[translation, site.config['default_lang']]
+        end
       end
       
       translation
