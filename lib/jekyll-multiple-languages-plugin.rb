@@ -24,6 +24,46 @@ module Jekyll
       puts "Loading translation from file #{site.source}/_i18n/#{lang}.yml"
       site.parsed_translations[lang] = YAML.load_file("#{site.source}/_i18n/#{lang}.yml")
   end
+
+  #*****************************************************************************
+  # :site, :post_write hook
+  #*****************************************************************************
+  Jekyll::Hooks.register :site, :post_write do |site|
+
+    # Moves excluded paths from the default lang subfolder to the root folder
+    #===========================================================================
+    default_lang = site.config["default_lang"]
+    current_lang = site.config["lang"]
+    exclude_paths = site.config["exclude_from_localizations"]
+
+    if (default_lang == current_lang && site.config["default_locale_in_subfolder"])
+      files = Dir.glob(File.join("_site/" + current_lang + "/", "*"))
+      files.each do |file_path|
+        parts = file_path.split('/')
+        f_path = parts[2..-1].join('/')
+        if (f_path == 'base.html')
+          new_path = parts[0] + "/index.html"
+          puts "Moving '" + file_path + "' to '" + new_path + "'"
+          File.rename file_path, new_path
+        else
+          exclude_paths.each do |exclude_path|
+            if (exclude_path == f_path)
+              new_path = parts[0] + "/" + f_path
+              puts "Moving '" + file_path + "' to '" + new_path + "'"
+              if (Dir.exists?(new_path))
+                FileUtils.rm_r new_path
+              end
+              File.rename file_path, new_path
+            end
+          end
+        end
+      end
+    end
+
+    #===========================================================================
+
+  end
+
   Jekyll::Hooks.register :site, :post_render do |site, payload|
     
     # Removes all static files that should not be copied to translated sites.
@@ -34,10 +74,12 @@ module Jekyll
     static_files  = payload["site"]["static_files"]
     exclude_paths = payload["site"]["exclude_from_localizations"]
     
+    default_locale_in_subfolder = site.config["default_locale_in_subfolder"]
     
     if default_lang != current_lang
       static_files.delete_if do |static_file|
-          
+        next true if (static_file.name == 'base.html' && default_locale_in_subfolder)
+
         # Remove "/" from beginning of static file relative path
         if static_file.instance_variable_get(:@relative_path) != nil
           static_file_r_path = static_file.instance_variable_get(:@relative_path).dup
@@ -81,6 +123,8 @@ module Jekyll
       self.parsed_translations ||= {}
       
       self.config['exclude_from_localizations'] ||= []
+
+      self.config['default_locale_in_subfolder'] ||= false
       
       if ( !self.config['languages']         or
             self.config['languages'].empty?  or
@@ -108,26 +152,20 @@ module Jekyll
       self.config['baseurl_root'] = baseurl_org              # Baseurl of website root (without the appended language code)
       self.config['translations'] = self.parsed_translations # Hash that stores parsed translations read from YAML files. Exposes this hash to Liquid.
       
-      
-      # Build the website for default language
-      #-------------------------------------------------------------------------
-      puts "Building site for default language: \"#{self.config['lang']}\" to: #{self.dest}"
-      
-      process_org
-      
-      
-      # Build the website for the other languages
+      # Build the website for all languages
       #-------------------------------------------------------------------------
       
       # Remove .htaccess file from included files, so it wont show up on translations folders.
       self.include -= [".htaccess"]
       
-      languages.drop(1).each do |lang|
+      languages.each do |lang|
         
         # Language specific config/variables
-        @dest                  = dest_org    + "/" + lang
-        self.config['baseurl'] = baseurl_org + "/" + lang
-        self.config['lang']    =                     lang
+        if lang != self.config['default_lang'] || self.config['default_locale_in_subfolder']
+          @dest                  = dest_org    + "/" + lang
+          self.config['baseurl'] = baseurl_org + "/" + lang
+          self.config['lang']    =                     lang
+        end
         
         puts "Building site for language: \"#{self.config['lang']}\" to: #{self.dest}"
         
@@ -444,7 +482,7 @@ module Jekyll
       pages        =           site.pages
       url          = "";
       
-      if default_lang != lang
+      if default_lang != lang || site.config['default_locale_in_subfolder']
         baseurl = baseurl + "/" + lang
       end
       

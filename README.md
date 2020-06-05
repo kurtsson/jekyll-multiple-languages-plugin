@@ -141,6 +141,12 @@ In code, these specific files should be referenced via `baseurl_root`. E.g.
 <link rel="stylesheet" href="{{ "/css/bootstrap.css" | prepend: site.baseurl_root }}"/>
 ```
 
+If you wish to avoid having the default_lang built into the root of your website, use:
+
+```yaml
+default_locale_in_subfolder: true
+```
+
 ### 4.2. Folder structure
 Create a folder called `_i18n` and add sub-folders for each language, using the same names used on the `languages` setting on the `_config.yml`:
 
