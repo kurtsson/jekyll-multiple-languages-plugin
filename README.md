@@ -19,7 +19,7 @@ Table of Contents
 -----------------
 - [Jekyll Multiple Languages Plugin](#jekyll-multiple-languages-plugin)
     - [Badges](#badges)
-  - [!! We are looking for more maintainers !!](#we-are-looking-for-more-maintainers)
+  - [!! We are looking for more maintainers !!](#-we-are-looking-for-more-maintainers-)
   - [Table of Contents](#table-of-contents)
   - [1. Current Release Notice](#1-current-release-notice)
   - [2. Features](#2-features)
@@ -28,7 +28,7 @@ Table of Contents
     - [3.2. Manually](#32-manually)
     - [3.3. As a Git Submodule](#33-as-a-git-submodule)
   - [4. Configuration](#4-configuration)
-    - [4.1. _config.yml](#41-configyml)
+    - [4.1. _config.yml](#41-_configyml)
     - [4.2. Folder structure](#42-folder-structure)
   - [5. Usage](#5-usage)
     - [5.1. Translating strings](#51-translating-strings)
@@ -397,6 +397,11 @@ Then, create a file named `about.md` under `_i18n/en` with the English content. 
 
 
 ## 8. Changelog
+* 1.7.0
+  * Option to build the default language into a subfolder
+  * Configurable verbosity
+  * Improved documentation
+  * Removed deprecation warning
 * 1.6.1
   * Improved testing
   * Support for Jekyll 4
