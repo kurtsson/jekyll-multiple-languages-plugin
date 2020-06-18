@@ -440,6 +440,25 @@ module Jekyll
         end
       end
     end
+
+    # Override of core Jekyll functionality, to get rid of deprecation
+    # warning. See https://github.com/jekyll/jekyll/pull/7117 for more
+    # details.
+    class PostComparer
+      def initialize(name)
+        @name = name
+
+        all, @path, @date, @slug = *name.sub(%r!^/!, "").match(MATCHER)
+        unless all
+          raise Jekyll::Errors::InvalidPostNameError,
+                "'#{name}' does not contain valid date and/or title."
+        end
+
+        escaped_slug = Regexp.escape(slug)
+        @name_regex = %r!_posts/#{path}#{date}-#{escaped_slug}\.[^.]+|
+          ^#{path}_posts/?#{date}-#{escaped_slug}\.[^.]+!x
+      end
+    end
   end
 
 
