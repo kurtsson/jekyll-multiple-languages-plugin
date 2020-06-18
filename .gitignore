@@ -19,3 +19,4 @@ tmp
 example/Gemfile.lock
 example/_site
 .DS_Store
+.jekyll-cache

@@ -17,8 +17,13 @@ task :default => [:test]
 desc "Run HTMLProofer"
 task :test do
   cd "example" do
+    sh "bundle exec jekyll clean"
     sh "bundle exec jekyll build"
     options = { empty_alt_ignore: true, enforce_https: true }
+    HTMLProofer.check_directory("./_site", options).run
+
+    sh "bundle exec jekyll clean"
+    sh "bundle exec jekyll build -c _config.yml,_config_default_locale_in_subfolder.yml"
     HTMLProofer.check_directory("./_site", options).run
   end
 end
