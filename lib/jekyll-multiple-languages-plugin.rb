@@ -243,9 +243,11 @@ module Jekyll
       
       if site.config['relative_permalinks']
         File.join(@dir,  data['permalink'])
-      else
+      elsif site.config['lang']
         # Look if there's a permalink overwrite specified for this lang
-        data['permalink_'+site.config['lang']] || data['permalink']
+        data['permalink_' + site.config['lang']] || data['permalink']
+      else
+        data['permalink']
       end
       
     end
