@@ -204,6 +204,26 @@ module Jekyll
 
 
   ##############################################################################
+  # class PageReader
+  ##############################################################################
+  class PageReader
+    alias :read_org :read
+
+    #======================================
+    # read
+    #
+    # Monkey patched this method to remove excluded languages.
+    #======================================
+    def read(files)
+      read_org(files).reject do |page|
+        page.data['languages'] && !page.data['languages'].include?(site.config['lang'])
+      end
+    end
+  end
+
+
+
+  ##############################################################################
   # class PostReader
   ##############################################################################
   class PostReader
