@@ -23,7 +23,6 @@ Gem::Specification.new do |s|
   s.rdoc_options     = ['--charset=UTF-8']
   s.extra_rdoc_files = %w[README.md LICENSE.txt]
 
-  s.add_development_dependency "bundler", "~> 2.1.4"
   s.add_development_dependency "html-proofer"
   s.add_development_dependency "rake",    ">= 12.3.3"
 
