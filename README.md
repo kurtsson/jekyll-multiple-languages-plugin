@@ -38,6 +38,7 @@ Table of Contents
     - [5.5. Link between languages](#55-link-between-languages)
     - [5.6. Creating pages](#56-creating-pages)
     - [5.7. Creating posts](#57-creating-posts)
+    - [5.8. Select pages to translations](#58-select-pages-to-translations)
   - [6. License](#6-license)
   - [7. Example website](#7-example-website)
     - [7.1. Adding a new language](#71-adding-a-new-language)
@@ -359,6 +360,24 @@ Inside each of the language folders, you should create mirror pages to provide t
 ### 5.7. Creating posts
 There are no global posts. The posts are localized by language. And your posts will live in the `_i18n/[lang]/_posts` directory. So if, for example, you have English language on your website you should put your posts on `_i18n/en/_posts` directory.
 
+
+
+### 5.8. Select pages to translations
+
+Sometimes you want to generate only selected versions of the page, especially excluding default language. You can do this using languages tag.
+
+Example:
+```yaml
+---
+permalink:      /team/
+permalink_fr:   /equipe/
+
+langauges: ["fr"]
+---
+```
+
+This generate only french version of the page.
+
 ## 6. License
 
 This project is available under the [MIT License](LICENSE.txt).
@@ -405,8 +424,8 @@ Then, create a file named `about.md` under `_i18n/en` with the English content. 
 * 1.6.1
   * Improved testing
   * Support for Jekyll 4
-  * Russian examples 
-  * Translations rebuilt every time page is reloaded in developer mode 
+  * Russian examples
+  * Translations rebuilt every time page is reloaded in developer mode
 * 1.6.0
   * fix: check if static_file_r_path is set
   * Missing slash before lang prefix in lang picker example
