@@ -372,7 +372,7 @@ Example:
 permalink:      /team/
 permalink_fr:   /equipe/
 
-langauges: ["fr"]
+languages: ["fr"]
 ---
 ```
 
