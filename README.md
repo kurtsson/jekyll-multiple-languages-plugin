@@ -136,6 +136,14 @@ To avoid redundancy, it is possible to exclude files and folders from being copi
 ```yaml
 exclude_from_localizations: ["javascript", "images", "css"]
 ```
+
+Instead of adding all your posts under the `i18n` directory (with subfolders like: `_i18n/{sv,en,de,fr}/_posts`), you can define a custom parameter to add your posts into or keep the `_posts` directory so you will have a structure like `_posts/{sv,en,de,fr}/`, just add the following parameter:
+
+```
+localized_posts_dir: _posts
+```
+
+
 In code, these specific files should be referenced via `baseurl_root`. E.g.
 
 ```

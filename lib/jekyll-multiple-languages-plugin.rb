@@ -191,7 +191,11 @@ module Jekyll
         translate_posts = !self.config['exclude_from_localizations'].include?("_posts")
         
         if dir == '' && translate_posts
-          read_posts("_i18n/#{self.config['lang']}/")
+          if site.config['localized_posts_dir']
+            read_publishable(site.config['localized_posts_dir'], site.config['lang'], Document::DATE_FILENAME_MATCHER)
+          else
+            read_posts("_i18n/#{self.config['lang']}/")
+          end
         else
           read_posts_org(dir)
         end
@@ -237,7 +241,11 @@ module Jekyll
       def read_posts(dir)
         translate_posts = !site.config['exclude_from_localizations'].include?("_posts")
         if dir == '' && translate_posts
-          read_posts("_i18n/#{site.config['lang']}/")
+          if site.config['localized_posts_dir']
+            read_publishable(site.config['localized_posts_dir'], site.config['lang'], Document::DATE_FILENAME_MATCHER)
+          else
+            read_posts("_i18n/#{self.config['lang']}/")
+          end
         else
           read_posts_org(dir)
         end
