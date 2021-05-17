@@ -379,7 +379,9 @@ module Jekyll
       
       lang = site.config['lang']
       
-      translation = site.parsed_translations[lang].access(key) if key.is_a?(String)
+      if site.parsed_translations[lang]
+        translation = site.parsed_translations[lang].access(key) if key.is_a?(String)
+      end
       
       if translation.nil? or translation.empty?
          translation = site.parsed_translations[site.config['default_lang']].access(key)
