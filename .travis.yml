@@ -1,1 +1,2 @@
 language: ruby
+dist: bionic # instead of default xenial per https://github.com/rvm/rvm/issues/5133#issuecomment-932342146
