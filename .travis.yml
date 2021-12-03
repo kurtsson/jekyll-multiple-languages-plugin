@@ -1,0 +1,6 @@
+language: ruby
+dist: bionic # instead of default xenial per https://github.com/rvm/rvm/issues/5133#issuecomment-932342146
+before_install:
+  - sudo apt-get update
+  - sudo apt-get install apt-transport-https ca-certificates -y
+  - sudo update-ca-certificates

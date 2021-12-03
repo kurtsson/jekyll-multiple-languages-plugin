@@ -16,7 +16,7 @@
       <!-- Adds links to other languages on the post -->
       {% for lang in site.languages %}
         {% unless site.lang == lang %}
-          {% if lang == site.default_lang %}
+          {% if lang == site.default_lang and site.default_locale_in_subfolder != true %}
             <a href="{{ site.baseurl_root }}{{ page.url }}" >{% t langs.{{ lang }} %}</a>
           {% else %}
             <a href="{{ site.baseurl_root }}/{{ lang }}{{ page.url }}" >{% t langs.{{ lang }} %}</a>
@@ -39,7 +39,7 @@
     <br>
     <br>
     <br>
-    <h3>The list of static files bellow was created by accessing <em>site.static_files</em> and must be visible on all translations:</h3>
+    <h3>The list of static files below was created by accessing <em>site.static_files</em> and must be visible on all translations:</h3>
     {% for file in site.static_files %}
       <p>{{ file.path }} last edited at {{ file.modified_time | date:"%H:%m" }} with extname {{ file.extname }}</p>
     {% endfor %}

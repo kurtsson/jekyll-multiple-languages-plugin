@@ -16,14 +16,14 @@
       <link rel="stylesheet" href="/css/responsive.css">
 
       <!-- Google Fonts -->
-      <link href='http://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,700' rel='stylesheet' type='text/css'>
-      <link href='http://fonts.googleapis.com/css?family=Raleway:300,400,700' rel='stylesheet' type='text/css'>
+      <link href='https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,700' rel='stylesheet' type='text/css'>
+      <link href='https://fonts.googleapis.com/css?family=Raleway:300,400,700' rel='stylesheet' type='text/css'>
   </head>
   <body>
     <div class="site">
       <div class="sidebar" id="sidebar">
         <div class="header">
-          {% if site.lang == "it" %}
+          {% if site.lang == "it" and site.default_locale_in_subfolder != true %}
             <h1 class="title"><a href="{{ site.baseurl_root }}/"><img id="logo" src="/images/logo.png"></a></h1>
           {% else %}
             <h1 class="title"><a href="{{ site.baseurl_root }}/{{ site.lang }}"><img id="logo" src="/images/logo.png"></a></h1>
@@ -64,9 +64,9 @@
         </div>
         {% tf footer.md %}
         <br />
-        <a class="link-it" href="{{ site.baseurl_root }}/">it</a>
-        <a class="link-en" href="{{ site.baseurl_root }}/en">en</a>
-        <a class="link-es" href="{{ site.baseurl_root }}/es">es</a>
+        <a class="link-it" href="{% tl root it %}">it</a>
+        <a class="link-en" href="{% tl root en %}">en</a>
+        <a class="link-es" href="{% tl root es %}">es</a>
       </div>
 
         {{ content }}

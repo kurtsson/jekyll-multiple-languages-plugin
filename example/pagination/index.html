@@ -24,7 +24,7 @@ cover:  cover.jpg
       <!-- Adds links to other languages on the post -->
       {% for lang in site.languages %}
         {% unless site.lang == lang %}
-          {% if lang == site.default_lang %}
+          {% if lang == site.default_lang and site.default_locale_in_subfolder != true %}
             <a href="{{ site.baseurl_root }}{{ page.url }}" >{% t langs.{{ lang }} %}</a>
           {% else %}
             <a href="{{ site.baseurl_root }}/{{ lang }}{{ page.url }}" >{% t langs.{{ lang }} %}</a>
