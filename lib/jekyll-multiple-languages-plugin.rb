@@ -658,12 +658,11 @@ end
 #======================================
 def translate_props(data, site, props_key_name = 'translate_props')
   lang = site.config['lang']
-  props = {}
   (data[props_key_name] || []).each do |prop_name|
     if prop_name.is_a?(String)
       prop_name = prop_name.strip
       if prop_name.empty?
-        puts "There is empty property defined in '#{props_key_name}'"
+        puts "There is an empty property defined in '#{props_key_name}'"
       else
         prop_value = data[prop_name]
         if prop_value.is_a?(String) and !prop_value.empty?
