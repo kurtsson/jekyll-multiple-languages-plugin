@@ -100,7 +100,17 @@ module Jekyll
     
   end
 
+  #*****************************************************************************
+  # :site, :pre_render hook
+  #*****************************************************************************
+  Jekyll::Hooks.register :site, :pre_render do |site, payload|
 
+    # Localize front matter data of every page.
+    #===========================================================================
+    (site.pages + site.documents).each do |item|
+      translate_props(item.data, site)
+     end
+  end
 
   ##############################################################################
   # class Site
@@ -167,6 +177,9 @@ module Jekyll
           self.config['lang']    =                     lang
         end
         
+        # Translate site attributes to current language
+        translate_props(self.config, self)
+
         puts "Building site for language: \"#{self.config['lang']}\" to: #{self.dest}"
         
         process_org
@@ -389,6 +402,8 @@ module Jekyll
           puts "Using translation '%s' from default language: %s" %[translation, site.config['default_lang']]
         end
       end
+
+      TranslatedString.translate(key, lang, site)
       
       translation
     end
@@ -576,6 +591,86 @@ unless Hash.method_defined? :access
       end
       
       ret
+    end
+  end
+end
+
+
+
+#======================================
+# translate_key
+#
+# Translate given key to given language.
+#======================================
+def translate_key(key, lang, site)
+  unless site.parsed_translations.has_key?(lang)
+    puts              "Loading translation from file #{site.source}/_i18n/#{lang}.yml"
+    site.parsed_translations[lang] = YAML.load_file("#{site.source}/_i18n/#{lang}.yml")
+  end
+
+  translation = site.parsed_translations[lang].access(key) if key.is_a?(String)
+
+  if translation.nil? or translation.empty?
+    translation = site.parsed_translations[site.config['default_lang']].access(key)
+
+    puts "Missing i18n key: #{lang}:#{key}"
+    puts "Using translation '%s' from default language: %s" %[translation, site.config['default_lang']]
+  end
+
+  translation
+end
+
+
+################################################################################
+# class TranslatedString
+################################################################################
+class TranslatedString < String
+  #======================================
+  # initialize
+  #======================================
+  def initialize(*several_variants, key)
+    super(*several_variants)
+    @key = key
+  end
+
+  def key
+    @key
+  end
+
+  #======================================
+  # translate
+  #======================================
+  def self.translate(str, lang, site)
+    if str.is_a?(TranslatedString)
+      key = str.key
+    else
+      key = str
+    end
+    return TranslatedString.new(translate_key(key, lang, site), key = key)
+  end
+end
+
+
+#======================================
+# translate_props
+#
+# Perform translation of properties defined in translation property list.
+#======================================
+def translate_props(data, site, props_key_name = 'translate_props')
+  lang = site.config['lang']
+  (data[props_key_name] || []).each do |prop_name|
+    if prop_name.is_a?(String)
+      prop_name = prop_name.strip
+      if prop_name.empty?
+        puts "There is an empty property defined in '#{props_key_name}'"
+      else
+        prop_value = data[prop_name]
+        if prop_value.is_a?(String) and !prop_value.empty?
+          data[prop_name] = TranslatedString.translate(prop_value, lang, site)
+        end
+      end
+    else
+      puts "Incorrect property name '#{prop_name}'. Must be a string"
     end
   end
 end
