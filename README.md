@@ -416,6 +416,8 @@ Then, create a file named `about.md` under `_i18n/en` with the English content. 
 
 
 ## 8. Changelog
+* 1.8.0
+  * I18n for site and Front Matter configurations [@pgoltsev](https://github.com/kurtsson/jekyll-multiple-languages-plugin/pull/125)
 * 1.7.0
   * Option to build the default language into a subfolder
   * Configurable verbosity
@@ -444,8 +446,8 @@ Then, create a file named `about.md` under `_i18n/en` with the English content. 
 * 1.4.1
   * Fixes a bug during site regeneration where translation paths were being nested based on wrongly set Jekyll variables.
 * 1.4.0
-  * Support for Jekyll 3, thanks to [@pedrocarmona](https://github.com/screeninteraction/jekyll-multiple-languages-plugin/pull/62)
-  * How to create pages documentation, thanks to [@elotroalex](https://github.com/screeninteraction/jekyll-multiple-languages-plugin/pull/57)
+  * Support for Jekyll 3, thanks to [@pedrocarmona](https://github.com/kurtsson/jekyll-multiple-languages-plugin/pull/62)
+  * How to create pages documentation, thanks to [@elotroalex](https://github.com/kurtsson/jekyll-multiple-languages-plugin/pull/57)
   * Many bug fixes
   * Code refactoring, cleanup and reorganization
   * Files and folders reorganization
@@ -453,8 +455,8 @@ Then, create a file named `about.md` under `_i18n/en` with the English content. 
   * Improvements and fixes on documentations
   * Improved license files
 * 1.3.0
-  * Support for localized links and custom permalinks, thanks to [@jasonlemay](https://github.com/screeninteraction/jekyll-multiple-languages-plugin/pull/53)
-  * Support for excluding posts from translation, thanks to [@ctruelson](https://github.com/screeninteraction/jekyll-multiple-languages-plugin/pull/51)
+  * Support for localized links and custom permalinks, thanks to [@jasonlemay](https://github.com/kurtsson/jekyll-multiple-languages-plugin/pull/53)
+  * Support for excluding posts from translation, thanks to [@ctruelson](https://github.com/kurtsson/jekyll-multiple-languages-plugin/pull/51)
 * 1.2.9
   * Bug fix when excluding files from translation, again thanks to [@h6](https://github.com/H6)
 * 1.2.8
@@ -497,6 +499,7 @@ Then, create a file named `about.md` under `_i18n/en` with the English content. 
 ### Contributors
 | User                                             | Contribution                         |
 | :----------------------------------------------- | :----------------------------------- |
+| [@pgoltsev](https://github.com/pgoltsev)         | version 1.8.0
 | [@pedrocarmona](https://github.com/pedrocarmona) | support for Jekyll 3                 |
 | [@elotroalex](https://github.com/elotroalex)     | added a how to create page to README |
 | [@mohamnag](https://github.com/mohamnag)         | permalink generation bug fix         |
