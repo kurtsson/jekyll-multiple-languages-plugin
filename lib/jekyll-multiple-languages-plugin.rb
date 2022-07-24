@@ -21,8 +21,10 @@ module Jekyll
   #*****************************************************************************
   Jekyll::Hooks.register :site, :pre_render do |site, payload|
       lang = site.config['lang']
-      puts "Loading translation from file #{site.source}/_i18n/#{lang}.yml"
-      site.parsed_translations[lang] = YAML.load_file("#{site.source}/_i18n/#{lang}.yml")
+      translation_file = get_translation_file_path(site.source, lang)
+
+      puts "Loading translation from file '#{translation_file}'"
+      site.parsed_translations[lang] = YAML.load_file(translation_file)
   end
 
   #*****************************************************************************
@@ -598,14 +600,36 @@ end
 
 
 #======================================
+# get_translation_file_path
+#
+# Retrieve the file path of a translation file.
+# Try _i18n/{lang}.yml, then _i18n/{lang}.yaml.
+#======================================
+def get_translation_file_path(site_source, lang)
+  translation_file = "#{site_source}/_i18n/#{lang}.yml"
+
+  translation_files = [translation_file, translation_file.gsub(/\.yml$/, '.yaml')]
+
+  translation_files.each do |file|
+    if File.exists?(file)
+      return file
+    end
+  end
+
+  raise IOError.new "Translation file not found for lang '#{lang}' in '#{translation_files}'"
+end
+
+#======================================
 # translate_key
 #
 # Translate given key to given language.
 #======================================
 def translate_key(key, lang, site)
   unless site.parsed_translations.has_key?(lang)
-    puts              "Loading translation from file #{site.source}/_i18n/#{lang}.yml"
-    site.parsed_translations[lang] = YAML.load_file("#{site.source}/_i18n/#{lang}.yml")
+    translation_file = get_translation_file_path(site.source, lang)
+
+    puts "Loading translation from file '#{translation_file}'"
+    site.parsed_translations[lang] = YAML.load_file(translation_file)
   end
 
   translation = site.parsed_translations[lang].access(key) if key.is_a?(String)
