@@ -6,9 +6,9 @@ date:   2013-12-09 12:00:00
 categories: en posts
 ---
 
-## Introducing Flex, a Jekyll theme
+## Introducing Flexible-Jekyll, a Jekyll theme
 
-Flex is a minimalist, responsive theme based on the website, [The Development](https://jekyllthemes.io/theme/flex).
+Flex is a minimalist, responsive theme based on the website, [The Development](https://jekyllthemes.io/theme/flexible-jekyll).
 
 ## Open Sourced on GitHub
 

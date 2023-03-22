@@ -6,9 +6,9 @@ date:   2013-12-09 12:00:00
 categories: записи
 ---
 
-## Introducing Flex, a Jekyll theme
+## Introducing Flexible-Jekyll, a Jekyll theme
 
-Flex - это минималистичная, респонсивная тема для вебсайтов [The Development](https://jekyllthemes.io/theme/flex).
+Flex - это минималистичная, респонсивная тема для вебсайтов [The Development](https://jekyllthemes.io/theme/flexible-jekyll).
 
 ## Open Sourced on GitHub
 
