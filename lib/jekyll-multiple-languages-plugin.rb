@@ -21,8 +21,6 @@ module Jekyll
   #*****************************************************************************
   Jekyll::Hooks.register :site, :pre_render do |site, payload|
       lang = site.config['lang']
-      puts "Loading translation from file #{site.source}/_i18n/#{lang}.yml"
-      site.parsed_translations[lang] = YAML.load_file("#{site.source}/_i18n/#{lang}.yml")
   end
 
   #*****************************************************************************
@@ -168,6 +166,12 @@ module Jekyll
       # Remove .htaccess file from included files, so it wont show up on translations folders.
       self.include -= [".htaccess"]
       
+      #Preload all languages
+      languages.each do |lang|
+        puts "Loading translation from file #{self.config['source']}/_i18n/#{lang}.yml"
+        self.parsed_translations[lang] = YAML.load_file("#{self.config['source']}/_i18n/#{lang}.yml")  
+      end
+
       languages.each do |lang|
         
         # Language specific config/variables
@@ -603,11 +607,6 @@ end
 # Translate given key to given language.
 #======================================
 def translate_key(key, lang, site)
-  unless site.parsed_translations.has_key?(lang)
-    puts              "Loading translation from file #{site.source}/_i18n/#{lang}.yml"
-    site.parsed_translations[lang] = YAML.load_file("#{site.source}/_i18n/#{lang}.yml")
-  end
-
   translation = site.parsed_translations[lang].access(key) if key.is_a?(String)
 
   if translation.nil? or translation.empty?
