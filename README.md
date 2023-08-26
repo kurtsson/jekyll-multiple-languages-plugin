@@ -7,13 +7,13 @@ Jekyll Multiple Languages is an internationalization plugin for [Jekyll](https:/
 The plugin was developed as a utility at [Daresay](https://daresay.co)
 
 ### Badges
+
 [![Build Status](https://travis-ci.com/kurtsson/jekyll-multiple-languages-plugin.svg?branch=master)](https://travis-ci.com/kurtsson/jekyll-multiple-languages-plugin)
 [![Gem Version](https://badge.fury.io/rb/jekyll-multiple-languages-plugin.png)](http://badge.fury.io/rb/jekyll-multiple-languages-plugin)
 
 ## !! We are looking for more maintainers !!
 
 Are you using this plugin? Could you test and verify incoming PRs? Please give us a shout!
-
 
 Table of Contents
 -----------------
@@ -58,9 +58,8 @@ Table of Contents
 The support for Octopress is dropped, but the plugin should still work with it since Octopress core is Jekyll.
 Octopress 3 now has its own multi languages plugin: https://github.com/octopress/multilingual
 
-
-
 ## 2. Features
+
 * Supports multiple languages with the same code base.
 * Supports all template languages that your Liquid pipeline supports.
 * Uses [Liquid tags](https://github.com/Shopify/liquid) in your HTML for including translated strings.
@@ -70,8 +69,6 @@ Octopress 3 now has its own multi languages plugin: https://github.com/octopress
 * Supports translated keys in YAML format
 * Supports translated template files
 * Supports translated links
-
-
 
 ## 3. Installation
 
@@ -98,6 +95,7 @@ plugins:
 See the [Jekyll configuration documentation](http://jekyllrb.com/docs/configuration) for details.
 
 ### 3.2. Manually
+
 1. Download the repository with Git or your preferred method.
 2. Inside your Jekyll `_plugins` folder, create a new folder called `jekyll-multiple-languages-plugin`.
 3. Copy or link the directory `lib`, that is inside the downloaded repository, into your `_plugins/jekyll-multiple-languages-plugin` folder of your Jekyll project.
@@ -119,10 +117,10 @@ $ cd _plugins/multiple-languages
 $ git pull origin master
 ```
 
-
-
 ## 4. Configuration
+
 ### 4.1. _config.yml
+
 Add the languages available in your website into your _config.yml (obligatory):
 
 ```yaml
@@ -149,6 +147,7 @@ default_locale_in_subfolder: true
 ```
 
 ### 4.2. Folder structure
+
 Create a folder called `_i18n` and add sub-folders for each language, using the same names used on the `languages` setting on the `_config.yml`:
 
   - /_i18n/sv.yml
@@ -160,10 +159,10 @@ Create a folder called `_i18n` and add sub-folders for each language, using the 
   - /_i18n/de/pagename/blockname.md
   - /_i18n/fr/pagename/blockname.md
 
-
-
 ## 5. Usage
+
 ### 5.1. Translating strings
+
 To add a translated string into your web page, use one of these liquid tags:
 
 ```liquid
@@ -224,6 +223,7 @@ my_nested_yaml_collection:
 ```
 
 ### 5.2. Including translated files
+
 The plugin also supports using different markdown files for different languages using the liquid tag:
 
 ```liquid
@@ -241,6 +241,7 @@ This plugin has exactly the same support and syntax as the Jekyll's built in liq
 so plugins that extend its functionality should be picked up by this plugin as well.
 
 ### 5.3. Permalinks and Translating Links
+
 To use localized pages with permalinks, you must provide a default `permalink` and the language specific permalinks, for example, `permalink_fr` for French.
 
 To translate links, you must also add a **unique namespace** on the YAML front matter along with the permalinks.
@@ -273,6 +274,7 @@ or the longer version:
 ```
 
 ### 5.4. i18n in templates
+
 Sometimes it is convenient to add keys even in template files. This works in the exact same way as in ordinary files, however sometimes it can be useful to include a different string in different pages even if they use the same template.
 
 A perfect example is this:
@@ -301,9 +303,8 @@ titles:
   home: "Home"
 ```
 
-
-
 ### 5.5. Link between languages
+
 This plugin gives you the variables
 
 ```liquid
@@ -317,7 +318,6 @@ and
 to play with in your template files.
 
 This allows you to create solutions like this:
-
 
 ``` liquid
 {% if site.lang == "sv" %}
@@ -338,9 +338,8 @@ This snippet will create a link that will toggle between Swedish and English. A 
 | site.baseurl_root | Points to the root of the page without the language path      | ``` http://foo.bar ```     |
 | page.url          | The current page's relative URL to the baseurl                | ``` /a/sub/folder/page/ ```|
 
-
-
 ### 5.6. Creating pages
+
 Depending on the theme, or your preferences, you need to create a "template" page in the root folder or in a folder (ex. `_pages`). Inside each page (in this example an `about.md`) you should have at least the following in the header and body:
 
 ```yaml
@@ -355,12 +354,9 @@ permalink: /about/
 
 Inside each of the language folders, you should create mirror pages to provide the actual content for that language (ex. `i18n/es/about/about.md`). Make sure to erase the headers from those md files, or else your site will break.
 
-
-
 ### 5.7. Creating posts
+
 There are no global posts. The posts are localized by language. And your posts will live in the `_i18n/[lang]/_posts` directory. So if, for example, you have English language on your website you should put your posts on `_i18n/en/_posts` directory.
-
-
 
 ### 5.8. Select pages to translations
 
@@ -414,8 +410,8 @@ permalink: /about/
 
 Then, create a file named `about.md` under `_i18n/en` with the English content. Repeat this for the other languages (_i18n/es/about.md ...). When running the website, visit the address `http://localhost:4000/about` to see the English version, `http://localhost:4000/es/about` for the Spanish one, etc.
 
-
 ## 8. Changelog
+
 * 1.8.0
   * I18n for site and Front Matter configurations [@pgoltsev](https://github.com/kurtsson/jekyll-multiple-languages-plugin/pull/125)
 * 1.7.0
@@ -487,7 +483,6 @@ Then, create a file named `about.md` under `_i18n/en` with the English content. 
 * 1.0.0
   * First release
 
-
 ## 9. Contributing
 
 1. Fork it
@@ -497,6 +492,7 @@ Then, create a file named `about.md` under `_i18n/en` with the English content. 
 5. Create a new Pull Request
 
 ### Contributors
+
 | User                                             | Contribution                         |
 | :----------------------------------------------- | :----------------------------------- |
 | [@pgoltsev](https://github.com/pgoltsev)         | version 1.8.0
@@ -512,25 +508,27 @@ Then, create a file named `about.md` under `_i18n/en` with the English content. 
 | [@leoditommaso](https://github.com/leoditommaso) | update the example page              |
 
 ### Created by
+
 [@kurtsson](https://github.com/kurtsson) from [Daresay](https://github.com/daresaydigital) (https://daresay.co)
 
 ### Maintained by
+
 - [@shushugah](https://github.com/shushugah)
 
 ### Former maintainer
+
 - [@Anthony-Gaudino](https://github.com/Anthony-Gaudino)
 
-
-
 ## 10. Other Language Plugins
+
 Below is a list of other language plugins for Jekyll (2019/06/27):
 
 **Seems to be maintained:**
 * [Polyglot](https://github.com/untra/polyglot)
-* [Jekyll Language Plugin](https://github.com/vwochnik/jekyll-language-plugin)
-* [jekyll-task-i18n](https://github.com/ruby-gettext/jekyll-task-i18n)
 
 **Seems to be unmaintained / abandoned:**
+* [jekyll-task-i18n](https://github.com/ruby-gettext/jekyll-task-i18n)
+* [Jekyll Language Plugin](https://github.com/vwochnik/jekyll-language-plugin)
 * [jekyll-i18n_tags](https://github.com/KrzysiekJ/jekyll-i18n_tags)
 * [Octopress Multilingual](https://github.com/octopress/multilingual)
 * [Jekyll Multiple Languages](https://github.com/liaohuqiu/jekyll-multiple-languages)
