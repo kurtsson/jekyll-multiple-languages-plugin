@@ -628,7 +628,12 @@ class TranslatedString < String
   # initialize
   #======================================
   def initialize(*several_variants, key)
-    super(*several_variants)
+    begin
+      super(*several_variants)
+    rescue TypeError => e
+      puts "Error when translating key: #{key}"
+      raise e
+    end
     @key = key
   end
 
